@@ -2,10 +2,12 @@
     {
         "category": "Frontend",
         "items": [
+            "Angular",
             "React",
             "Next.js",
             "TypeScript",
-            "Tailwind CSS"
+            "Tailwind CSS",
+            "Bootstrap"
         ]
     },
     {

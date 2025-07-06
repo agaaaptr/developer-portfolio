@@ -2,26 +2,25 @@
     "experience": [
         {
             "id": 1,
-            "company": "Company Name",
+            "company": "BSI Islamic University of Indonesia",
             "position": "Front‑end Developer",
-            "duration": "2023 – Present",
-            "location": "Remote",
+            "duration": "2024 – Present",
+            "location": "Yogyakarta, Indonesia",
             "description": "Led UI rewrites and optimized web performance to 95+ Lighthouse scores.",
             "achievements": [
                 "Reduced bundle size by 40%",
-                "Implemented CI/CD pipelines with GitHub Actions"
+                "Implemented CI/CD pipelines with SonarQube"
             ]
         },
         {
             "id": 2,
-            "company": "Another Corp",
-            "position": "UI Engineer",
-            "duration": "2021 – 2023",
+            "company": "Terra Code",
+            "position": "Front‑end Developer (Wordpress)",
+            "duration": "2022 – 2023",
             "location": "Jakarta, Indonesia",
-            "description": "Built component library and enforced design system consistency.",
+            "description": "Built component with elementor plugin for a client around the world.",
             "achievements": [
-                "Delivered 30+ reusable components",
-                "Onboarded 5 junior devs"
+                "Client satisfaction rating of 4.8/5"
             ]
         }
     ]

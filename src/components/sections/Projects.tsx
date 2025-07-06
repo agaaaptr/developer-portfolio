@@ -3,6 +3,7 @@ import { Github, ExternalLink } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { GradientCard } from '@/components/ui/GradientCard';
+import Image from 'next/image';
 
 export const ProjectsSection: React.FC = () => (
   <AnimatedSection className="py-20 px-4 bg-secondary-900/30">
@@ -17,8 +18,13 @@ export const ProjectsSection: React.FC = () => (
         {projectsData.map((project) => (
           <GradientCard key={project.id}>
             <div className="space-y-4">
-              <div className="w-full h-48 bg-gradient-to-br from-secondary-800 to-secondary-900 rounded-lg flex items-center justify-center">
-                <span className="text-secondary-400">Project Image</span>
+              <div className="w-full h-48 rounded-lg overflow-hidden relative">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  layout="fill"
+                  objectFit="cover"
+                />
               </div>
               
               <h3 className="text-xl font-semibold text-white">{project.title}</h3>

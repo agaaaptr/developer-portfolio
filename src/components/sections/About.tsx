@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Briefcase } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
+import Image from 'next/image';
 
 export const AboutSection: React.FC = () => (
   <AnimatedSection className="py-20 px-4">
@@ -34,9 +35,14 @@ export const AboutSection: React.FC = () => (
         
         <div className="flex justify-center">
           <div className="w-64 h-64 bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-full flex items-center justify-center border border-secondary-700">
-            <span className="text-secondary-400 text-center">
-              Profile Photo<br/>Placeholder
-            </span>
+            <Image
+              src="/images/profile-photo.jpg"
+              alt="Profile Photo"
+              width={256}
+              height={256}
+              className="rounded-full object-cover w-full h-full"
+              priority
+            />
           </div>
         </div>
       </div>

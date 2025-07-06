@@ -1,14 +1,20 @@
 [
     {
         "id": 1,
-        "title": "Project Example",
-        "description": "Brief project description here",
+        "title": "DevConnect",
+        "description": "My own project to connect developers and share knowledge.",
         "tech": [
             "React",
-            "Tailwind"
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "Node.js",
+            "Express",
+            "Supabase",
+            "Prisma"
         ],
-        "github": "#",
-        "demo": "#",
-        "image": "/images/project-placeholder.jpg"
+        "github": "https://github.com/agaaaptr/devconnect",
+        "demo": "https://devconnect-frontend-coral.vercel.app/",
+        "image": "/images/project-devconnect.png"
     }
 ]

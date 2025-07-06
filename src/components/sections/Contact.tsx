@@ -31,7 +31,7 @@ export const ContactSection: React.FC = () => (
         
         <div className="flex space-x-4 justify-center">
           <motion.a
-            href="#"
+            href={`https://www.linkedin.com/in/${personalData.linkedin}`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="p-4 bg-secondary-800 hover:bg-secondary-700 rounded-lg transition-colors"
@@ -40,7 +40,7 @@ export const ContactSection: React.FC = () => (
           </motion.a>
           
           <motion.a
-            href="#"
+            href={`https://github.com/${personalData.github}`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="p-4 bg-secondary-800 hover:bg-secondary-700 rounded-lg transition-colors"
