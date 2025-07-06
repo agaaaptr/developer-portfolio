@@ -1,0 +1,27 @@
+[
+    {
+        "category": "Frontend",
+        "items": [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS"
+        ]
+    },
+    {
+        "category": "Backend",
+        "items": [
+            "Node.js",
+            "Express",
+            "PostgreSQL"
+        ]
+    },
+    {
+        "category": "Tools",
+        "items": [
+            "Git",
+            "Docker",
+            "Vercel"
+        ]
+    }
+]

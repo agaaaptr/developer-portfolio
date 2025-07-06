@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "title": "Project Example",
+        "description": "Brief project description here",
+        "tech": [
+            "React",
+            "Tailwind"
+        ],
+        "github": "#",
+        "demo": "#",
+        "image": "/images/project-placeholder.jpg"
+    }
+]
