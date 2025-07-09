@@ -1,54 +1,119 @@
-/* eslint-disable react/no-unescaped-entities */
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github } from 'lucide-react';
-import personalData from '@/data/personal.json';
-import { AnimatedSection } from '@/components/ui/AnimatedSection';
+"use client";
 
-export const ContactSection: React.FC = () => (
-  <AnimatedSection className="py-20 px-4">
-    <div className="max-w-4xl mx-auto text-center">
-      <h2 className="text-4xl font-bold mb-8">
-        <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
-          Let's Connect
-        </span>
-      </h2>
-      
-      <p className="text-xl text-secondary-300 mb-12">
-        Always open to discussing new opportunities and interesting projects.
-      </p>
-      
-      <div className="flex flex-col sm:flex-row gap-6 justify-center">
-        <motion.a
-          href={`mailto:${personalData.email}`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="flex items-center justify-center space-x-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Send } from 'lucide-react';
+
+export const ContactSection: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [status, setStatus] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('Sending...');
+    setError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to send message.');
+        setStatus('Error');
+      }
+    } catch (err) {
+      console.error('Form submission error:', err);
+      setError('An unexpected error occurred.');
+      setStatus('Error');
+    }
+  };
+
+  return (
+    <section id="contact" className="py-16 px-4 bg-secondary-900 text-white">
+      <div className="max-w-4xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
-          <Mail className="h-5 w-5" />
-          <span>Send Email</span>
-        </motion.a>
-        
-        <div className="flex space-x-4 justify-center">
-          <motion.a
-            href={`https://www.linkedin.com/in/${personalData.linkedin}`}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="p-4 bg-secondary-800 hover:bg-secondary-700 rounded-lg transition-colors"
+          Contact Me
+        </motion.h2>
+
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+          onSubmit={handleSubmit}
+          className="bg-secondary-800 p-8 rounded-lg shadow-lg space-y-6"
+        >
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-secondary-300 mb-2">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full p-3 rounded-md bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-secondary-300 mb-2">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full p-3 rounded-md bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
+            />
+          </div>
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium text-secondary-300 mb-2">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows={5}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              className="w-full p-3 rounded-md bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
           >
-            <Linkedin className="h-6 w-6 text-secondary-300 hover:text-primary-400" />
-          </motion.a>
-          
-          <motion.a
-            href={`https://github.com/${personalData.github}`}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="p-4 bg-secondary-800 hover:bg-secondary-700 rounded-lg transition-colors"
-          >
-            <Github className="h-6 w-6 text-secondary-300 hover:text-primary-400" />
-          </motion.a>
-        </div>
+            <Send className="h-5 w-5 mr-2" /> Send Message
+          </button>
+
+          {status && <p className="text-center mt-4 text-primary-400">{status}</p>}
+          {error && <p className="text-center mt-4 text-red-400">{error}</p>}
+        </motion.form>
       </div>
-    </div>
-  </AnimatedSection>
-);
+    </section>
+  );
+};

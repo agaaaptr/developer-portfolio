@@ -5,9 +5,9 @@ import personalData from '@/data/personal.json';
 
 export const HeroSection: React.FC = () => (
   <section className="relative min-h-screen flex items-center justify-center bg-secondary-900 text-white pt-16 px-4 overflow-hidden">
-    {/* Background Glow */}
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[60rem] bg-purple-500/20 rounded-full blur-3xl animate-blob" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/4 -translate-y-1/4 w-[50rem] h-[50rem] bg-cyan-500/20 rounded-full blur-3xl animate-blob [animation-delay:2s]" />
+    {/* Subtle Radial Gradient Background */}
+    <div className="absolute inset-0 bg-gradient-to-br from-secondary-900 via-secondary-800 to-secondary-900" />
+    <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center, rgba(100, 100, 100, 0.05) 0%, transparent 70%)' }} />
     
     <div className="relative z-10 max-w-4xl mx-auto text-center">
       <motion.div

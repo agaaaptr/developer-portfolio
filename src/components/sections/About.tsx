@@ -1,19 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Briefcase } from 'lucide-react';
 import personalData from '@/data/personal.json';
-import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import Image from 'next/image';
 
 export const AboutSection: React.FC = () => (
-  <AnimatedSection className="py-20 px-4">
+  <section id="about" className="py-16 px-4 bg-secondary-900 text-white">
     <div className="max-w-4xl mx-auto">
-      <h2 className="text-4xl font-bold text-center mb-12">
-        <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
-          About Me
-        </span>
-      </h2>
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true, amount: 0.3 }}
+        className="text-4xl font-bold text-center mb-12 text-primary-400"
+      >
+        About Me
+      </motion.h2>
       
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
@@ -34,18 +36,20 @@ export const AboutSection: React.FC = () => (
         </div>
         
         <div className="flex justify-center">
-          <div className="w-64 h-64 bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-full flex items-center justify-center border border-secondary-700">
-            <Image
-              src="/images/profile-photo.jpg"
-              alt="Profile Photo"
-              width={256}
-              height={256}
-              className="rounded-full object-cover w-full h-full"
-              priority
-            />
+          <div className="relative p-1 rounded-full bg-gradient-to-br from-primary-500 to-accent-500">
+            <div className="w-64 h-64 rounded-full overflow-hidden bg-secondary-800 flex items-center justify-center">
+              <Image
+                src="/images/profile-photo.jpg"
+                alt="Profile Photo"
+                width={256}
+                height={256}
+                className="rounded-full object-cover w-full h-full"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </AnimatedSection>
+  </section>
 );
