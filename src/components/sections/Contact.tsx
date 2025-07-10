@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Send, Linkedin, Github } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
 
 export const ContactSection: React.FC = () => {
@@ -77,7 +78,7 @@ export const ContactSection: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-md bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
               />
             </div>
             <div>
@@ -89,7 +90,7 @@ export const ContactSection: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-md bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
               />
             </div>
             <div>
@@ -101,15 +102,15 @@ export const ContactSection: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-md bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
               ></textarea>
             </div>
-            <button
+            <Button
               type="submit"
-              className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-transform transform hover:scale-105"
+              className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
             >
               <Send className="h-5 w-5 mr-2" /> Send Message
-            </button>
+            </Button>
 
             {status && <p className="text-center mt-4 text-primary-400">{status}</p>}
             {error && <p className="text-center mt-4 text-red-400">{error}</p>}
@@ -123,24 +124,22 @@ export const ContactSection: React.FC = () => {
             viewport={{ once: true, amount: 0.3 }}
             className="space-y-8"
           >
-            <div>
+            <div className="space-y-4">
               <h3 className="text-2xl font-semibold text-white mb-4">Or reach out directly</h3>
-              <div className="flex items-center space-x-4 text-lg text-secondary-300">
-                <Mail className="h-6 w-6 text-primary-400" />
-                <a href={`mailto:${personalData.email}`} className="hover:text-primary-400 transition-colors">{personalData.email}</a>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-semibold text-white mb-4">Find me on social media</h3>
-              <div className="flex space-x-6">
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  onClick={() => window.open(`mailto:${personalData.email}`, '_blank')}
+                  className="flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  <Mail className="h-5 w-5 mr-2" /> Email Me
+                </Button>
                 <motion.a 
                   href={`https://linkedin.com/in/${personalData.linkedin}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors"
+                  className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors flex items-center justify-center"
                 >
                   <Linkedin className="h-7 w-7 text-white" />
                 </motion.a>
@@ -150,7 +149,7 @@ export const ContactSection: React.FC = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, rotate: -5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors"
+                  className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors flex items-center justify-center"
                 >
                   <Github className="h-7 w-7 text-white" />
                 </motion.a>

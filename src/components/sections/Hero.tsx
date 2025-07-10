@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
 
 export const HeroSection: React.FC = () => {
@@ -35,7 +36,7 @@ export const HeroSection: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent drop-shadow-lg">
+            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent drop-shadow-lg animate-text-glow">
               {personalData.name}
             </span>
           </motion.h1>
@@ -64,32 +65,20 @@ export const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
-            <motion.a
-              href="#contact"
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: '0 0 30px rgba(99, 102, 241, 0.5)',
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: 0.95 }}
+            <Button
+              onClick={() => window.location.href = '#contact'}
               className="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 group shadow-lg"
             >
               <span>Get In Touch</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </motion.a>
+            </Button>
             
-            <motion.a
-              href="#projects"
-              whileHover={{ 
-                scale: 1.05, 
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="border border-secondary-500 text-secondary-200 px-8 py-3 rounded-full font-semibold hover:text-white transition-all duration-300"
+            <Button
+              onClick={() => window.location.href = '#projects'}
+              className="bg-transparent border border-primary-400 text-primary-400 px-8 py-3 rounded-full font-semibold hover:bg-primary-400 hover:text-white transition-colors"
             >
               View My Work
-            </motion.a>
+            </Button>
           </motion.div>
         </motion.div>
       </div>

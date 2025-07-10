@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Frontend Development",
+        "icon": "Code",
+        "description": "Crafting engaging and responsive user interfaces with modern web technologies. Proficient in React, Next.js, TypeScript, and various styling frameworks like Tailwind CSS. I focus on creating intuitive and visually appealing user experiences that are both performant and accessible."
+    },
+    {
+        "id": 2,
+        "title": "Backend Development",
+        "icon": "Server",
+        "description": "Building robust and scalable server-side applications and APIs. Experienced with Node.js, Express.js, Python (FastAPI/Django), and database management. I design and implement efficient and secure backend solutions that can handle high traffic and complex data operations."
+    },
+    {
+        "id": 3,
+        "title": "Cloud & DevOps",
+        "icon": "Cloud",
+        "description": "Deploying and managing applications on cloud platforms like AWS, Azure, and Google Cloud. Familiar with Docker, Kubernetes, and CI/CD pipelines. I ensure seamless deployment, continuous integration, and reliable operation of applications in cloud environments."
+    },
+    {
+        "id": 4,
+        "title": "Database Management",
+        "icon": "Database",
+        "description": "Designing and optimizing relational and NoSQL databases. Experienced with PostgreSQL, MongoDB, and Redis. I focus on data integrity, performance, and scalability to support robust application backends."
+    },
+    {
+        "id": 5,
+        "title": "Mobile App Development",
+        "icon": "Smartphone",
+        "description": "Developing cross-platform mobile applications using frameworks like React Native and Flutter. I build native-like experiences for both iOS and Android, focusing on performance and user experience."
+    },
+    {
+        "id": 6,
+        "title": "UI/UX Design",
+        "icon": "Palette",
+        "description": "Creating intuitive and aesthetically pleasing user interfaces. I focus on user-centered design principles, wireframing, prototyping, and ensuring a seamless user journey from concept to implementation."
+    }
+]

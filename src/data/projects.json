@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "DevConnect",
-        "description": "My own project to connect developers and share knowledge.",
+        "description": "My own project to connect developers and share knowledge. This description is intentionally made longer to test the card sizing and show more functionality. It should ideally wrap to multiple lines, demonstrating how the card adapts to its content. This project showcases full-stack development skills, including real-time communication features and user authentication.",
         "tech": [
             "React",
             "Next.js",
@@ -11,10 +11,70 @@
             "Node.js",
             "Express",
             "Supabase",
-            "Prisma"
+            "Prisma",
+            "WebSockets"
         ],
         "github": "https://github.com/agaaaptr/devconnect",
         "demo": "https://devconnect-frontend-coral.vercel.app/",
         "image": "/images/project-devconnect.png"
+    },
+    {
+        "id": 2,
+        "title": "E-commerce Platform",
+        "description": "A comprehensive e-commerce solution with product listings, shopping cart, and checkout functionality. This project emphasizes secure payment processing and a responsive user interface across various devices. It also includes an admin panel for product management and order fulfillment.",
+        "tech": [
+            "Vue.js",
+            "Nuxt.js",
+            "Stripe",
+            "GraphQL",
+            "PostgreSQL",
+            "Docker"
+        ],
+        "github": "https://github.com/example/ecommerce",
+        "demo": "https://ecommerce-demo.vercel.app/",
+        "image": ""
+    },
+    {
+        "id": 3,
+        "title": "Task Management App",
+        "description": "A simple yet powerful task management application designed for personal and team productivity. Features include task creation, categorization, due dates, and user collaboration. The backend is built with a RESTful API, and the frontend provides an intuitive drag-and-drop interface.",
+        "tech": [
+            "Angular",
+            "NestJS",
+            "MongoDB",
+            "TypeScript",
+            "RxJS"
+        ],
+        "github": "https://github.com/example/task-app",
+        "demo": "https://task-app-demo.netlify.app/",
+        "image": ""
+    },
+    {
+        "id": 4,
+        "title": "Portfolio Website V1",
+        "description": "The first iteration of my personal portfolio website, showcasing early projects and skills. This version focused on fundamental web development concepts and responsive design. It served as a learning experience for modern web technologies.",
+        "tech": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "jQuery"
+        ],
+        "github": "https://github.com/example/portfolio-v1",
+        "demo": "https://portfolio-v1.vercel.app/",
+        "image": ""
+    },
+    {
+        "id": 5,
+        "title": "Recipe Finder",
+        "description": "An application that allows users to search for recipes based on ingredients and dietary preferences. It integrates with a third-party API to fetch recipe data and displays them in an easy-to-read format. Users can save their favorite recipes and create meal plans.",
+        "tech": [
+            "React",
+            "Redux",
+            "Firebase",
+            "Sass"
+        ],
+        "github": "https://github.com/example/recipe-finder",
+        "demo": "https://recipe-finder-demo.web.app/",
+        "image": ""
     }
 ]

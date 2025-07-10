@@ -5,15 +5,45 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: #1a202c; /* Fallback for html */
   }
   
   body {
-    @apply bg-secondary-900 text-white transition-colors duration-500;
+    min-height: 100vh; /* Ensure body always takes full viewport height */
+    background: linear-gradient(135deg, var(--color-start, #1a202c), var(--color-end, #2d3748));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    @apply text-white transition-all duration-1000 ease-in-out;
   }
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow: 0 0 2px rgba(255,255,255,0.3), 0 0 5px rgba(255,255,255,0.3), 0 0 8px rgba(255,255,255,0.3);
+  }
+  50% {
+    text-shadow: 0 0 4px rgba(255,255,255,0.5), 0 0 8px rgba(255,255,255,0.5), 0 0 12px rgba(255,255,255,0.5);
+  }
+}
+
+.animate-text-glow {
+  animation: text-glow 3s ease-in-out infinite alternate;
+}
+
 .section-bg-enter {
-  @apply bg-secondary-800;
+  /* This class might not be needed anymore if we control background via JS/CSS variables */
 }
 
 /* Custom scrollbar */
@@ -31,4 +61,27 @@
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary-400;
+}
+
+.animated-pattern-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: pattern-pan 60s linear infinite;
+  opacity: 0.1;
+}
+
+@keyframes pattern-pan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 100%;
+  }
 }

@@ -7,6 +7,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <BackgroundManager />
+        <div className="animated-pattern-overlay"></div>
         {children}
         <ScrollToTopButton />
       </body>

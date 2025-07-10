@@ -1,83 +1,120 @@
-import React from 'react';
-import { Github, ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { Github, ExternalLink, ImageIcon } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { GradientCard } from '@/components/ui/GradientCard';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 
-export const ProjectsSection: React.FC = () => (
-  <section id="projects" className="py-16 px-4 bg-secondary-900 text-white">
-    <div className="max-w-6xl mx-auto">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true, amount: 0.3 }}
-        className="text-4xl font-bold text-center mb-12 text-primary-400"
-      >
-        Featured Projects
-      </motion.h2>
-      
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectsData.map((project, index) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex"
-          >
-            <GradientCard className="flex flex-col">
-              <div className="space-y-4">
-                <div className="w-full h-48 rounded-lg overflow-hidden relative">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-                
-                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                <p className="text-secondary-300">{project.description}</p>
-                
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-2 py-1 bg-primary-500/20 text-primary-300 rounded text-sm"
+export const ProjectsSection: React.FC = () => {
+  const [showAll, setShowAll] = useState(false);
+  const initialDisplayCount = 3; // For lg:grid-cols-3
+
+  const displayedProjects = showAll ? projectsData : projectsData.slice(0, initialDisplayCount);
+
+  return (
+    <section id="projects" className="py-16 px-4 bg-secondary-900 text-white">
+      <div className="max-w-6xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="text-4xl font-bold text-center mb-12 text-primary-400"
+        >
+          Featured Projects
+        </motion.h2>
+        
+        <div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence>
+            {displayedProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50, transition: { duration: 0.5 } }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                className="flex"
+              >
+                <GradientCard className="flex flex-col h-full">
+                  <div className="flex flex-col flex-grow space-y-4">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-full h-48 rounded-lg overflow-hidden relative cursor-pointer"
                     >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex space-x-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-secondary-400 hover:text-primary-400 transition-colors"
-                  >
-                    <Github className="h-5 w-5" />
-                    <span>Code</span>
-                  </a>
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-secondary-400 hover:text-primary-400 transition-colors"
-                  >
-                    <ExternalLink className="h-5 w-5" />
-                    <span>Demo</span>
-                  </a>
-                </div>
-              </div>
-            </GradientCard>
+                      {project.image && project.image.length > 0 ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-secondary-800 flex flex-col items-center justify-center text-secondary-400 text-lg font-semibold">
+                          <ImageIcon className="h-12 w-12 mb-2" />
+                          No Image
+                        </div>
+                      )}
+                    </motion.div>
+                    
+                    <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                    <p className="text-secondary-300 text-justify flex-grow mb-6">{project.description}</p>
+                  </div>
+                  
+                  <div className="flex flex-col space-y-4 mt-auto pt-4">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech, techIndex) => (
+                        <motion.span
+                          key={techIndex}
+                          whileHover={{ scale: 1.1, backgroundColor: "#6366F1" }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                          className="px-2 py-1 bg-primary-500/20 text-primary-300 rounded text-sm"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                    
+                    <div className="flex space-x-4">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2 text-secondary-400 hover:text-primary-400 transition-colors"
+                      >
+                        <Github className="h-5 w-5" />
+                        <span>Code</span>
+                      </a>
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2 text-secondary-400 hover:text-primary-400 transition-colors"
+                      >
+                        <ExternalLink className="h-5 w-5" />
+                        <span>Demo</span>
+                      </a>
+                    </div>
+                  </div>
+                </GradientCard>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+        {projectsData.length > initialDisplayCount && (
+          <motion.div layout className="flex justify-center mt-8">
+            <ShowMoreButton
+              isExpanded={showAll}
+              onClick={() => setShowAll(!showAll)}
+            />
           </motion.div>
-        ))}
+        )}
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};

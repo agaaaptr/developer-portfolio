@@ -7,7 +7,14 @@
             "Next.js",
             "TypeScript",
             "Tailwind CSS",
-            "Bootstrap"
+            "Bootstrap",
+            "Vue.js",
+            "Svelte",
+            "jQuery",
+            "HTML5",
+            "CSS3",
+            "Webpack",
+            "Babel"
         ]
     },
     {
@@ -15,7 +22,15 @@
         "items": [
             "Node.js",
             "Express",
-            "PostgreSQL"
+            "PostgreSQL",
+            "MongoDB",
+            "Python",
+            "Django",
+            "Flask",
+            "Ruby on Rails",
+            "Java",
+            "Spring Boot",
+            "GraphQL"
         ]
     },
     {
@@ -23,7 +38,33 @@
         "items": [
             "Git",
             "Docker",
-            "Vercel"
+            "Vercel",
+            "AWS",
+            "Azure",
+            "Google Cloud",
+            "Jira",
+            "Confluence",
+            "Figma",
+            "Photoshop"
+        ]
+    },
+    {
+        "category": "Mobile",
+        "items": [
+            "React Native",
+            "Flutter",
+            "Swift",
+            "Kotlin"
+        ]
+    },
+    {
+        "category": "Databases",
+        "items": [
+            "MySQL",
+            "PostgreSQL",
+            "MongoDB",
+            "Redis",
+            "Cassandra"
         ]
     }
 ]

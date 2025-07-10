@@ -1,8 +1,25 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Code, Server } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code, Server, Cloud, Database, Smartphone, Palette } from 'lucide-react'; // Import all necessary icons
+import capabilitiesData from '@/data/capabilities.json';
+import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
+import { GradientCard } from '@/components/ui/GradientCard';
+
+const iconMap: { [key: string]: React.ElementType } = {
+  Code: Code,
+  Server: Server,
+  Cloud: Cloud,
+  Database: Database,
+  Smartphone: Smartphone,
+  Palette: Palette,
+};
 
 export const CapabilitiesSection: React.FC = () => {
+  const [showAll, setShowAll] = useState(false);
+  const initialDisplayCount = 2; // For md:grid-cols-2
+
+  const displayedCapabilities = showAll ? capabilitiesData : capabilitiesData.slice(0, initialDisplayCount);
+
   return (
     <section id="capabilities" className="py-16 px-4 bg-secondary-900 text-white">
       <div className="max-w-6xl mx-auto">
@@ -16,37 +33,43 @@ export const CapabilitiesSection: React.FC = () => {
           What I Can Do
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="bg-secondary-800 p-8 rounded-lg shadow-lg flex flex-col items-center text-center"
-          >
-            <Code className="h-16 w-16 text-accent-400 mb-4" />
-            <h3 className="text-2xl font-semibold mb-4">Frontend Development</h3>
-            <p className="text-secondary-300">
-              Crafting engaging and responsive user interfaces with modern web technologies.
-              Proficient in React, Next.js, TypeScript, and various styling frameworks like Tailwind CSS.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="bg-secondary-800 p-8 rounded-lg shadow-lg flex flex-col items-center text-center"
-          >
-            <Server className="h-16 w-16 text-accent-400 mb-4" />
-            <h3 className="text-2xl font-semibold mb-4">Backend Development</h3>
-            <p className="text-secondary-300">
-              Building robust and scalable server-side applications and APIs.
-              Experienced with Node.js, Express.js, Python (FastAPI/Django), and database management.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div
+          layout
+          className="grid md:grid-cols-2 gap-8"
+        >
+          <AnimatePresence>
+            {displayedCapabilities.map((capability, index) => {
+              const IconComponent = iconMap[capability.icon];
+              return (
+                <motion.div
+                  key={capability.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 50, transition: { duration: 0.5 } }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  className="flex"
+                >
+                  <GradientCard className="flex flex-col h-full">
+                    {IconComponent && <IconComponent className="h-16 w-16 text-accent-400 mb-4" />}
+                    <h3 className="text-2xl font-semibold mb-4">{capability.title}</h3>
+                    <p className="text-secondary-300 text-justify flex-grow mb-4">
+                      {capability.description}
+                    </p>
+                  </GradientCard>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
+        {capabilitiesData.length > initialDisplayCount && (
+          <div className="flex justify-center mt-8">
+            <ShowMoreButton
+              isExpanded={showAll}
+              onClick={() => setShowAll(!showAll)}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
