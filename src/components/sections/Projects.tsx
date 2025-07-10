@@ -26,8 +26,9 @@ export const ProjectsSection: React.FC = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true, amount: 0.3 }}
+            className="flex"
           >
-            <GradientCard>
+            <GradientCard className="flex flex-col">
               <div className="space-y-4">
                 <div className="w-full h-48 rounded-lg overflow-hidden relative">
                   <Image

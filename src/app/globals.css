@@ -8,8 +8,12 @@
   }
   
   body {
-    @apply bg-secondary-900 text-white;
+    @apply bg-secondary-900 text-white transition-colors duration-500;
   }
+}
+
+.section-bg-enter {
+  @apply bg-secondary-800;
 }
 
 /* Custom scrollbar */

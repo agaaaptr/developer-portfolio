@@ -25,8 +25,9 @@ export const SkillsSection: React.FC = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true, amount: 0.3 }}
+            className="flex"
           >
-            <GradientCard>
+            <GradientCard className="flex flex-col">
               <div className="text-center space-y-4">
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-full flex items-center justify-center">
                   {category.category === 'Frontend' && <Palette className="h-8 w-8 text-primary-400" />}

@@ -1,83 +1,118 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
 
-export const HeroSection: React.FC = () => (
-  <section className="relative min-h-screen flex items-center justify-center bg-secondary-900 text-white pt-16 px-4 overflow-hidden">
-    {/* Subtle Radial Gradient Background */}
-    <div className="absolute inset-0 bg-gradient-to-br from-secondary-900 via-secondary-800 to-secondary-900" />
-    <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center, rgba(100, 100, 100, 0.05) 0%, transparent 70%)' }} />
-    
-    <div className="relative z-10 max-w-4xl mx-auto text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="space-y-6"
-      >
-        <motion.h1 
-          className="text-5xl md:text-7xl font-bold"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
-            {personalData.name}
-          </span>
-        </motion.h1>
-        
-        <motion.p 
-          className="text-xl md:text-2xl text-secondary-300"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {personalData.title}
-        </motion.p>
-        
-        <motion.p 
-          className="max-w-2xl mx-auto text-lg text-secondary-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          {personalData.subtitle}
-        </motion.p>
+export const HeroSection: React.FC = () => {
+  return (
+    <section 
+      id="hero" 
+      className="relative min-h-screen flex items-center justify-center text-white overflow-hidden"
+    >
+      {/* Animated Gradient Background */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-secondary-900 via-primary-900 to-secondary-900 animate-background-pan"
+        style={{ backgroundSize: '200% 200%' }}
+      />
 
+      {/* Blob Animation */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
         <motion.div
-          className="flex items-center justify-center flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 pt-8"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="space-y-6"
         >
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(192, 38, 211, 0.4)' }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-accent-600 to-primary-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 group"
+          <motion.h1 
+            className="text-5xl md:text-7xl font-extrabold tracking-tight"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
           >
-            <span>Get In Touch</span>
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
+            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent drop-shadow-lg">
+              {personalData.name}
+            </span>
+          </motion.h1>
           
-          <motion.a
-            href="#projects"
-            whileHover={{ scale: 1.05, borderColor: 'rgba(148, 163, 184, 0.7)' }}
-            whileTap={{ scale: 0.95 }}
-            className="border border-secondary-600 text-secondary-300 px-8 py-3 rounded-full font-semibold hover:bg-secondary-800 hover:text-white transition-all duration-300"
+          <motion.p 
+            className="text-xl md:text-2xl text-secondary-200 font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
           >
-            View My Work
-          </motion.a>
+            {personalData.title}
+          </motion.p>
+          
+          <motion.p 
+            className="max-w-2xl mx-auto text-lg text-secondary-300"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            {personalData.subtitle}
+          </motion.p>
+
+          <motion.div
+            className="flex items-center justify-center flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 pt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+          >
+            <motion.a
+              href="#contact"
+              whileHover={{ 
+                scale: 1.05, 
+                boxShadow: '0 0 30px rgba(99, 102, 241, 0.5)',
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 group shadow-lg"
+            >
+              <span>Get In Touch</span>
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </motion.a>
+            
+            <motion.a
+              href="#projects"
+              whileHover={{ 
+                scale: 1.05, 
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="border border-secondary-500 text-secondary-200 px-8 py-3 rounded-full font-semibold hover:text-white transition-all duration-300"
+            >
+              View My Work
+            </motion.a>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Scroll Down Indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <a href="#about" aria-label="Scroll to next section">
+            <ChevronDown className="h-8 w-8 text-secondary-500 hover:text-white transition-colors" />
+          </a>
         </motion.div>
       </motion.div>
-
-      <motion.div
-        className="absolute -bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <ChevronDown className="h-6 w-6 text-secondary-500" />
-      </motion.div>
-    </div>
-  </section>
-);
+      
+      {/* Seamless bottom edge */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-secondary-900 to-transparent" />
+    </section>
+  );
+};
