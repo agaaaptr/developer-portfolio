@@ -4,10 +4,10 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { usePreviousSectionTracker } from '@/lib/hooks/usePreviousSectionTracker';
+import { useSectionTracker } from '@/lib/hooks/useSectionTracker';
 
 export const ReturnToPreviousSectionButton: React.FC = () => {
-  const { previousSection, scrollToSection } = usePreviousSectionTracker();
+  const { previousSection, scrollToSection } = useSectionTracker();
 
   return (
     <AnimatePresence>

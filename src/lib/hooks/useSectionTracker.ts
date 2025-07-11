@@ -17,7 +17,7 @@ const sectionMap: Record<string, string> = {
   contact: 'Contact',
 };
 
-export const usePreviousSectionTracker = () => {
+export const useSectionTracker = () => {
   const [previousSection, setPreviousSection] = useState<SectionInfo | null>(null);
   const sectionElementsRef = useRef<HTMLElement[]>([]);
   const headerHeightRef = useRef(0);

@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
-import { usePreviousSectionTracker } from '@/lib/hooks/usePreviousSectionTracker';
+import { useSectionTracker } from '@/lib/hooks/useSectionTracker';
 
 export const HeroSection: React.FC = () => {
-  const { scrollToSection } = usePreviousSectionTracker();
+  const { scrollToSection } = useSectionTracker();
 
   return (
     <section 
@@ -69,7 +69,7 @@ export const HeroSection: React.FC = () => {
             transition={{ delay: 0.8, duration: 0.8 }}
           >
             <Button
-              onClick={() => window.location.href = '#contact'}
+              onClick={() => scrollToSection('contact')}
               className="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-500 flex items-center space-x-2 group shadow-lg"
             >
               <span>Get In Touch</span>
