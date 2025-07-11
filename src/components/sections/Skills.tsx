@@ -22,7 +22,7 @@ export const SkillsSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
       >
         <motion.h2
           variants={itemVariants}
@@ -32,7 +32,9 @@ export const SkillsSection: React.FC = () => {
         </motion.h2>
         
         <motion.div
+          layout
           className="grid md:grid-cols-3 gap-8"
+          transition={{ layout: { duration: 0.5, ease: "easeInOut" } }}
         >
           <AnimatePresence mode="popLayout">
             {displayedSkills.map((category, index) => (
@@ -41,8 +43,8 @@ export const SkillsSection: React.FC = () => {
                 layout
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 10 } }}
-                transition={{ type: "spring", stiffness: 400, damping: 10, delay: index * 0.1 }}
+                exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 20 } }}
+                transition={{ type: "spring", stiffness: 400, damping: 20, delay: index * 0.1, layout: { duration: 0.5, ease: "easeInOut" } }}
                 className="flex"
               >
                 <GradientCard className="flex flex-col h-full justify-start items-center text-center">

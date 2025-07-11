@@ -18,7 +18,7 @@ export const AboutSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
       >
         <motion.h2
           variants={itemVariants}
