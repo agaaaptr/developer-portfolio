@@ -2,13 +2,30 @@
 
 import React from 'react';
 import { Header } from '@/components/layout/Header';
-import { HeroSection } from '@/components/sections/Hero';
-import { AboutSection } from '@/components/sections/About';
-import { SkillsSection } from '@/components/sections/Skills';
-import { ExperienceSection } from '@/components/sections/Experience';
-import { ProjectsSection } from '@/components/sections/Projects';
-import { CapabilitiesSection } from '@/components/sections/Capabilities';
-import { ContactSection } from '@/components/sections/Contact';
+import dynamic from 'next/dynamic';
+
+const HeroSection = dynamic(() => import('@/components/sections/Hero').then((mod) => mod.HeroSection), {
+  ssr: false,
+});
+const AboutSection = dynamic(() => import('@/components/sections/About').then((mod) => mod.AboutSection), {
+  ssr: false,
+});
+const SkillsSection = dynamic(() => import('@/components/sections/Skills').then((mod) => mod.SkillsSection), {
+  ssr: false,
+});
+const ExperienceSection = dynamic(() => import('@/components/sections/Experience').then((mod) => mod.ExperienceSection), {
+  ssr: false,
+});
+const ProjectsSection = dynamic(() => import('@/components/sections/Projects').then((mod) => mod.ProjectsSection), {
+  ssr: false,
+});
+const CapabilitiesSection = dynamic(() => import('@/components/sections/Capabilities').then((mod) => mod.CapabilitiesSection), {
+  ssr: false,
+});
+const ContactSection = dynamic(() => import('@/components/sections/Contact').then((mod) => mod.ContactSection), {
+  ssr: false,
+});
+
 import { Footer } from '@/components/layout/Footer';
 
 export default function Home() {

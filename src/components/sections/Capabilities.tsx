@@ -4,6 +4,7 @@ import { Code, Server, Cloud, Database, Smartphone, Palette } from 'lucide-react
 import capabilitiesData from '@/data/capabilities.json';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 import { GradientCard } from '@/components/ui/GradientCard';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 const iconMap: { [key: string]: React.ElementType } = {
   Code: Code,
@@ -18,15 +19,21 @@ export const CapabilitiesSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
   const initialDisplayCount = 2;
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const initialY = isMobile ? -10 : -20;
+  const duration = isMobile ? 0.3 : 0.5;
+  const initialYCard = isMobile ? 20 : 50;
+  const durationCard = isMobile ? 0.3 : 0.5;
+
   const displayedCapabilities = showAll ? capabilitiesData : capabilitiesData.slice(0, initialDisplayCount);
 
   return (
     <section id="capabilities" className="py-16 px-4 bg-secondary-900 text-white">
       <div className="max-w-6xl mx-auto">
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: initialY }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: duration }}
           viewport={{ once: true, amount: 0.3 }}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
@@ -43,10 +50,10 @@ export const CapabilitiesSection: React.FC = () => {
                 <motion.div
                   key={capability.id}
                   layout
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: initialYCard }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -50, transition: { duration: 0.3 } }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  exit={{ opacity: 0, y: -initialYCard, transition: { duration: durationCard } }}
+                  transition={{ duration: durationCard, delay: index * (isMobile ? 0.05 : 0.1) }}
                   className="flex"
                 >
                   <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
@@ -60,7 +67,7 @@ export const CapabilitiesSection: React.FC = () => {
                       <h3 className="text-2xl font-semibold mb-4 text-center">{capability.title}</h3>
                       
                       {/* Description */}
-                      <p className="text-secondary-300 text-justify flex-grow leading-relaxed">
+                      <p className="text-secondary-300 text-left whitespace-normal flex-grow leading-relaxed">
                         {capability.description}
                       </p>
                     </div>

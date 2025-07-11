@@ -9,8 +9,6 @@ interface GradientCardProps {
 export const GradientCard: React.FC<GradientCardProps> = ({ children, className = "" }) => (
   <motion.div
     layout
-    whileHover={{ scale: 1.03, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
-    whileTap={{ scale: 0.98 }}
     transition={{ 
       type: "spring", 
       stiffness: 400, 

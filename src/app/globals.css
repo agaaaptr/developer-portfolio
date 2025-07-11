@@ -31,15 +31,15 @@
 
 @keyframes text-glow {
   0%, 100% {
-    text-shadow: 0 0 2px rgba(255,255,255,0.3), 0 0 5px rgba(255,255,255,0.3), 0 0 8px rgba(255,255,255,0.3);
+    text-shadow: 0 0 5px rgba(255,255,255,0.3), 0 0 10px rgba(255,255,255,0.2), 0 0 15px rgba(255,255,255,0.1);
   }
   50% {
-    text-shadow: 0 0 4px rgba(255,255,255,0.5), 0 0 8px rgba(255,255,255,0.5), 0 0 12px rgba(255,255,255,0.5);
+    text-shadow: 0 0 8px rgba(255,255,255,0.5), 0 0 15px rgba(255,255,255,0.4), 0 0 20px rgba(255,255,255,0.3);
   }
 }
 
 .animate-text-glow {
-  animation: text-glow 3s ease-in-out infinite alternate;
+  animation: text-glow 8s ease-in-out infinite alternate; /* Slower, more elegant pulse */
 }
 
 .section-bg-enter {
@@ -95,4 +95,97 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: #ffffff !important; /* Ensure text color remains white */
     color: #ffffff !important; /* Added to ensure text color remains white */
     caret-color: #ffffff !important; /* Ensure caret color remains white */
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+  .touch-device .group:hover .group-hover\:translate-x-1 {
+    transform: none !important;
+  }
+
+  .touch-device .hover\:bg-primary-600:hover {
+    background-color: initial !important;
+  }
+
+  .touch-device .hover\:text-white:hover {
+    color: initial !important;
+  }
+
+  .touch-device .hover\:border-primary-600:hover {
+    border-color: initial !important;
+  }
+
+  .touch-device .hover\:bg-primary-500:hover {
+    background-color: initial !important;
+  }
+
+  .touch-device .hover\:scale-105:hover {
+    transform: none !important;
+  }
+
+  .touch-device .hover\:text-primary-400:hover {
+    color: initial !important;
+  }
+
+  .touch-device .hover\:bg-primary-400:hover {
+    background-color: initial !important;
+  }
+
+  .touch-device .hover\:border-primary-500\/50:hover {
+    border-color: initial !important;
+  }
+
+  .touch-device .hover\:bg-secondary-700:hover {
+    background-color: initial !important;
+  }
+
+  .touch-device .hover\:bg-primary-700:hover {
+    background-color: initial !important;
+  }
+
+  .touch-device .hover\:bg-secondary-600:hover {
+    background-color: initial !important;
+  }
+
+  .touch-device .hover\:text-white:hover {
+    color: initial !important;
+  }
+
+  .touch-device .hover\:text-primary-400:hover {
+    color: initial !important;
+  }
+}
+
+/* Default cursor for all elements */
+* {
+  cursor: default;
+}
+
+/* Interactive elements should have a pointer cursor */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"],
+[role="link"],
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+/* Form fields should have a text cursor */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+  cursor: text;
+}
+
+/* Ensure children of interactive elements inherit pointer cursor */
+button *,
+a *,
+[role="button"] *,
+[role="link"] * {
+  cursor: inherit;
 }

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Send, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,12 @@ export const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const initialY = isMobile ? -10 : -20;
+  const initialX = isMobile ? 0 : -20;
+  const duration = isMobile ? 0.3 : 0.5;
+  const delay = isMobile ? 0.1 : 0.2;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,9 +64,9 @@ export const ContactSection: React.FC = () => {
     <section id="contact" className="py-16 px-4 bg-secondary-900 text-white">
       <div className="max-w-4xl mx-auto">
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: initialY }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: duration }}
           viewport={{ once: true, amount: 0.3 }}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
@@ -69,9 +76,9 @@ export const ContactSection: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
           <motion.form
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: initialX }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: duration, delay: delay }}
             viewport={{ once: true, amount: 0.3 }}
             onSubmit={handleSubmit}
             className="bg-secondary-800 p-8 rounded-lg shadow-lg space-y-6"
@@ -126,7 +133,7 @@ export const ContactSection: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: duration }}
                   className="text-center mt-4 text-primary-400"
                 >
                   {status}
@@ -138,7 +145,7 @@ export const ContactSection: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: duration }}
                   className="text-center mt-4 text-red-400"
                 >
                   {error}
@@ -149,9 +156,9 @@ export const ContactSection: React.FC = () => {
 
           {/* Contact Info & Socials */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: duration, delay: isMobile ? 0.2 : 0.4 }}
             viewport={{ once: true, amount: 0.3 }}
             className="space-y-8"
           >
@@ -168,8 +175,8 @@ export const ContactSection: React.FC = () => {
                   href={`https://linkedin.com/in/${personalData.linkedin}`}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={isMobile ? {} : { scale: 1.1, rotate: 5 }}
+                  whileTap={isMobile ? { scale: 0.95 } : { scale: 0.9 }}
                   className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors flex items-center justify-center"
                 >
                   <Linkedin className="h-7 w-7 text-white" />
@@ -178,8 +185,8 @@ export const ContactSection: React.FC = () => {
                   href={`https://github.com/${personalData.github}`}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={isMobile ? {} : { scale: 1.1, rotate: -5 }}
+                  whileTap={isMobile ? { scale: 0.95 } : { scale: 0.9 }}
                   className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors flex items-center justify-center"
                 >
                   <Github className="h-7 w-7 text-white" />
@@ -195,10 +202,10 @@ export const ContactSection: React.FC = () => {
         {showSuccessModal && (
           <div className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <motion.div
-              initial={{ opacity: 0, y: -50, scale: 0.9 }}
+              initial={{ opacity: 0, y: isMobile ? -20 : -50, scale: isMobile ? 0.95 : 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -50, scale: 0.9 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
+              exit={{ opacity: 0, y: isMobile ? -20 : -50, scale: isMobile ? 0.95 : 0.9 }}
+              transition={{ duration: isMobile ? 0.2 : 0.25, ease: "easeOut" }}
               className="bg-gradient-to-br from-secondary-700 to-secondary-900 p-10 rounded-2xl shadow-xl shadow-primary-500/20 text-center max-w-md w-full border border-primary-500/30 relative overflow-hidden"
             >
               <h3 className="text-3xl font-extrabold text-primary-300 mb-4">Message Sent!</h3>

@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['your-domain.com'], // Tambahkan domain untuk external images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'your-domain.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ['lucide-react'],

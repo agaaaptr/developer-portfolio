@@ -5,10 +5,17 @@ import { GradientCard } from '@/components/ui/GradientCard';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 export const ProjectsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
   const initialDisplayCount = 3;
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const initialY = isMobile ? -10 : -20;
+  const duration = isMobile ? 0.3 : 0.5;
+  const initialYCard = isMobile ? 20 : 50;
+  const durationCard = isMobile ? 0.3 : 0.5;
 
   const displayedProjects = showAll ? projectsData : projectsData.slice(0, initialDisplayCount);
 
@@ -16,9 +23,9 @@ export const ProjectsSection: React.FC = () => {
     <section id="projects" className="py-16 px-4 bg-secondary-900 text-white">
       <div className="max-w-6xl mx-auto">
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: initialY }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: duration }}
           viewport={{ once: true, amount: 0.3 }}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
@@ -33,19 +40,19 @@ export const ProjectsSection: React.FC = () => {
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: initialYCard }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50, transition: { duration: 0.3 } }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                exit={{ opacity: 0, y: -initialYCard, transition: { duration: durationCard } }}
+                transition={{ duration: durationCard, delay: index * (isMobile ? 0.05 : 0.1) }}
                 className="flex"
               >
                 <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
                   <div className="flex flex-col h-full">
                     {/* Image */}
                     <motion.div
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={isMobile ? {} : { scale: 1.05 }}
                       transition={{ duration: 0.2 }}
-                      className="w-full h-48 rounded-lg overflow-hidden relative cursor-pointer mb-4"
+                      className="w-full h-48 rounded-lg overflow-hidden relative  mb-4"
                     >
                       {project.image && project.image.length > 0 ? (
                         <Image
@@ -66,7 +73,7 @@ export const ProjectsSection: React.FC = () => {
                     <h3 className="text-xl font-semibold text-white mb-4">{project.title}</h3>
                     
                     {/* Description */}
-                    <p className="text-secondary-300 text-left flex-grow mb-6 leading-relaxed">
+                    <p className="text-secondary-300 text-left whitespace-normal flex-grow mb-6 leading-relaxed">
                       {project.description}
                     </p>
                     
@@ -75,7 +82,7 @@ export const ProjectsSection: React.FC = () => {
                       {project.tech.map((tech, techIndex) => (
                         <motion.span
                           key={techIndex}
-                          whileHover={{ scale: 1.1, backgroundColor: "#6366F1" }}
+                          whileHover={isMobile ? {} : { scale: 1.1, backgroundColor: "#6366F1" }}
                           transition={{ type: "spring", stiffness: 400, damping: 10 }}
                           className="px-2 py-1 bg-primary-500/20 text-primary-300 rounded text-sm"
                         >

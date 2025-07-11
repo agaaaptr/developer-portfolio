@@ -28,10 +28,13 @@ export const useSectionTracker = () => {
       headerHeightRef.current = header.offsetHeight;
     }
 
-    sectionElementsRef.current = Object.keys(sectionMap)
-      .map(id => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null)
-      .sort((a, b) => a.offsetTop - b.offsetTop); // Ensure they are sorted top-to-bottom
+    const updateSections = () => {
+      sectionElementsRef.current = Object.keys(sectionMap)
+        .map(id => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null)
+        .sort((a, b) => a.offsetTop - b.offsetTop); // Ensure they are sorted top-to-bottom
+      handleScroll(); // Re-evaluate scroll position after sections are updated
+    };
 
     const handleScroll = () => {
       const scrollY = window.pageYOffset;
@@ -41,7 +44,11 @@ export const useSectionTracker = () => {
 
       // Check if at the very bottom of the page
       if (scrollY + viewportHeight >= documentHeight - 5) { // -5 for a small buffer
-        currentSectionId = sectionElementsRef.current[sectionElementsRef.current.length - 1].id;
+        if (sectionElementsRef.current.length > 0) {
+          currentSectionId = sectionElementsRef.current[sectionElementsRef.current.length - 1].id;
+        } else {
+          currentSectionId = 'hero'; // Fallback if no sections are found
+        }
       } else {
         // Find the section that is currently at the top of the viewport (adjusted for header)
         for (let i = 0; i < sectionElementsRef.current.length; i++) {
@@ -84,13 +91,32 @@ export const useSectionTracker = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call once on mount to set initial state
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      const observer = new MutationObserver((mutations) => {
+        if (mutations.some(mutation => mutation.type === 'childList')) {
+          updateSections();
+        }
+      });
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []); // Empty dependency array to run once on mount
+      observer.observe(mainElement, { childList: true, subtree: true });
+      
+      updateSections(); // Initial call to set up sections
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        observer.disconnect(); // Disconnect observer on unmount
+      };
+    } else {
+      console.warn("Main element not found for section tracking. Ensure it exists in your layout.");
+      window.addEventListener('scroll', handleScroll); // Fallback for scroll handling
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
