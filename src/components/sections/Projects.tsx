@@ -8,7 +8,7 @@ import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 
 export const ProjectsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-  const initialDisplayCount = 3; // For lg:grid-cols-3
+  const initialDisplayCount = 3;
 
   const displayedProjects = showAll ? projectsData : projectsData.slice(0, initialDisplayCount);
 
@@ -25,27 +25,27 @@ export const ProjectsSection: React.FC = () => {
           Featured Projects
         </motion.h2>
         
-        <div
+        <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 layout
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 50, transition: { duration: 0.5 } }}
+                exit={{ opacity: 0, y: -50, transition: { duration: 0.3 } }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
                 className="flex"
               >
-                <GradientCard className="flex flex-col h-full">
-                  <div className="flex flex-col flex-grow space-y-4">
+                <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
+                  <div className="flex flex-col h-full">
+                    {/* Image */}
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.2 }}
-                      className="w-full h-48 rounded-lg overflow-hidden relative cursor-pointer"
+                      className="w-full h-48 rounded-lg overflow-hidden relative cursor-pointer mb-4"
                     >
                       {project.image && project.image.length > 0 ? (
                         <Image
@@ -62,12 +62,16 @@ export const ProjectsSection: React.FC = () => {
                       )}
                     </motion.div>
                     
-                    <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                    <p className="text-secondary-300 text-justify flex-grow mb-6">{project.description}</p>
-                  </div>
-                  
-                  <div className="flex flex-col space-y-4 mt-auto pt-4">
-                    <div className="flex flex-wrap gap-2">
+                    {/* Title */}
+                    <h3 className="text-xl font-semibold text-white mb-4">{project.title}</h3>
+                    
+                    {/* Description */}
+                    <p className="text-secondary-300 text-left flex-grow mb-6 leading-relaxed">
+                      {project.description}
+                    </p>
+                    
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((tech, techIndex) => (
                         <motion.span
                           key={techIndex}
@@ -80,7 +84,8 @@ export const ProjectsSection: React.FC = () => {
                       ))}
                     </div>
                     
-                    <div className="flex space-x-4">
+                    {/* Links */}
+                    <div className="flex space-x-4 mt-auto">
                       <a
                         href={project.github}
                         target="_blank"
@@ -105,9 +110,13 @@ export const ProjectsSection: React.FC = () => {
               </motion.div>
             ))}
           </AnimatePresence>
-        </div>
+        </motion.div>
+        
         {projectsData.length > initialDisplayCount && (
-          <motion.div layout className="flex justify-center mt-8">
+          <motion.div 
+            layout
+            className="flex justify-center mt-8"
+          >
             <ShowMoreButton
               isExpanded={showAll}
               onClick={() => setShowAll(!showAll)}

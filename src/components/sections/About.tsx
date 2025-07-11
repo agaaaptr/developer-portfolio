@@ -19,7 +19,7 @@ export const AboutSection: React.FC = () => (
       
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
-          <p className="text-lg text-secondary-300 leading-relaxed">
+          <p className="text-lg text-secondary-300 text-left leading-relaxed">
             Passionate front-end developer with a keen eye for design and user experience. 
             Currently expanding my skills towards full-stack development.
           </p>

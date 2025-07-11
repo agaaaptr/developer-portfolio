@@ -7,7 +7,7 @@ import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 
 export const SkillsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-  const initialDisplayCount = 3; // For md:grid-cols-3
+  const initialDisplayCount = 3;
 
   const displayedSkills = showAll ? skillsData : skillsData.slice(0, initialDisplayCount);
 
@@ -25,22 +25,22 @@ export const SkillsSection: React.FC = () => {
         </motion.h2>
         
         <motion.div
-          layout
           className="grid md:grid-cols-3 gap-8"
         >
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {displayedSkills.map((category, index) => (
               <motion.div
                 key={index}
+                layout
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 50, transition: { duration: 0.5 } }}
+                exit={{ opacity: 0, y: -50, transition: { duration: 0.3 } }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
                 className="flex"
               >
-                <GradientCard className="flex flex-col justify-between items-center p-6">
-                  <div className="text-center space-y-4 flex flex-col items-center">
+                <GradientCard className="flex flex-col h-full justify-start items-center text-center">
+                  <div className="flex flex-col h-full items-center">
+                    {/* Icon */}
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 10 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -53,9 +53,11 @@ export const SkillsSection: React.FC = () => {
                       {category.category === 'Databases' && <Database className="h-8 w-8 text-primary-400" />}
                     </motion.div>
                     
-                    <h3 className="text-xl font-semibold text-white mb-4">{category.category}</h3>
+                    {/* Title */}
+                    <h3 className="text-xl font-semibold text-white mb-6">{category.category}</h3>
                     
-                    <div className="flex flex-wrap justify-center gap-2">
+                    {/* Skills */}
+                    <div className="flex flex-wrap justify-center gap-2 mt-auto">
                       {category.items.map((skill, skillIndex) => (
                         <motion.span
                           key={skillIndex}
@@ -73,8 +75,12 @@ export const SkillsSection: React.FC = () => {
             ))}
           </AnimatePresence>
         </motion.div>
+        
         {skillsData.length > initialDisplayCount && (
-          <motion.div layout className="flex justify-center mt-8">
+          <motion.div 
+            layout
+            className="flex justify-center mt-8"
+          >
             <ShowMoreButton
               isExpanded={showAll}
               onClick={() => setShowAll(!showAll)}

@@ -7,7 +7,7 @@ import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 
 export const ExperienceSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-  const initialDisplayCount = 3; // For lg:grid-cols-3
+  const initialDisplayCount = 3;
 
   const displayedExperience = showAll ? experienceData.experience : experienceData.experience.slice(0, initialDisplayCount);
 
@@ -24,32 +24,33 @@ export const ExperienceSection: React.FC = () => {
           Experience
         </motion.h2>
 
-        <div
+        <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {displayedExperience.map((exp, index) => (
               <motion.div
                 key={exp.id}
                 layout
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 50, transition: { duration: 0.5 } }}
+                exit={{ opacity: 0, y: -50, transition: { duration: 0.3 } }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
                 className="flex"
               >
-                <GradientCard className="flex flex-col h-full">
-                  <div className="flex flex-col flex-grow space-y-4">
+                <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
+                  <div className="flex flex-col h-full">
                     {/* Company & Position */}
-                    <div className="flex items-center justify-center space-x-2 text-white">
-                      <Briefcase className="h-5 w-5" />
-                      <h3 className="text-xl font-semibold text-center">{exp.position}</h3>
+                    <div className="flex flex-col items-center text-center mb-4">
+                      <div className="flex items-center space-x-2 text-white mb-2">
+                        <Briefcase className="h-5 w-5" />
+                        <h3 className="text-xl font-semibold">{exp.position}</h3>
+                      </div>
+                      <p className="text-secondary-300 text-center">{exp.company}</p>
                     </div>
-                    <p className="text-secondary-300 text-center">{exp.company}</p>
 
                     {/* Duration & Location */}
-                    <div className="flex items-center justify-center space-x-4 text-secondary-400 text-sm">
+                    <div className="flex flex-col items-center space-y-2 text-secondary-400 text-sm mb-4">
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-4 w-4" />
                         <span>{exp.duration}</span>
@@ -61,24 +62,35 @@ export const ExperienceSection: React.FC = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-secondary-300 text-justify mb-4">{exp.description}</p>
+                    <p className="text-secondary-300 text-left mb-4 leading-relaxed">
+                      {exp.description}
+                    </p>
 
                     {/* Achievements */}
                     {exp.achievements?.length > 0 && (
-                      <ul className="list-disc list-outside text-secondary-300 text-justify space-y-1">
-                        {exp.achievements.map((item, idx) => (
-                          <li key={idx} className="pl-2">{item}</li>
-                        ))}
-                      </ul>
+                      <div className="mt-4">
+                        <ul className="space-y-2 text-secondary-300 text-sm">
+                          {exp.achievements.map((item, idx) => (
+                            <li key={idx} className="flex items-start">
+                              <span className="text-primary-400 mr-2 mt-1 flex-shrink-0">•</span>
+                              <span className="text-left leading-relaxed">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
                   </div>
                 </GradientCard>
               </motion.div>
             ))}
           </AnimatePresence>
-        </div>
+        </motion.div>
+        
         {experienceData.experience.length > initialDisplayCount && (
-          <motion.div layout className="flex justify-center mt-8">
+          <motion.div 
+            layout
+            className="flex justify-center mt-8"
+          >
             <ShowMoreButton
               isExpanded={showAll}
               onClick={() => setShowAll(!showAll)}
