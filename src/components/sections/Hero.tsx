@@ -5,8 +5,11 @@ import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
+import { usePreviousSectionTracker } from '@/lib/hooks/usePreviousSectionTracker';
 
 export const HeroSection: React.FC = () => {
+  const { scrollToSection } = usePreviousSectionTracker();
+
   return (
     <section 
       id="hero" 
@@ -74,7 +77,7 @@ export const HeroSection: React.FC = () => {
             </Button>
             
             <Button
-              onClick={() => window.location.href = '#projects'}
+              onClick={() => scrollToSection('projects')}
               className="bg-transparent border border-primary-400 text-primary-400 px-8 py-3 rounded-full font-semibold hover:bg-primary-600 hover:text-white hover:border-primary-600 transition-colors"
             >
               View My Work
