@@ -5,6 +5,7 @@ import capabilitiesData from '@/data/capabilities.json';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 import { GradientCard } from '@/components/ui/GradientCard';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { containerVariants, itemVariants } from '@/lib/animations/variants';
 
 const iconMap: { [key: string]: React.ElementType } = {
   Code: Code,
@@ -29,12 +30,15 @@ export const CapabilitiesSection: React.FC = () => {
 
   return (
     <section id="capabilities" className="py-16 px-4 bg-secondary-900 text-white">
-      <div className="max-w-6xl mx-auto">
+      <motion.div
+        className="max-w-6xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <motion.h2
-          initial={{ opacity: 0, y: initialY }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: duration }}
-          viewport={{ once: true, amount: 0.3 }}
+          variants={itemVariants}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
           What I Can Do
@@ -50,10 +54,10 @@ export const CapabilitiesSection: React.FC = () => {
                 <motion.div
                   key={capability.id}
                   layout
-                  initial={{ opacity: 0, y: initialYCard }}
+                  initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -initialYCard, transition: { duration: durationCard } }}
-                  transition={{ duration: durationCard, delay: index * (isMobile ? 0.05 : 0.1) }}
+                  exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10, delay: index * 0.1 }}
                   className="flex"
                 >
                   <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
@@ -82,6 +86,7 @@ export const CapabilitiesSection: React.FC = () => {
           <motion.div 
             layout
             className="flex justify-center mt-8"
+            variants={itemVariants}
           >
             <ShowMoreButton
               isExpanded={showAll}
@@ -89,7 +94,7 @@ export const CapabilitiesSection: React.FC = () => {
             />
           </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

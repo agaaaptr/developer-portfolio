@@ -5,27 +5,27 @@ import { GradientCard } from '@/components/ui/GradientCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { containerVariants, itemVariants } from '@/lib/animations/variants';
 
 export const SkillsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
   const initialDisplayCount = 3;
 
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const initialY = isMobile ? -10 : -20;
-  const duration = isMobile ? 0.3 : 0.5;
-  const initialYCard = isMobile ? 20 : 50;
-  const durationCard = isMobile ? 0.3 : 0.5;
 
   const displayedSkills = showAll ? skillsData : skillsData.slice(0, initialDisplayCount);
 
   return (
     <section id="skills" className="py-16 px-4 bg-secondary-900 text-white">
-      <div className="max-w-6xl mx-auto">
+      <motion.div
+        className="max-w-6xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <motion.h2
-          initial={{ opacity: 0, y: initialY }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: duration }}
-          viewport={{ once: true, amount: 0.3 }}
+          variants={itemVariants}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
           Skills & Technologies
@@ -39,10 +39,10 @@ export const SkillsSection: React.FC = () => {
               <motion.div
                 key={index}
                 layout
-                initial={{ opacity: 0, y: initialYCard }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -initialYCard, transition: { duration: durationCard } }}
-                transition={{ duration: durationCard, delay: index * (isMobile ? 0.05 : 0.1) }}
+                exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                transition={{ type: "spring", stiffness: 400, damping: 10, delay: index * 0.1 }}
                 className="flex"
               >
                 <GradientCard className="flex flex-col h-full justify-start items-center text-center">
@@ -87,6 +87,7 @@ export const SkillsSection: React.FC = () => {
           <motion.div 
             layout
             className="flex justify-center mt-8"
+            variants={itemVariants}
           >
             <ShowMoreButton
               isExpanded={showAll}
@@ -94,7 +95,7 @@ export const SkillsSection: React.FC = () => {
             />
           </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

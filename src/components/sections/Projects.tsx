@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { containerVariants, itemVariants } from '@/lib/animations/variants';
 
 export const ProjectsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
@@ -21,12 +22,15 @@ export const ProjectsSection: React.FC = () => {
 
   return (
     <section id="projects" className="py-16 px-4 bg-secondary-900 text-white">
-      <div className="max-w-6xl mx-auto">
+      <motion.div
+        className="max-w-6xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <motion.h2
-          initial={{ opacity: 0, y: initialY }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: duration }}
-          viewport={{ once: true, amount: 0.3 }}
+          variants={itemVariants}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
           Featured Projects
@@ -40,10 +44,10 @@ export const ProjectsSection: React.FC = () => {
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: initialYCard }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -initialYCard, transition: { duration: durationCard } }}
-                transition={{ duration: durationCard, delay: index * (isMobile ? 0.05 : 0.1) }}
+                exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                transition={{ type: "spring", stiffness: 400, damping: 10, delay: index * 0.1 }}
                 className="flex"
               >
                 <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
@@ -123,6 +127,7 @@ export const ProjectsSection: React.FC = () => {
           <motion.div 
             layout
             className="flex justify-center mt-8"
+            variants={itemVariants}
           >
             <ShowMoreButton
               isExpanded={showAll}
@@ -130,7 +135,7 @@ export const ProjectsSection: React.FC = () => {
             />
           </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

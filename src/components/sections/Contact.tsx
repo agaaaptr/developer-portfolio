@@ -4,6 +4,8 @@ import { Mail, Send, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { containerVariants, itemVariants } from '@/lib/animations/variants';
+import { useAutofill } from '@/lib/hooks/useAutofill';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +18,9 @@ export const ContactSection: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const initialY = isMobile ? -10 : -20;
-  const initialX = isMobile ? 0 : -20;
-  const duration = isMobile ? 0.3 : 0.5;
-  const delay = isMobile ? 0.1 : 0.2;
+  const nameInputRef = useAutofill<HTMLInputElement>();
+  const emailInputRef = useAutofill<HTMLInputElement>();
+  const messageInputRef = useAutofill<HTMLTextAreaElement>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -62,28 +63,31 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="py-16 px-4 bg-secondary-900 text-white">
-      <div className="max-w-4xl mx-auto">
+      <motion.div
+        className="max-w-4xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <motion.h2
-          initial={{ opacity: 0, y: initialY }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: duration }}
-          viewport={{ once: true, amount: 0.3 }}
+          variants={itemVariants}
           className="text-4xl font-bold text-center mb-12 text-primary-400"
         >
           Get In Touch
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+        <motion.div
+          className="grid md:grid-cols-2 gap-12 items-start"
+          variants={containerVariants}
+        >
           {/* Contact Form */}
           <motion.form
-            initial={{ opacity: 0, x: initialX }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: duration, delay: delay }}
-            viewport={{ once: true, amount: 0.3 }}
+            variants={itemVariants}
             onSubmit={handleSubmit}
             className="bg-secondary-800 p-8 rounded-lg shadow-lg space-y-6"
           >
-            <div>
+            <motion.div variants={itemVariants}>
               <label htmlFor="name" className="block text-sm font-medium text-secondary-300 mb-2">Name</label>
               <input
                 type="text"
@@ -92,10 +96,11 @@ export const ContactSection: React.FC = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                ref={nameInputRef}
+                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div variants={itemVariants}>
               <label htmlFor="email" className="block text-sm font-medium text-secondary-300 mb-2">Email</label>
               <input
                 type="email"
@@ -104,10 +109,11 @@ export const ContactSection: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                ref={emailInputRef}
+                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div variants={itemVariants}>
               <label htmlFor="message" className="block text-sm font-medium text-secondary-300 mb-2">Message</label>
               <textarea
                 id="message"
@@ -116,15 +122,18 @@ export const ContactSection: React.FC = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                ref={messageInputRef}
+                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
               ></textarea>
-            </div>
-            <Button
-              type="submit"
-              className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-            >
-              <Send className="h-5 w-5 mr-2" /> Send Message
-            </Button>
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <Button
+                type="submit"
+                className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+              >
+                <Send className="h-5 w-5 mr-2" /> Send Message
+              </Button>
+            </motion.div>
 
             <AnimatePresence mode="wait">
               {status && (
@@ -133,7 +142,7 @@ export const ContactSection: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: duration }}
+                  transition={{ duration: 0.3 }}
                   className="text-center mt-4 text-primary-400"
                 >
                   {status}
@@ -145,7 +154,7 @@ export const ContactSection: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: duration }}
+                  transition={{ duration: 0.3 }}
                   className="text-center mt-4 text-red-400"
                 >
                   {error}
@@ -156,13 +165,10 @@ export const ContactSection: React.FC = () => {
 
           {/* Contact Info & Socials */}
           <motion.div
-            initial={{ opacity: 0, x: isMobile ? 0 : 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: duration, delay: isMobile ? 0.2 : 0.4 }}
-            viewport={{ once: true, amount: 0.3 }}
+            variants={itemVariants}
             className="space-y-8"
           >
-            <div className="space-y-4">
+            <motion.div variants={itemVariants} className="space-y-4">
               <h3 className="text-2xl font-semibold text-white mb-4">Or reach out directly</h3>
               <div className="flex flex-wrap gap-4">
                 <Button
@@ -192,10 +198,10 @@ export const ContactSection: React.FC = () => {
                   <Github className="h-7 w-7 text-white" />
                 </motion.a>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Success Modal */}
       <AnimatePresence>
