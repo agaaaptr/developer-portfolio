@@ -11,7 +11,7 @@ export const Header: React.FC = () => (
       </div>
       <Button
         onClick={() => window.open('/cv.pdf', '_blank')}
-        className="bg-transparent border border-primary-400 text-primary-400 hover:bg-primary-400 hover:text-white transition-colors"
+        className="bg-transparent border border-primary-400 text-primary-400 px-8 py-3 rounded-full font-semibold hover:bg-primary-600 hover:text-white hover:border-primary-600 transition-colors"
       >
         Download CV
       </Button>

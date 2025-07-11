@@ -67,7 +67,7 @@ export const HeroSection: React.FC = () => {
           >
             <Button
               onClick={() => window.location.href = '#contact'}
-              className="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 group shadow-lg"
+              className="bg-primary-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-500 flex items-center space-x-2 group shadow-lg"
             >
               <span>Get In Touch</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -75,7 +75,7 @@ export const HeroSection: React.FC = () => {
             
             <Button
               onClick={() => window.location.href = '#projects'}
-              className="bg-transparent border border-primary-400 text-primary-400 px-8 py-3 rounded-full font-semibold hover:bg-primary-400 hover:text-white transition-colors"
+              className="bg-transparent border border-primary-400 text-primary-400 px-8 py-3 rounded-full font-semibold hover:bg-primary-600 hover:text-white hover:border-primary-600 transition-colors"
             >
               View My Work
             </Button>

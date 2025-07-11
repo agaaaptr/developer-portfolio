@@ -85,3 +85,14 @@
     background-position: 100% 100%;
   }
 }
+
+/* Autofill background color fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #2d3748 inset !important; /* Use secondary-700 color */
+    -webkit-text-fill-color: #ffffff !important; /* Ensure text color remains white */
+    color: #ffffff !important; /* Added to ensure text color remains white */
+    caret-color: #ffffff !important; /* Ensure caret color remains white */
+}

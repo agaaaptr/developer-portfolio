@@ -12,7 +12,7 @@ This is a personal developer portfolio website built with Next.js, TypeScript, a
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS, PostCSS
 - **Package Manager:** npm
-- **Dependencies:** framer-motion, lucide-react, resend
+- **Dependencies:** framer-motion, lucide-react
 - **Development Dependencies:** @types/node, @types/react, @types/react-dom, autoprefixer, eslint, eslint-config-next
 
 ## Important Commands
