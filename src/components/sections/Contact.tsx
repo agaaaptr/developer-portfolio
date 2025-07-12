@@ -206,13 +206,14 @@ export const ContactSection: React.FC = () => {
       {/* Success Modal */}
       <AnimatePresence>
         {showSuccessModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <motion.div
+            <div className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+              <motion.div
               initial={{ opacity: 0, y: isMobile ? -20 : -50, scale: isMobile ? 0.95 : 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: isMobile ? -20 : -50, scale: isMobile ? 0.95 : 0.9 }}
               transition={{ duration: isMobile ? 0.2 : 0.25, ease: "easeOut" }}
-              className="bg-gradient-to-br from-secondary-700 to-secondary-900 p-10 rounded-2xl shadow-xl shadow-primary-500/20 text-center max-w-md w-full border border-primary-500/30 relative overflow-hidden"
+              className="bg-gradient-to-br from-secondary-700 to-secondary-900 p-10 rounded-2xl text-center max-w-md w-full border border-primary-500/30 relative overflow-hidden"
+              style={{ boxShadow: '0 0 20px rgba(76, 29, 149, 0.5)' }}
             >
               <h3 className="text-3xl font-extrabold text-primary-300 mb-4">Message Sent!</h3>
               <p className="text-secondary-200 text-lg mb-8">Thank you for reaching out. I will get back to you as soon as possible.</p>
