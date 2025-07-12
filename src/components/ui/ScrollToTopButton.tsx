@@ -40,10 +40,10 @@ export const ScrollToTopButton: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-3 rounded-full bg-primary-600 text-white shadow-lg hover:bg-primary-700 transition-colors z-50"
+          className="fixed bottom-8 right-8 p-3 rounded-full bg-primary-600 text-white shadow-lg hover:bg-primary-500 transition-colors z-50 flex items-center justify-center group"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="h-6 w-6" />
+          <ArrowUp className="h-6 w-6 group-hover:-translate-y-1 transition-transform" />
         </motion.button>
       )}
     </AnimatePresence>

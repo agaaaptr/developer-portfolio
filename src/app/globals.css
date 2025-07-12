@@ -104,62 +104,39 @@ textarea:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s !important; /* Long transition to hide autofill background change */
 }
 
-/* Disable hover effects on touch devices */
+/* Disable hover effects on touch devices - FIXED VERSION */
 @media (hover: none) {
+  /* Only disable interactive hover effects, not background colors */
   .touch-device .group:hover .group-hover\:translate-x-1 {
     transform: none !important;
-  }
-
-  .touch-device .hover\:bg-primary-600:hover {
-    background-color: initial !important;
-  }
-
-  .touch-device .hover\:text-white:hover {
-    color: initial !important;
-  }
-
-  .touch-device .hover\:border-primary-600:hover {
-    border-color: initial !important;
-  }
-
-  .touch-device .hover\:bg-primary-500:hover {
-    background-color: initial !important;
   }
 
   .touch-device .hover\:scale-105:hover {
     transform: none !important;
   }
 
+  /* Keep background colors intact for buttons to prevent transparency */
+  /* Remove the rules that were causing buttons to become transparent */
+  
+  /* Only disable color changes that are purely decorative */
   .touch-device .hover\:text-primary-400:hover {
     color: initial !important;
   }
-
-  .touch-device .hover\:bg-primary-400:hover {
-    background-color: initial !important;
+  
+  .touch-device .hover\:border-primary-600:hover {
+    border-color: initial !important;
   }
-
+  
   .touch-device .hover\:border-primary-500\/50:hover {
     border-color: initial !important;
   }
+}
 
-  .touch-device .hover\:bg-secondary-700:hover {
-    background-color: initial !important;
-  }
-
-  .touch-device .hover\:bg-primary-700:hover {
-    background-color: initial !important;
-  }
-
-  .touch-device .hover\:bg-secondary-600:hover {
-    background-color: initial !important;
-  }
-
-  .touch-device .hover\:text-white:hover {
-    color: initial !important;
-  }
-
-  .touch-device .hover\:text-primary-400:hover {
-    color: initial !important;
+/* Alternative approach: Use :active instead of :hover for mobile */
+@media (hover: none) {
+  /* For buttons, use active state instead of hover */
+  button:active {
+    transform: scale(0.95);
   }
 }
 
