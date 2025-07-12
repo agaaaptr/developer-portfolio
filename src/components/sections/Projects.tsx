@@ -6,17 +6,13 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { containerVariants, itemVariants } from '@/lib/animations/variants';
+import { containerVariants, itemVariants, cardItemVariants } from '@/lib/animations/variants';
 
 export const ProjectsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
   const initialDisplayCount = 3;
 
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const initialY = isMobile ? -10 : -20;
-  const duration = isMobile ? 0.3 : 0.5;
-  const initialYCard = isMobile ? 20 : 50;
-  const durationCard = isMobile ? 0.3 : 0.5;
 
   const displayedProjects = showAll ? projectsData : projectsData.slice(0, initialDisplayCount);
 
@@ -37,21 +33,19 @@ export const ProjectsSection: React.FC = () => {
         </motion.h2>
         
         <motion.div
-          layout
+          variants={itemVariants}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          transition={{ layout: { duration: 0.5, ease: "easeInOut" } }}
         >
           <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => (
               <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 20 } }}
-                transition={{ type: "spring", stiffness: 400, damping: 20, delay: index * 0.1, layout: { duration: 0.5, ease: "easeInOut" } }}
-                className="flex"
-              >
+                  key={project.id}
+                  variants={cardItemVariants}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  className="flex"
+                >
                 <GradientCard className="flex flex-col h-full justify-start items-stretch text-left">
                   <div className="flex flex-col h-full">
                     {/* Image */}

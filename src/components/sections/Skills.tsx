@@ -5,7 +5,7 @@ import { GradientCard } from '@/components/ui/GradientCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShowMoreButton } from '@/components/ui/ShowMoreButton';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { containerVariants, itemVariants } from '@/lib/animations/variants';
+import { containerVariants, itemVariants, cardItemVariants } from '@/lib/animations/variants';
 
 export const SkillsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
@@ -32,21 +32,19 @@ export const SkillsSection: React.FC = () => {
         </motion.h2>
         
         <motion.div
-          layout
+          variants={itemVariants}
           className="grid md:grid-cols-3 gap-8"
-          transition={{ layout: { duration: 0.5, ease: "easeInOut" } }}
         >
           <AnimatePresence mode="popLayout">
             {displayedSkills.map((category, index) => (
               <motion.div
-                key={index}
-                layout
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50, transition: { type: "spring", stiffness: 400, damping: 20 } }}
-                transition={{ type: "spring", stiffness: 400, damping: 20, delay: index * 0.1, layout: { duration: 0.5, ease: "easeInOut" } }}
-                className="flex"
-              >
+                  key={index}
+                  variants={cardItemVariants}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  className="flex"
+                >
                 <GradientCard className="flex flex-col h-full justify-start items-center text-center">
                   <div className="flex flex-col h-full items-center">
                     {/* Icon */}

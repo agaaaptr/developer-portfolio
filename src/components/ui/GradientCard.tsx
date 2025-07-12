@@ -8,7 +8,6 @@ interface GradientCardProps {
 
 export const GradientCard: React.FC<GradientCardProps> = ({ children, className = "" }) => (
   <motion.div
-    layout
     whileHover={{ 
       scale: 1.02, 
       boxShadow: "0px 0px 20px rgba(76, 29, 149, 0.5)", 
@@ -19,8 +18,7 @@ export const GradientCard: React.FC<GradientCardProps> = ({ children, className 
     transition={{ 
       type: "spring", 
       stiffness: 800, 
-      damping: 15,
-      layout: { duration: 0.5, ease: "easeInOut" }
+      damping: 15
     }}
     className={`w-full bg-gradient-to-br from-secondary-800/50 to-secondary-900/50 backdrop-blur-sm border border-secondary-700/50 rounded-2xl p-6 transition-all duration-300 cursor-default ${className}`}
   >
