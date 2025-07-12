@@ -58,8 +58,9 @@ export const ProjectsSection: React.FC = () => {
                         <Image
                           src={project.image}
                           alt={project.title}
-                          layout="fill"
-                          objectFit="cover"
+                          fill={true}
+                          style={{ objectFit: 'cover' }}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       ) : (
                         <div className="w-full h-full bg-secondary-800 flex flex-col items-center justify-center text-secondary-400 text-lg font-semibold">
