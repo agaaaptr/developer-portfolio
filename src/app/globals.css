@@ -173,3 +173,8 @@ a *,
 [role="link"] * {
   cursor: inherit;
 }
+
+.no-hover-transition * {
+  transition: none !important;
+  box-shadow: none !important;
+}

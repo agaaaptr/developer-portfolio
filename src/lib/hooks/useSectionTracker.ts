@@ -55,7 +55,8 @@ export const useSectionTracker = () => {
           const sectionEl = sectionElementsRef.current[i];
           const sectionTopAdjusted = sectionEl.offsetTop - headerHeightRef.current;
 
-          if (scrollY >= sectionTopAdjusted) {
+          // Add a 150px buffer to trigger the section change earlier
+          if (scrollY >= sectionTopAdjusted - 150) {
             currentSectionId = sectionEl.id;
           } else {
             break;
@@ -100,7 +101,7 @@ export const useSectionTracker = () => {
       });
 
       observer.observe(mainElement, { childList: true, subtree: true });
-      
+
       updateSections(); // Initial call to set up sections
 
       window.addEventListener('scroll', handleScroll);
@@ -121,11 +122,19 @@ export const useSectionTracker = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
+      // Add a temporary class to disable transitions and clear hover states
+      element.classList.add('no-hover-transition');
+
       const offsetTop = element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
-        top: offsetTop - (headerHeightRef.current - 10), // Adjust for fixed header, bringing it 10px higher
+        top: offsetTop - (headerHeightRef.current - 35), // Adjust for fixed header
         behavior: 'smooth',
       });
+
+      // Remove the class after a short delay to allow hover states to reset
+      setTimeout(() => {
+        element.classList.remove('no-hover-transition');
+      }, 500); // Adjust delay as needed
     }
   };
 

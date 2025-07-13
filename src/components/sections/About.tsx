@@ -6,6 +6,19 @@ import Image from 'next/image';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { containerVariants, itemVariants } from '@/lib/animations/variants';
 
+const profilePhotoVariants = {
+  rest: {
+    scale: 1,
+    boxShadow: '0px 0px 0px rgba(76, 29, 149, 0)',
+    transition: { type: "spring", stiffness: 300, damping: 20 },
+  },
+  hover: {
+    scale: 1,
+    boxShadow: '0px 0px 35px rgba(76, 29, 149, 0.6)',
+    transition: { type: "spring", stiffness: 300, damping: 20 },
+  },
+};
+
 export const AboutSection: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const initialY = isMobile ? -10 : -20;
@@ -18,7 +31,7 @@ export const AboutSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
+        viewport={{ once: true, amount: 0.2, margin: isMobile ? "150px" : "-10%" }}
       >
         <motion.h2
           variants={itemVariants}
@@ -29,7 +42,7 @@ export const AboutSection: React.FC = () => {
         
         <motion.div
           className="grid md:grid-cols-2 gap-12 items-center"
-          variants={containerVariants} // Apply container variants to this div as well for its children
+          variants={containerVariants}
         >
           <motion.div className="space-y-6" variants={itemVariants}>
             <motion.p className="text-lg text-secondary-300 text-left whitespace-normal leading-relaxed" variants={itemVariants}>
@@ -49,7 +62,12 @@ export const AboutSection: React.FC = () => {
           </motion.div>
           
           <motion.div className="flex justify-center" variants={itemVariants}>
-            <div className="relative p-1 rounded-full bg-gradient-to-br from-primary-500 to-accent-500">
+            <motion.div 
+              className="relative p-1 rounded-full bg-gradient-to-br from-primary-500 to-accent-500"
+              variants={profilePhotoVariants}
+              initial="rest"
+              whileHover="hover"
+            >
               <div className="w-64 h-64 rounded-full overflow-hidden bg-secondary-800 flex items-center justify-center">
                 <Image
                   src="/images/profile-photo.jpg"
@@ -60,7 +78,7 @@ export const AboutSection: React.FC = () => {
                   priority
                 />
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </motion.div>

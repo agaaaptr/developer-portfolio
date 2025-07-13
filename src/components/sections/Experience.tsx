@@ -22,7 +22,7 @@ export const ExperienceSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
+        viewport={{ once: true, amount: 0.2, margin: isMobile ? "150px" : "-10%" }}
       >
         <motion.h2
           variants={itemVariants}

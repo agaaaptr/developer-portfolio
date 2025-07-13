@@ -16,11 +16,28 @@ export const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isFormFocused, setIsFormFocused] = useState(false);
 
   const isMobile = useMediaQuery('(max-width: 768px)');
   const nameInputRef = useAutofill<HTMLInputElement>();
   const emailInputRef = useAutofill<HTMLInputElement>();
   const messageInputRef = useAutofill<HTMLTextAreaElement>();
+
+  const handleFocus = () => setIsFormFocused(true);
+  const handleBlur = () => setIsFormFocused(false);
+
+  const formVariants = {
+    rest: {
+      scale: 1,
+      boxShadow: '0px 0px 0px rgba(76, 29, 149, 0)',
+      transition: { type: "spring", stiffness: 300, damping: 20 },
+    },
+    focused: {
+      scale: 1.01,
+      boxShadow: '0px 0px 20px rgba(76, 29, 149, 0.5)',
+      transition: { type: "spring", stiffness: 300, damping: 20 },
+    },
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,7 +53,7 @@ export const ContactSection: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json', // Important for Getform.io to return JSON
+          'Accept': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -44,7 +61,7 @@ export const ContactSection: React.FC = () => {
       if (response.ok) {
         setStatus('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
-        setShowSuccessModal(true); // Show the success modal
+        setShowSuccessModal(true);
       } else {
         const errorData = await response.json();
         setError(errorData.error || 'Failed to send message.');
@@ -68,7 +85,7 @@ export const ContactSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
+        viewport={{ once: true, amount: 0.2, margin: isMobile ? "150px" : "-10%" }}
       >
         <motion.h2
           variants={itemVariants}
@@ -82,86 +99,96 @@ export const ContactSection: React.FC = () => {
           variants={containerVariants}
         >
           {/* Contact Form */}
-          <motion.form
-            variants={itemVariants}
-            onSubmit={handleSubmit}
-            className="bg-secondary-800 p-8 rounded-lg shadow-lg space-y-6"
-          >
-            <motion.div variants={itemVariants}>
-              <label htmlFor="name" className="block text-sm font-medium text-secondary-300 mb-2">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                ref={nameInputRef}
-                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <label htmlFor="email" className="block text-sm font-medium text-secondary-300 mb-2">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                ref={emailInputRef}
-                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
-              />
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <label htmlFor="message" className="block text-sm font-medium text-secondary-300 mb-2">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                ref={messageInputRef}
-                className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none"
-              ></textarea>
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <Button
-                type="submit"
-                className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-              >
-                <Send className="h-5 w-5 mr-2" /> Send Message
-              </Button>
-            </motion.div>
+          <motion.div variants={itemVariants}>
+            <motion.form
+              onSubmit={handleSubmit}
+              className="bg-secondary-800 p-8 rounded-lg shadow-lg space-y-6"
+              initial="rest"
+              animate={isFormFocused ? 'focused' : 'rest'}
+              variants={formVariants}
+            >
+              <motion.div>
+                <label htmlFor="name" className="block text-sm font-medium text-secondary-300 mb-2">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  ref={nameInputRef}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-300"
+                />
+              </motion.div>
+              <motion.div>
+                <label htmlFor="email" className="block text-sm font-medium text-secondary-300 mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  ref={emailInputRef}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-300"
+                />
+              </motion.div>
+              <motion.div>
+                <label htmlFor="message" className="block text-sm font-medium text-secondary-300 mb-2">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  ref={messageInputRef}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  className="w-full p-3 rounded-xl bg-secondary-700 border border-secondary-600 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-300"
+                ></textarea>
+              </motion.div>
+              <motion.div>
+                <Button
+                  type="submit"
+                  className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                >
+                  <Send className="h-5 w-5 mr-2" /> Send Message
+                </Button>
+              </motion.div>
 
-            <AnimatePresence mode="wait">
-              {status && (
-                <motion.p
-                  key="status-message"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-center mt-4 text-primary-400"
-                >
-                  {status}
-                </motion.p>
-              )}
-              {error && (
-                <motion.p
-                  key="error-message"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-center mt-4 text-red-400"
-                >
-                  {error}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.form>
+              <AnimatePresence mode="wait">
+                {status && (
+                  <motion.p
+                    key="status-message"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-center mt-4 text-primary-400"
+                  >
+                    {status}
+                  </motion.p>
+                )}
+                {error && (
+                  <motion.p
+                    key="error-message"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-center mt-4 text-red-400"
+                  >
+                    {error}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </motion.form>
+          </motion.div>
 
           {/* Contact Info & Socials */}
           <motion.div
@@ -212,8 +239,7 @@ export const ContactSection: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: isMobile ? -20 : -50, scale: isMobile ? 0.95 : 0.9 }}
               transition={{ duration: isMobile ? 0.2 : 0.25, ease: "easeOut" }}
-              className="bg-gradient-to-br from-secondary-700 to-secondary-900 p-10 rounded-2xl text-center max-w-md w-full border border-primary-500/30 relative overflow-hidden"
-              style={{ boxShadow: '0 0 20px rgba(76, 29, 149, 0.5)' }}
+              className="bg-gradient-to-br from-secondary-700 to-secondary-900 p-10 rounded-2xl text-center max-w-md w-full relative overflow-hidden shadow-[0px_0px_20px_rgba(76,29,149,0.5)]"
             >
               <h3 className="text-3xl font-extrabold text-primary-300 mb-4">Message Sent!</h3>
               <p className="text-secondary-200 text-lg mb-8">Thank you for reaching out. I will get back to you as soon as possible.</p>

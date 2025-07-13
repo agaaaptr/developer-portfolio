@@ -23,7 +23,7 @@ export const ProjectsSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
+        viewport={{ once: true, amount: 0.2, margin: isMobile ? "150px" : "-10%" }}
       >
         <motion.h2
           variants={itemVariants}
@@ -98,19 +98,31 @@ export const ProjectsSection: React.FC = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 text-secondary-400 hover:text-primary-400 transition-colors"
+                        className="text-secondary-400 hover:text-primary-400 transition-colors"
                       >
-                        <Github className="h-5 w-5" />
-                        <span>Code</span>
+                        <motion.div
+                          whileHover={isMobile ? {} : { scale: 1.05 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                          className="flex items-center space-x-2"
+                        >
+                          <Github className="h-5 w-5" />
+                          <span>Code</span>
+                        </motion.div>
                       </a>
                       <a
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 text-secondary-400 hover:text-primary-400 transition-colors"
+                        className="text-secondary-400 hover:text-primary-400 transition-colors"
                       >
-                        <ExternalLink className="h-5 w-5" />
-                        <span>Demo</span>
+                        <motion.div
+                          whileHover={isMobile ? {} : { scale: 1.05 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                          className="flex items-center space-x-2"
+                        >
+                          <ExternalLink className="h-5 w-5" />
+                          <span>Demo</span>
+                        </motion.div>
                       </a>
                     </div>
                   </div>

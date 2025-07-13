@@ -31,7 +31,7 @@ export const CapabilitiesSection: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.2, margin: "-10%" }}
+        viewport={{ once: true, amount: 0.2, margin: isMobile ? "150px" : "-10%" }}
       >
         <motion.h2
           variants={itemVariants}
@@ -60,7 +60,14 @@ export const CapabilitiesSection: React.FC = () => {
                     <div className="flex flex-col h-full">
                       {/* Icon */}
                       <div className="flex justify-center mb-4">
-                        {IconComponent && <IconComponent className="h-16 w-16 text-accent-400" />}
+                        {IconComponent && (
+                          <motion.div
+                            whileHover={isMobile ? {} : { scale: 1.1, rotate: 10 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                          >
+                            <IconComponent className="h-16 w-16 text-accent-400" />
+                          </motion.div>
+                        )}
                       </div>
                       
                       {/* Title */}

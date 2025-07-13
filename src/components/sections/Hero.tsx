@@ -97,7 +97,7 @@ export const HeroSection: React.FC = () => {
 
       {/* Scroll Down Indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-10 inset-x-0 mx-auto w-fit"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: "spring", damping: 10, stiffness: 100, delay: 1.3 }}
