@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Github, ExternalLink, ImageIcon } from 'lucide-react';
+import { Code, ExternalLink, ImageIcon } from 'lucide-react';
 import projectsData from '@/data/projects.json';
 import { GradientCard } from '@/components/ui/GradientCard';
 import Image from 'next/image';
@@ -105,7 +105,7 @@ export const ProjectsSection: React.FC = () => {
                           transition={{ type: "spring", stiffness: 400, damping: 10 }}
                           className="flex items-center space-x-2"
                         >
-                          <Github className="h-5 w-5" />
+                          <Code className="h-5 w-5" />
                           <span>Code</span>
                         </motion.div>
                       </a>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, Linkedin, Github } from 'lucide-react';
+import { Mail, Send, Link2, Code } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
@@ -212,7 +212,7 @@ export const ContactSection: React.FC = () => {
                   whileTap={isMobile ? { scale: 0.95 } : { scale: 0.9 }}
                   className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors flex items-center justify-center"
                 >
-                  <Linkedin className="h-7 w-7 text-white" />
+                  <Link2 className="h-7 w-7 text-white" />
                 </motion.a>
                 <motion.a 
                   href={`https://github.com/${personalData.github}`}
@@ -222,7 +222,7 @@ export const ContactSection: React.FC = () => {
                   whileTap={isMobile ? { scale: 0.95 } : { scale: 0.9 }}
                   className="p-3 bg-secondary-800 rounded-full hover:bg-primary-600 transition-colors flex items-center justify-center"
                 >
-                  <Github className="h-7 w-7 text-white" />
+                  <Code className="h-7 w-7 text-white" />
                 </motion.a>
               </div>
             </motion.div>
