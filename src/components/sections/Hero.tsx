@@ -16,12 +16,12 @@ export const HeroSection: React.FC = () => {
   const duration = isMobile ? 0.5 : 0.8;
 
   return (
-    <section 
-      id="hero" 
+    <section
+      id="hero"
       className="relative min-h-screen flex items-center justify-center text-white overflow-hidden"
     >
       {/* Animated Gradient Background */}
-      <div 
+      <div
         className="absolute inset-0 bg-gradient-to-br from-secondary-900 via-primary-900 to-secondary-900 animate-background-pan"
         style={{ backgroundSize: '200% 200%' }}
       />
@@ -38,7 +38,7 @@ export const HeroSection: React.FC = () => {
           transition={{ duration: duration, ease: "easeOut" }}
           className="space-y-6"
         >
-          <motion.h1 
+          <motion.h1
             className="text-5xl md:text-7xl font-extrabold tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,8 +48,8 @@ export const HeroSection: React.FC = () => {
               {personalData.name}
             </span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className="text-xl md:text-2xl font-normal"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,8 +59,8 @@ export const HeroSection: React.FC = () => {
               {personalData.title}
             </span>
           </motion.p>
-          
-          <motion.p 
+
+          <motion.p
             className="max-w-2xl mx-auto text-lg font-light"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -84,7 +84,7 @@ export const HeroSection: React.FC = () => {
               <span>Get In Touch</span>
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            
+
             <Button
               onClick={() => scrollToSection('projects')}
               className="bg-transparent border border-primary-400 text-primary-400 px-8 py-3 rounded-full font-semibold hover:bg-primary-600 hover:text-white hover:border-primary-600 transition-colors flex items-center justify-center w-48"
@@ -111,7 +111,7 @@ export const HeroSection: React.FC = () => {
           </a>
         </motion.div>
       </motion.div>
-      
+
       {/* Seamless bottom edge */}
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-secondary-900 to-transparent" />
     </section>

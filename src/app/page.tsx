@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       <main>
         <HeroSection />
         <AboutSection />
@@ -42,7 +42,7 @@ export default function Home() {
         <CapabilitiesSection />
         <ContactSection />
       </main>
-      
+
       <Footer />
     </div>
   );
