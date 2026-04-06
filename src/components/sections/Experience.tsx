@@ -36,7 +36,7 @@ export const ExperienceSection: React.FC = () => {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
-            {displayedExperience.map((exp, index) => (
+            {displayedExperience.map((exp) => (
               <motion.div
                   key={exp.id}
                   variants={cardItemVariants}

@@ -30,12 +30,12 @@ export const ContactSection: React.FC = () => {
     rest: {
       scale: 1,
       boxShadow: '0px 0px 0px rgba(76, 29, 149, 0)',
-      transition: { type: "spring", stiffness: 300, damping: 20 },
+      transition: { type: "spring" as const, stiffness: 300, damping: 20 },
     },
     focused: {
       scale: 1.01,
       boxShadow: '0px 0px 20px rgba(76, 29, 149, 0.5)',
-      transition: { type: "spring", stiffness: 300, damping: 20 },
+      transition: { type: "spring" as const, stiffness: 300, damping: 20 },
     },
   };
 

@@ -45,7 +45,7 @@ export const CapabilitiesSection: React.FC = () => {
           className="grid md:grid-cols-2 gap-8"
         >
           <AnimatePresence mode="popLayout">
-            {displayedCapabilities.map((capability, index) => {
+            {displayedCapabilities.map((capability) => {
               const IconComponent = iconMap[capability.icon];
               return (
                 <motion.div

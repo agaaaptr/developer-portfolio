@@ -10,19 +10,17 @@ const profilePhotoVariants = {
   rest: {
     scale: 1,
     boxShadow: '0px 0px 0px rgba(76, 29, 149, 0)',
-    transition: { type: "spring", stiffness: 300, damping: 20 },
+    transition: { type: "spring" as const, stiffness: 300, damping: 20 },
   },
   hover: {
     scale: 1,
     boxShadow: '0px 0px 35px rgba(76, 29, 149, 0.6)',
-    transition: { type: "spring", stiffness: 300, damping: 20 },
+    transition: { type: "spring" as const, stiffness: 300, damping: 20 },
   },
 };
 
 export const AboutSection: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const initialY = isMobile ? -10 : -20;
-  const duration = isMobile ? 0.3 : 0.5;
 
   return (
     <section id="about" className="py-16 px-4 bg-secondary-900 text-white">

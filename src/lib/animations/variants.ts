@@ -17,7 +17,7 @@ export const itemVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       damping: 20,
       stiffness: 100,
       duration: 0.5,
@@ -31,7 +31,7 @@ export const cardItemVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
       damping: 15,
     },
@@ -41,7 +41,7 @@ export const cardItemVariants: Variants = {
     y: -100,
     scale: 0.9,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 200,
       damping: 15,
       opacity: {
