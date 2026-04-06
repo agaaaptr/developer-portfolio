@@ -48,3 +48,6 @@ next-env.d.ts
 # IDE and editor files
 .vscode/ # VS Code specific files
 .idea/ # IntelliJ/WebStorm specific files
+
+# Claude Code
+.claude/
