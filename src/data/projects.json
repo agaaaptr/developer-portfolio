@@ -103,7 +103,7 @@
         "description": "An application that allows users to search for recipes based on ingredients and dietary preferences. Users can save favorites and create meal plans.",
         "shortDescription": "Recipe search with meal planning features",
         "tech": [
-            "React Native",
+            "React",
             "Redux",
             "Firebase",
             "Expo"
