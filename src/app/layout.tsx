@@ -4,9 +4,9 @@ import { BodyWrapper } from '@/components/layout/BodyWrapper';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <title>Developer Portfolio - Aga</title>
+        <title>Aga Putra - Software Engineer</title>
       </head>
       <body>
         <BodyWrapper>

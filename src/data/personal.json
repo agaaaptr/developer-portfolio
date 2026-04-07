@@ -1,10 +1,15 @@
 {
-    "name": "Gagah Putra Anugrah",
-    "title": "Front-end Web Engineer",
-    "subtitle": "Aspiring Full-stack Developer",
+    "professionalName": "Aga Putra",
+    "fullName": "Gagah Putra Anugrah",
+    "title": "Software Engineer",
+    "subtitle": "Front End & App Developer",
+    "bio": "Passionate software engineer specializing in building exceptional digital experiences. I focus on creating performant, accessible, and visually appealing web and mobile applications.",
     "location": "Yogyakarta, Indonesia",
     "email": "gagah.p.412@gmail.com",
-    "github": "agaaaptr",
-    "linkedin": "agaaaptr",
-    "instagram": "agaaaptr"
+    "avatar": "/images/avatar.jpg",
+    "socials": {
+        "github": "agaaaptr",
+        "linkedin": "agaaaptr",
+        "instagram": "agaaaptr"
+    }
 }

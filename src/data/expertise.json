@@ -1,0 +1,28 @@
+{
+    "expertise": [
+        {
+            "id": 1,
+            "icon": "code",
+            "title": "Software Development",
+            "subtitle": "Building scalable applications",
+            "description": "Experienced in designing and developing robust software solutions. Proficient in software architecture, clean code principles, and agile methodologies.",
+            "technologies": ["TypeScript", "JavaScript", "Python", "Node.js"]
+        },
+        {
+            "id": 2,
+            "icon": "layout",
+            "title": "Frontend Dev",
+            "subtitle": "React, NextJS",
+            "description": "Specialized in creating responsive, performant, and accessible user interfaces. Expert in modern frontend frameworks and state management solutions.",
+            "technologies": ["React", "Next.js", "Vue.js", "Tailwind CSS"]
+        },
+        {
+            "id": 3,
+            "icon": "smartphone",
+            "title": "Flutter Dev",
+            "subtitle": "Android, iOS",
+            "description": "Building cross-platform mobile applications with beautiful UIs and smooth animations. Experience in native integrations and app store deployment.",
+            "technologies": ["Flutter", "Dart", "React Native", "Firebase"]
+        }
+    ]
+}
