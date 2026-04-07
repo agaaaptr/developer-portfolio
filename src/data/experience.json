@@ -6,12 +6,20 @@
             "position": "Front‑end Developer",
             "duration": "2024 – Present",
             "location": "Yogyakarta, Indonesia",
-            "description": "Led UI rewrites and optimized web performance to 95+ Lighthouse scores. This is a longer description to test the show more functionality. It should ideally span multiple lines to trigger the need for expansion. We are adding more text here to ensure that the content overflows and the 'Show More' button becomes relevant.",
+            "website": "https://bfrg.co.id",
+            "description": "Led UI rewrites and optimized web performance to 95+ Lighthouse scores. Implemented CI/CD pipelines with SonarQube and improved user engagement by 25% through UI/UX enhancements.",
             "achievements": [
                 "Reduced bundle size by 40%",
                 "Implemented CI/CD pipelines with SonarQube",
                 "Improved user engagement by 25% through UI/UX enhancements",
                 "Collaborated with cross-functional teams to deliver high-quality software on time"
+            ],
+            "technologies": [
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Tailwind CSS",
+                "Node.js"
             ]
         },
         {
@@ -20,11 +28,19 @@
             "position": "Front‑end Developer (Wordpress)",
             "duration": "2022 – 2023",
             "location": "Jakarta, Indonesia",
-            "description": "Built component with elementor plugin for a client around the world. This description is also extended to ensure it triggers the 'Show More' button. The goal is to have enough content that it doesn't fit in a single row, making the expansion feature useful.",
+            "website": "https://terracode.id",
+            "description": "Built custom components with Elementor plugin for clients around the world. Achieved a client satisfaction rating of 4.8/5 and successfully delivered 15+ client projects.",
             "achievements": [
                 "Client satisfaction rating of 4.8/5",
                 "Successfully delivered 15+ client projects",
                 "Optimized website loading times by 30%"
+            ],
+            "technologies": [
+                "WordPress",
+                "Elementor",
+                "PHP",
+                "JavaScript",
+                "CSS"
             ]
         },
         {
@@ -33,11 +49,18 @@
             "position": "Software Engineer Intern",
             "duration": "2021 – 2022",
             "location": "Remote",
-            "description": "Assisted in the development of new features for a web application. Gained experience with agile methodologies and version control systems. This is another dummy entry to ensure we have enough data to test the 'Show More' functionality across multiple items.",
+            "website": "",
+            "description": "Assisted in the development of new features for web applications. Gained experience with agile methodologies and version control systems while working effectively in a remote team environment.",
             "achievements": [
                 "Contributed to the development of a new user authentication module",
                 "Participated in daily stand-ups and sprint reviews",
                 "Learned to work effectively in a remote team environment"
+            ],
+            "technologies": [
+                "JavaScript",
+                "React",
+                "Git",
+                "Jira"
             ]
         },
         {
@@ -46,11 +69,18 @@
             "position": "Junior Developer",
             "duration": "2020 – 2021",
             "location": "Bandung, Indonesia",
-            "description": "Worked on various internal tools and client projects, gaining exposure to different tech stacks and development methodologies. Focused on writing clean, maintainable code and participating in code reviews.",
+            "website": "",
+            "description": "Worked on various internal tools and client projects, gaining exposure to different tech stacks. Focused on writing clean, maintainable code and participating in code reviews.",
             "achievements": [
                 "Developed a new internal dashboard for tracking project progress",
                 "Assisted in migrating legacy systems to modern frameworks",
                 "Contributed to improving code quality through rigorous testing"
+            ],
+            "technologies": [
+                "Python",
+                "Django",
+                "PostgreSQL",
+                "Docker"
             ]
         }
     ]

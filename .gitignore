@@ -54,3 +54,4 @@ next-env.d.ts
 
 # Playwright snapshots and screenshots
 playwright/
+.screenshots/

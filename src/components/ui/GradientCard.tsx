@@ -13,18 +13,13 @@ export const GradientCard: React.FC<GradientCardProps> = ({ children, className 
   return (
     <motion.div
       whileHover={{ 
-        scale: 1.02, 
-        boxShadow: "0px 0px 20px rgba(76, 29, 149, 0.5)", 
+        scale: 1.03, 
+        boxShadow: "0px 0px 20px rgba(168, 85, 247, 0.5)", 
         cursor: "default",
-        transition: { boxShadow: { duration: 0.1 } } 
       }}
       whileTap={isMobile ? {} : { scale: 0.98, cursor: "default" }}
-      transition={{
-        type: "spring" as const,
-        stiffness: 800,
-        damping: 15
-      }}
-      className={`w-full bg-gradient-to-br from-secondary-800/50 to-secondary-900/50 backdrop-blur-sm border border-secondary-700/50 rounded-2xl p-6 transition-all duration-300 cursor-default ${className}`}
+      transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
+      className={`w-full bg-gradient-to-br from-secondary-800/50 to-secondary-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 transition-all duration-300 cursor-default ${className}`}
     >
       {children}
     </motion.div>

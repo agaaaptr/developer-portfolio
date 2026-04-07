@@ -12,9 +12,9 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, className = "
   <motion.button
     type={type}
     onClick={onClick}
-    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(99, 102, 241, 0.5)" }}
+    whileHover={{ scale: 1.08, boxShadow: "0 0 30px rgba(168, 85, 247, 0.5)" }}
     whileTap={{ scale: 0.95 }}
-    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+    transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
     className={`px-4 py-2 bg-primary-500 text-white rounded-full font-semibold hover:bg-primary-400 hover:text-white transition-colors ${className}`}
   >
     {children}

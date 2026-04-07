@@ -1,8 +1,12 @@
 [
     {
         "id": 1,
+        "slug": "devconnect",
         "title": "DevConnect",
-        "description": "My own project to connect developers and share knowledge. This description is intentionally made longer to test the card sizing and show more functionality. It should ideally wrap to multiple lines, demonstrating how the card adapts to its content. This project showcases full-stack development skills, including real-time communication features and user authentication.",
+        "category": "web",
+        "featured": true,
+        "description": "My own project to connect developers and share knowledge. This platform enables real-time communication, knowledge sharing, and collaboration among developers worldwide.",
+        "shortDescription": "Developer community platform with real-time features",
         "tech": [
             "React",
             "Next.js",
@@ -14,14 +18,24 @@
             "Prisma",
             "WebSockets"
         ],
+        "client": "Personal Project",
+        "strategy": "Full-stack Development",
         "github": "https://github.com/agaaaptr/devconnect",
         "demo": "https://devconnect-frontend-coral.vercel.app/",
+        "images": [
+            "/images/projects/devconnect-1.png",
+            "/images/projects/devconnect-2.png"
+        ],
         "image": "/images/project-devconnect.png"
     },
     {
         "id": 2,
+        "slug": "ecommerce-platform",
         "title": "E-commerce Platform",
-        "description": "A comprehensive e-commerce solution with product listings, shopping cart, and checkout functionality. This project emphasizes secure payment processing and a responsive user interface across various devices. It also includes an admin panel for product management and order fulfillment.",
+        "category": "web",
+        "featured": true,
+        "description": "A comprehensive e-commerce solution with product listings, shopping cart, and checkout functionality. Features secure payment processing, responsive design, and admin panel for product management.",
+        "shortDescription": "Full-featured online shopping platform",
         "tech": [
             "Vue.js",
             "Nuxt.js",
@@ -30,14 +44,21 @@
             "PostgreSQL",
             "Docker"
         ],
+        "client": "Client Project",
+        "strategy": "E-commerce Solution",
         "github": "https://github.com/example/ecommerce",
         "demo": "https://ecommerce-demo.vercel.app/",
+        "images": [],
         "image": ""
     },
     {
         "id": 3,
+        "slug": "task-management-app",
         "title": "Task Management App",
-        "description": "A simple yet powerful task management application designed for personal and team productivity. Features include task creation, categorization, due dates, and user collaboration. The backend is built with a RESTful API, and the frontend provides an intuitive drag-and-drop interface.",
+        "category": "web",
+        "featured": false,
+        "description": "A simple yet powerful task management application designed for personal and team productivity. Features include task creation, categorization, due dates, and intuitive drag-and-drop interface.",
+        "shortDescription": "Productivity app with drag-and-drop interface",
         "tech": [
             "Angular",
             "NestJS",
@@ -45,36 +66,74 @@
             "TypeScript",
             "RxJS"
         ],
+        "client": "Personal Project",
+        "strategy": "SaaS Application",
         "github": "https://github.com/example/task-app",
         "demo": "https://task-app-demo.netlify.app/",
+        "images": [],
         "image": ""
     },
     {
         "id": 4,
+        "slug": "portfolio-v1",
         "title": "Portfolio Website V1",
-        "description": "The first iteration of my personal portfolio website, showcasing early projects and skills. This version focused on fundamental web development concepts and responsive design. It served as a learning experience for modern web technologies.",
+        "category": "web",
+        "featured": false,
+        "description": "The first iteration of my personal portfolio website, showcasing early projects and skills. Focused on fundamental web development concepts and responsive design.",
+        "shortDescription": "Personal portfolio with responsive design",
         "tech": [
             "HTML",
             "CSS",
             "JavaScript",
             "jQuery"
         ],
+        "client": "Personal Project",
+        "strategy": "Portfolio Showcase",
         "github": "https://github.com/example/portfolio-v1",
         "demo": "https://portfolio-v1.vercel.app/",
+        "images": [],
         "image": ""
     },
     {
         "id": 5,
+        "slug": "recipe-finder",
         "title": "Recipe Finder",
-        "description": "An application that allows users to search for recipes based on ingredients and dietary preferences. It integrates with a third-party API to fetch recipe data and displays them in an easy-to-read format. Users can save their favorite recipes and create meal plans.",
+        "category": "mobile",
+        "featured": false,
+        "description": "An application that allows users to search for recipes based on ingredients and dietary preferences. Users can save favorites and create meal plans.",
+        "shortDescription": "Recipe search with meal planning features",
         "tech": [
             "React",
             "Redux",
             "Firebase",
-            "Sass"
+            "Expo"
         ],
+        "client": "Personal Project",
+        "strategy": "Mobile App Development",
         "github": "https://github.com/example/recipe-finder",
         "demo": "https://recipe-finder-demo.web.app/",
+        "images": [],
+        "image": ""
+    },
+    {
+        "id": 6,
+        "slug": "fitness-tracker",
+        "title": "Fitness Tracker",
+        "category": "mobile",
+        "featured": true,
+        "description": "A mobile fitness tracking application with workout logging, progress charts, and personalized recommendations. Integrates with health APIs for comprehensive tracking.",
+        "shortDescription": "Mobile fitness app with progress tracking",
+        "tech": [
+            "Flutter",
+            "Dart",
+            "Firebase",
+            "Health APIs"
+        ],
+        "client": "Client Project",
+        "strategy": "Mobile App Development",
+        "github": "https://github.com/example/fitness-tracker",
+        "demo": "",
+        "images": [],
         "image": ""
     }
 ]
