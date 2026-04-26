@@ -445,8 +445,7 @@ export const HeroSection: React.FC = () => {
                 >
                   <div className="py-2">
                     <a
-                      href="/documents/cv-english.pdf"
-                      download="CV_Aga_Putra_English.pdf"
+                      href="/api/cv/english"
                       className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-accent-500/10 transition-all duration-200"
                       onClick={() => setIsCvDropdownOpen(false)}
                     >
@@ -459,8 +458,7 @@ export const HeroSection: React.FC = () => {
                       </div>
                     </a>
                     <a
-                      href="/documents/cv-indonesian.pdf"
-                      download="CV_Aga_Putra_Indonesian.pdf"
+                      href="/api/cv/indonesian"
                       className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-accent-500/10 transition-all duration-200"
                       onClick={() => setIsCvDropdownOpen(false)}
                     >
