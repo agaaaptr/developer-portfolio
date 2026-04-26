@@ -2,13 +2,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, Layout, Smartphone } from 'lucide-react';
+import { Monitor, Terminal, PenTool } from 'lucide-react';
 import expertiseData from '@/data/expertise.json';
 
 const iconMap: Record<string, React.ElementType> = {
-  code: Code2,
-  layout: Layout,
-  smartphone: Smartphone,
+  monitor: Monitor,
+  terminal: Terminal,
+  'pen-tool': PenTool,
 };
 
 interface ExpertiseCardProps {
@@ -24,7 +24,7 @@ interface ExpertiseCardProps {
 }
 
 const ExpertiseCard: React.FC<ExpertiseCardProps> = ({ expertise, index }) => {
-  const Icon = iconMap[expertise.icon] || Code2;
+  const Icon = iconMap[expertise.icon] || Monitor;
 
   return (
     <motion.div
@@ -140,24 +140,7 @@ export const ExpertiseSection: React.FC = () => {
       />
       
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-20" />
-      
-      {/* Code snippet decoration */}
-      <motion.div
-        className="absolute top-20 right-10 font-mono text-xs text-gray-800 hidden lg:block max-w-xs"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 1.2 }}
-      >
-        <pre className="opacity-30">
-{`const skills = {
-  frontend: ['React', 'Next.js'],
-  mobile: ['Flutter', 'RN'],
-  backend: ['Node', 'Python']
-};`}
-        </pre>
-      </motion.div>
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-40" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -168,7 +151,7 @@ export const ExpertiseSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -177,7 +160,7 @@ export const ExpertiseSection: React.FC = () => {
           >
             My <span className="text-accent-400">Expertise</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="max-w-2xl mx-auto text-gray-400 text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -194,6 +177,50 @@ export const ExpertiseSection: React.FC = () => {
             <ExpertiseCard key={item.id} expertise={item} index={index} />
           ))}
         </div>
+
+        {/* Code snippet decoration */}
+        <motion.div
+          className="relative mt-8 font-mono text-sm max-w-lg"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+        >
+          <pre className="opacity-40">
+            <span style={{ color: '#a78bfa' }}>const</span>{' '}
+            <span style={{ color: '#c4b5fd' }}>expertise</span>
+            <span style={{ color: '#a78bfa' }}> =</span>{' '}
+            <span style={{ color: '#8b5cf6' }}>{'{'}</span>
+            {'\n'}
+            <span style={{ color: '#6b7280' }}>  </span>
+            <span style={{ color: '#e9d5ff' }}>frontend</span>
+            <span style={{ color: '#a78bfa' }}>:</span>{' '}
+            <span style={{ color: '#ddd6fe' }}>[</span>
+            <span style={{ color: '#f5d0fe' }}>'React'</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>'Next.js'</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>'Angular'</span>
+            <span style={{ color: '#ddd6fe' }}>]</span><span style={{ color: '#a78bfa' }}>,</span>
+            {'\n'}
+            <span style={{ color: '#6b7280' }}>  </span>
+            <span style={{ color: '#e9d5ff' }}>backend</span>
+            <span style={{ color: '#a78bfa' }}>:</span>{' '}
+            <span style={{ color: '#ddd6fe' }}>[</span>
+            <span style={{ color: '#f5d0fe' }}>'Go'</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>'Gin'</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>'MySQL'</span>
+            <span style={{ color: '#ddd6fe' }}>]</span><span style={{ color: '#a78bfa' }}>,</span>
+            {'\n'}
+            <span style={{ color: '#6b7280' }}>  </span>
+            <span style={{ color: '#e9d5ff' }}>uiux</span>
+            <span style={{ color: '#a78bfa' }}>:</span>{' '}
+            <span style={{ color: '#ddd6fe' }}>[</span>
+            <span style={{ color: '#f5d0fe' }}>'Figma'</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>'Prototyping'</span>
+            <span style={{ color: '#ddd6fe' }}>]</span>
+            {'\n'}
+            <span style={{ color: '#8b5cf6' }}>{'}'}</span><span style={{ color: '#a78bfa' }}>;</span>
+          </pre>
+        </motion.div>
       </div>
 
       {/* Bottom fade */}

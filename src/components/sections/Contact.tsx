@@ -95,7 +95,7 @@ export const ContactSection: React.FC = () => {
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
       {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-5" />
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
 
       {/* Bottom center purple glow */}
       <div 

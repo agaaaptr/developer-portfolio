@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import personalData from '@/data/personal.json';
 import { ScrollIndicator } from '@/components/ui/ScrollIndicator';
+import { ChevronDown, Globe, Languages } from 'lucide-react';
 
 // Holographic 3D Cube - simple CSS-based hover with framer-motion idle animation
 const HolographicCube: React.FC<{
@@ -233,7 +234,34 @@ const cubesConfig = [
 
 export const HeroSection: React.FC = () => {
   const [isGroupHovered, setIsGroupHovered] = useState(false);
-  
+  const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        isCvDropdownOpen &&
+        buttonRef.current &&
+        dropdownMenuRef.current &&
+        !buttonRef.current.contains(target) &&
+        !dropdownMenuRef.current.contains(target)
+      ) {
+        setIsCvDropdownOpen(false);
+      }
+    };
+
+    if (isCvDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isCvDropdownOpen]);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -387,11 +415,11 @@ export const HeroSection: React.FC = () => {
             {personalData.bio}
           </motion.p>
 
-          {/* CTA Button - Download CV */}
-          <motion.div variants={itemVariants}>
-            <motion.a
-              href="/documents/cv.pdf"
-              download="CV_Aga_Putra.pdf"
+          {/* CTA Button - Download CV with Dropdown */}
+          <motion.div variants={itemVariants} className="relative inline-block">
+            <motion.button
+              ref={buttonRef}
+              onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)}
               className="group inline-flex items-center gap-3 px-6 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-white font-medium hover:bg-white/10 hover:border-accent-500/50"
               whileHover={{ y: -4, scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -399,12 +427,55 @@ export const HeroSection: React.FC = () => {
               style={{ transition: 'background-color 0.3s, border-color 0.3s' }}
             >
               Download CV
-              <span className="flex items-center justify-center w-8 h-8 bg-accent-500 rounded-full transition-transform duration-300">
-                <svg className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v12m0 0l-4-4m4 4l4-4M4 18h16" />
-                </svg>
+              <span className={`flex items-center justify-center w-8 h-8 bg-accent-500 rounded-full transition-all duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''}`}>
+                <ChevronDown className="w-4 h-4" />
               </span>
-            </motion.a>
+            </motion.button>
+
+            {/* Dropdown Menu */}
+            <AnimatePresence>
+              {isCvDropdownOpen && (
+                <motion.div
+                  ref={dropdownMenuRef}
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="absolute top-full left-0 mt-3 w-56 bg-dark-800/95 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden z-50"
+                >
+                  <div className="py-2">
+                    <a
+                      href="/documents/cv-english.pdf"
+                      download="CV_Aga_Putra_English.pdf"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-accent-500/10 transition-all duration-200"
+                      onClick={() => setIsCvDropdownOpen(false)}
+                    >
+                      <span className="flex items-center justify-center w-8 h-8 bg-accent-500/20 rounded-lg text-accent-400">
+                        <Globe className="w-4 h-4" />
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">English</span>
+                        <span className="text-xs text-gray-500">CV in English</span>
+                      </div>
+                    </a>
+                    <a
+                      href="/documents/cv-indonesian.pdf"
+                      download="CV_Aga_Putra_Indonesian.pdf"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-accent-500/10 transition-all duration-200"
+                      onClick={() => setIsCvDropdownOpen(false)}
+                    >
+                      <span className="flex items-center justify-center w-8 h-8 bg-accent-500/20 rounded-lg text-accent-400">
+                        <Languages className="w-4 h-4" />
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">Indonesian</span>
+                        <span className="text-xs text-gray-500">CV dalam Bahasa Indonesia</span>
+                      </div>
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </motion.div>
       </div>
