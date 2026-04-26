@@ -69,7 +69,7 @@ export default function AllProjectsPage() {
               All <span className="text-accent-400">Projects</span>
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl font-mono">
-              Browse through my complete portfolio of web and mobile development projects
+              Browse through my complete portfolio of web development projects
             </p>
           </motion.div>
 

@@ -89,7 +89,7 @@ export const ExperienceSection: React.FC = () => {
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-10" />
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

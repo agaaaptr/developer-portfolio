@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
-import projectsData from '@/data/projects.json';
+import rawProjectsData from '@/data/projects.json';
+const typedProjectsData = rawProjectsData as Project[];
 import { ProjectNavigation } from '@/components/projects/ProjectNavigation';
 import { ThemeSlider } from '@/components/projects/ThemeSlider';
 import { ImageWithFallback } from '@/components/ui/ImageWithFallback';
@@ -16,10 +17,12 @@ interface Project {
   slug: string;
   title: string;
   category: string;
+  subCategories?: string[];
   featured?: boolean;
   description: string;
   shortDescription?: string;
   tech: string[];
+  role?: string;
   client?: string;
   strategy?: string;
   github?: string;
@@ -34,13 +37,13 @@ export default function ProjectDetailPage() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
-  const project = projectsData.find((p: Project) => p.slug === slug);
+  const project = typedProjectsData.find((p: Project) => p.slug === slug);
   
   const { prevProject, nextProject } = useMemo(() => {
-    const currentIndex = projectsData.findIndex((p: Project) => p.slug === slug);
+    const currentIndex = typedProjectsData.findIndex((p: Project) => p.slug === slug);
     return {
-      prevProject: currentIndex > 0 ? projectsData[currentIndex - 1] : null,
-      nextProject: currentIndex < projectsData.length - 1 ? projectsData[currentIndex + 1] : null,
+      prevProject: currentIndex > 0 ? typedProjectsData[currentIndex - 1] : null,
+      nextProject: currentIndex < typedProjectsData.length - 1 ? typedProjectsData[currentIndex + 1] : null,
     };
   }, [slug]);
 
@@ -110,10 +113,18 @@ export default function ProjectDetailPage() {
           </motion.nav>
 
           {/* Category */}
-          <motion.div variants={itemVariants}>
-            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-mono text-accent-400 bg-accent-500/10 border border-accent-500/20 rounded-full mb-3 sm:mb-4">
+          <motion.div variants={itemVariants} className="flex items-center gap-2 flex-wrap mb-3 sm:mb-4">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-mono text-accent-400 bg-accent-500/10 border border-accent-500/20 rounded-full">
               {categoryLabels[project.category] || project.category}
             </span>
+            {project.subCategories?.map((subCat, index) => (
+              <span
+                key={index}
+                className="inline-block px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white bg-gray-700/60 border border-gray-600/40 rounded-full"
+              >
+                {subCat}
+              </span>
+            ))}
           </motion.div>
 
           {/* Title */}
@@ -137,10 +148,10 @@ export default function ProjectDetailPage() {
             variants={itemVariants}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10 md:mb-12"
           >
-            {project.strategy && (
+            {project.role && (
               <div className="p-4 sm:p-6 rounded-lg sm:rounded-xl bg-dark-400/30 border border-gray-700/50">
-                <p className="text-xs sm:text-sm text-gray-500 mb-1.5 sm:mb-2">Strategy</p>
-                <p className="text-white font-medium text-sm sm:text-base">{project.strategy}</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-1.5 sm:mb-2">Role</p>
+                <p className="text-white font-medium text-sm sm:text-base">{project.role}</p>
               </div>
             )}
             {project.client && (
@@ -149,19 +160,6 @@ export default function ProjectDetailPage() {
                 <p className="text-white font-medium text-sm sm:text-base">{project.client}</p>
               </div>
             )}
-            <div className="p-4 sm:p-6 rounded-lg sm:rounded-xl bg-dark-400/30 border border-gray-700/50 sm:col-span-2 md:col-span-1">
-              <p className="text-xs sm:text-sm text-gray-500 mb-1.5 sm:mb-2">Technology</p>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                {project.tech.slice(0, 4).map((tech, i) => (
-                  <span key={i} className="text-white font-medium text-sm sm:text-base">
-                    {tech}{i < Math.min(project.tech.length, 4) - 1 ? ',' : ''}
-                  </span>
-                ))}
-                {project.tech.length > 4 && (
-                  <span className="text-gray-500 text-sm sm:text-base">+{project.tech.length - 4}</span>
-                )}
-              </div>
-            </div>
           </motion.div>
 
           {/* Project Links */}
@@ -250,7 +248,7 @@ export default function ProjectDetailPage() {
             variants={itemVariants}
             className="mt-10 sm:mt-12 md:mt-16 pt-8 sm:pt-10 md:pt-12 border-t border-gray-800/50"
           >
-            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Technologies Used</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Tools & Skills</h2>
             <div className="flex flex-wrap gap-2 sm:gap-3">
               {project.tech.map((tech, i) => (
                 <span

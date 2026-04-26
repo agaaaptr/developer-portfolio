@@ -38,7 +38,7 @@ export const WorkSection: React.FC = () => {
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-10" />
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - Left aligned */}
@@ -74,7 +74,7 @@ export const WorkSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            A collection of projects I&apos;ve worked on, showcasing my skills in web and mobile development
+            A collection of projects I&apos;ve worked on, showcasing my skills in frontend, backend, and UI/UX development
           </motion.p>
           
           {/* View All Projects Button - links to first project */}

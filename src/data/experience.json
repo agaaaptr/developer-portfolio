@@ -2,33 +2,55 @@
     "experience": [
         {
             "id": 1,
-            "company": "BSI Islamic University of Indonesia",
-            "position": "Front‑end Developer",
-            "duration": "2024 – Present",
-            "location": "Yogyakarta, Indonesia",
-            "website": "https://bfrg.co.id",
-            "description": "Led UI rewrites and optimized web performance to 95+ Lighthouse scores. Implemented CI/CD pipelines with SonarQube and improved user engagement by 25% through UI/UX enhancements.",
+            "company": "Freelance",
+            "position": "Frontend Developer",
+            "duration": "2025 – Present",
+            "location": "Remote",
+            "website": "",
+            "description": "Delivering high-quality frontend solutions with a focus on modern React and Next.js development. Specializing in translating Figma designs into pixel-perfect, responsive code with smooth animations and contemporary visual effects.",
             "achievements": [
-                "Reduced bundle size by 40%",
-                "Implemented CI/CD pipelines with SonarQube",
-                "Improved user engagement by 25% through UI/UX enhancements",
-                "Collaborated with cross-functional teams to deliver high-quality software on time"
+                "Fast and accurate project delivery",
+                "Precise translation of Figma designs into production code",
+                "Implementation of modern animations and visual effects"
             ],
             "technologies": [
                 "React",
                 "Next.js",
                 "TypeScript",
                 "Tailwind CSS",
-                "Node.js"
+                "Framer Motion"
             ]
         },
         {
             "id": 2,
+            "company": "BSI Islamic University of Indonesia",
+            "position": "Software Engineer",
+            "duration": "2024 – Present",
+            "location": "Yogyakarta, Indonesia",
+            "website": "https://bsi.uii.ac.id/",
+            "description": "Developing and maintaining web applications with full-stack responsibilities. Building scalable frontend solutions with Angular and implementing backend services with Go and Gin framework.",
+            "achievements": [
+                "Full-stack development for enterprise applications",
+                "Scalable API development with Go and Gin",
+                "Responsive UI development with Angular and TypeScript"
+            ],
+            "technologies": [
+                "Angular",
+                "TypeScript",
+                "SCSS",
+                "Bootstrap",
+                "Go",
+                "Gin",
+                "MySQL"
+            ]
+        },
+        {
+            "id": 3,
             "company": "Terra Code",
-            "position": "Front‑end Developer (Wordpress)",
+            "position": "Frontend Developer (WordPress)",
             "duration": "2022 – 2023",
-            "location": "Jakarta, Indonesia",
-            "website": "https://terracode.id",
+            "location": "Remote",
+            "website": "https://terracode.io/",
             "description": "Built custom components with Elementor plugin for clients around the world. Achieved a client satisfaction rating of 4.8/5 and successfully delivered 15+ client projects.",
             "achievements": [
                 "Client satisfaction rating of 4.8/5",
@@ -41,46 +63,6 @@
                 "PHP",
                 "JavaScript",
                 "CSS"
-            ]
-        },
-        {
-            "id": 3,
-            "company": "Dummy Corp",
-            "position": "Software Engineer Intern",
-            "duration": "2021 – 2022",
-            "location": "Remote",
-            "website": "",
-            "description": "Assisted in the development of new features for web applications. Gained experience with agile methodologies and version control systems while working effectively in a remote team environment.",
-            "achievements": [
-                "Contributed to the development of a new user authentication module",
-                "Participated in daily stand-ups and sprint reviews",
-                "Learned to work effectively in a remote team environment"
-            ],
-            "technologies": [
-                "JavaScript",
-                "React",
-                "Git",
-                "Jira"
-            ]
-        },
-        {
-            "id": 4,
-            "company": "Another Company",
-            "position": "Junior Developer",
-            "duration": "2020 – 2021",
-            "location": "Bandung, Indonesia",
-            "website": "",
-            "description": "Worked on various internal tools and client projects, gaining exposure to different tech stacks. Focused on writing clean, maintainable code and participating in code reviews.",
-            "achievements": [
-                "Developed a new internal dashboard for tracking project progress",
-                "Assisted in migrating legacy systems to modern frameworks",
-                "Contributed to improving code quality through rigorous testing"
-            ],
-            "technologies": [
-                "Python",
-                "Django",
-                "PostgreSQL",
-                "Docker"
             ]
         }
     ]

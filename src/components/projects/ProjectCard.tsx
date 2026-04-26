@@ -21,6 +21,7 @@ interface Project {
   shortDescription: string;
   tech: string[];
   image: string;
+  role?: string;
   github?: string;
   demo?: string;
 }
@@ -46,6 +47,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     web: 'Web Development',
     mobile: 'Mobile Development',
   };
+
+  interface ProjectWithSubCategories extends Project {
+    subCategories?: string[];
+  }
+
+  const projectWithSub = project as ProjectWithSubCategories;
 
   return (
     <motion.div
@@ -82,10 +89,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-dark-400/90 via-dark-400/20 to-transparent" />
           
           {/* Category badge */}
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 flex items-center gap-2">
             <span className="px-3 py-1 text-xs font-mono text-accent-400 bg-dark-900/80 backdrop-blur-sm rounded-full border border-accent-500/20">
               {categoryLabels[project.category] || project.category}
             </span>
+            {/* Sub category badges */}
+            {projectWithSub.subCategories?.map((subCat, index) => (
+              <span
+                key={index}
+                className="px-2 py-0.5 text-[10px] font-medium text-white bg-gray-700/60 backdrop-blur-sm rounded-full border border-gray-600/40"
+              >
+                {subCat}
+              </span>
+            ))}
           </div>
         </div>
 

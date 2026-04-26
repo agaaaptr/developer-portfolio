@@ -2,27 +2,27 @@
     "expertise": [
         {
             "id": 1,
-            "icon": "code",
-            "title": "Software Development",
-            "subtitle": "Building scalable applications",
-            "description": "Experienced in designing and developing robust software solutions. Proficient in software architecture, clean code principles, and agile methodologies.",
-            "technologies": ["TypeScript", "JavaScript", "Python", "Node.js"]
+            "icon": "monitor",
+            "title": "Frontend Development",
+            "subtitle": "React, Next.js, Angular",
+            "description": "Passionate about crafting responsive and performant user interfaces with modern JavaScript frameworks. Proficient in building scalable web applications using React ecosystem, Next.js for SSR, and Angular for enterprise solutions. Strong foundation in semantic HTML, CSS, and TypeScript.",
+            "technologies": ["React", "Next.js", "Angular", "TypeScript", "HTML5", "CSS3"]
         },
         {
             "id": 2,
-            "icon": "layout",
-            "title": "Frontend Dev",
-            "subtitle": "React, NextJS",
-            "description": "Specialized in creating responsive, performant, and accessible user interfaces. Expert in modern frontend frameworks and state management solutions.",
-            "technologies": ["React", "Next.js", "Vue.js", "Tailwind CSS"]
+            "icon": "terminal",
+            "title": "Backend Development",
+            "subtitle": "Go, Gin, MySQL",
+            "description": "Experienced in building robust and high-performance RESTful APIs using Go with Gin framework. Skilled in database design, query optimization, and data management with MySQL. Focused on clean architecture, efficient code, and scalable backend solutions.",
+            "technologies": ["Go", "Gin", "MySQL", "REST API", "SQL"]
         },
         {
             "id": 3,
-            "icon": "smartphone",
-            "title": "Flutter Dev",
-            "subtitle": "Android, iOS",
-            "description": "Building cross-platform mobile applications with beautiful UIs and smooth animations. Experience in native integrations and app store deployment.",
-            "technologies": ["Flutter", "Dart", "React Native", "Firebase"]
+            "icon": "pen-tool",
+            "title": "UI/UX Design",
+            "subtitle": "Figma, Prototyping",
+            "description": "Combining technical expertise with design thinking to create intuitive and visually appealing user experiences. Proficient in using Figma for designing interfaces, creating interactive prototypes, and conducting user testing for Android applications. Bridging the gap between design and development.",
+            "technologies": ["Figma", "Prototyping", "User Research", "Wireframing", "Android Design"]
         }
     ]
 }

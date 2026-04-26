@@ -1,139 +1,161 @@
 [
-    {
-        "id": 1,
-        "slug": "devconnect",
-        "title": "DevConnect",
-        "category": "web",
-        "featured": true,
-        "description": "My own project to connect developers and share knowledge. This platform enables real-time communication, knowledge sharing, and collaboration among developers worldwide.",
-        "shortDescription": "Developer community platform with real-time features",
-        "tech": [
-            "React",
-            "Next.js",
-            "TypeScript",
-            "Tailwind CSS",
-            "Node.js",
-            "Express",
-            "Supabase",
-            "Prisma",
-            "WebSockets"
-        ],
-        "client": "Personal Project",
-        "strategy": "Full-stack Development",
-        "github": "https://github.com/agaaaptr/devconnect",
-        "demo": "https://devconnect-frontend-coral.vercel.app/",
-        "images": [
-            "/images/projects/devconnect-1.png",
-            "/images/projects/devconnect-2.png"
-        ],
-        "image": "/images/project-devconnect.png"
-    },
-    {
-        "id": 2,
-        "slug": "ecommerce-platform",
-        "title": "E-commerce Platform",
-        "category": "web",
-        "featured": true,
-        "description": "A comprehensive e-commerce solution with product listings, shopping cart, and checkout functionality. Features secure payment processing, responsive design, and admin panel for product management.",
-        "shortDescription": "Full-featured online shopping platform",
-        "tech": [
-            "Vue.js",
-            "Nuxt.js",
-            "Stripe",
-            "GraphQL",
-            "PostgreSQL",
-            "Docker"
-        ],
-        "client": "Client Project",
-        "strategy": "E-commerce Solution",
-        "github": "https://github.com/example/ecommerce",
-        "demo": "https://ecommerce-demo.vercel.app/",
-        "images": [],
-        "image": ""
-    },
-    {
-        "id": 3,
-        "slug": "task-management-app",
-        "title": "Task Management App",
-        "category": "web",
-        "featured": false,
-        "description": "A simple yet powerful task management application designed for personal and team productivity. Features include task creation, categorization, due dates, and intuitive drag-and-drop interface.",
-        "shortDescription": "Productivity app with drag-and-drop interface",
-        "tech": [
-            "Angular",
-            "NestJS",
-            "MongoDB",
-            "TypeScript",
-            "RxJS"
-        ],
-        "client": "Personal Project",
-        "strategy": "SaaS Application",
-        "github": "https://github.com/example/task-app",
-        "demo": "https://task-app-demo.netlify.app/",
-        "images": [],
-        "image": ""
-    },
-    {
-        "id": 4,
-        "slug": "portfolio-v1",
-        "title": "Portfolio Website V1",
-        "category": "web",
-        "featured": false,
-        "description": "The first iteration of my personal portfolio website, showcasing early projects and skills. Focused on fundamental web development concepts and responsive design.",
-        "shortDescription": "Personal portfolio with responsive design",
-        "tech": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "jQuery"
-        ],
-        "client": "Personal Project",
-        "strategy": "Portfolio Showcase",
-        "github": "https://github.com/example/portfolio-v1",
-        "demo": "https://portfolio-v1.vercel.app/",
-        "images": [],
-        "image": ""
-    },
-    {
-        "id": 5,
-        "slug": "recipe-finder",
-        "title": "Recipe Finder",
-        "category": "mobile",
-        "featured": false,
-        "description": "An application that allows users to search for recipes based on ingredients and dietary preferences. Users can save favorites and create meal plans.",
-        "shortDescription": "Recipe search with meal planning features",
-        "tech": [
-            "React",
-            "Redux",
-            "Firebase",
-            "Expo"
-        ],
-        "client": "Personal Project",
-        "strategy": "Mobile App Development",
-        "github": "https://github.com/example/recipe-finder",
-        "demo": "https://recipe-finder-demo.web.app/",
-        "images": [],
-        "image": ""
-    },
-    {
-        "id": 6,
-        "slug": "fitness-tracker",
-        "title": "Fitness Tracker",
-        "category": "mobile",
-        "featured": true,
-        "description": "A mobile fitness tracking application with workout logging, progress charts, and personalized recommendations. Integrates with health APIs for comprehensive tracking.",
-        "shortDescription": "Mobile fitness app with progress tracking",
-        "tech": [
-            "Flutter",
-            "Dart",
-            "Firebase",
-            "Health APIs"
-        ],
-        "client": "Client Project",
-        "strategy": "Mobile App Development",
-        "github": "https://github.com/example/fitness-tracker",
-        "demo": "",
-        "images": [],
-        "image": ""
-    }
+  {
+    "id": 8,
+    "slug": "tembusin",
+    "title": "TembusIn",
+    "category": "web",
+    "subCategories": ["Frontend Development"],
+    "featured": false,
+    "shortDescription": "Learning Management System for test preparation courses",
+    "description": "A comprehensive Learning Management System providing courses for various test preparations including SNBT, TKA, CPNS, and PPPK. Developed the frontend for both admin and student interfaces, implementing responsive layouts following Figma design specifications. Integrated RESTful APIs with the backend to display real-time data from the database. Optimized animation performance and data flow to ensure smooth user experience with minimal bugs. Managed manual deployment of the frontend application to VPS server for production environment.",
+    "tech": ["React", "Vite", "TypeScript", "Tailwind CSS", "REST API"],
+    "role": "Frontend Development",
+    "demo": "https://fe-tembusin.deecodesoftware.com/",
+    "image": "/images/project-tembusin-1.png",
+    "images": [
+      "/images/project-tembusin-1.png",
+      "/images/project-tembusin-2.png",
+      "/images/project-tembusin-3.png",
+      "/images/project-tembusin-4.png"
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "salsation-cruise",
+    "title": "Salsation Cruise",
+    "category": "web",
+    "subCategories": ["WordPress", "UI/UX Design"],
+    "featured": false,
+    "shortDescription": "Premium cruise services with multi-language support",
+    "description": "A website for premium cruise service offerings. Responsibilities included implementing multi-language translation pages for international visitors and integrating with the cruise booking system to provide seamless reservation experiences.",
+    "tech": ["WordPress", "Elementor", "WPML"],
+    "role": "WordPress Development",
+    "demo": "https://www.salsationcruise.com/",
+    "image": "/images/project-salsationcruise-1.png",
+    "images": [
+      "/images/project-salsationcruise-1.png",
+      "/images/project-salsationcruise-2.png",
+      "/images/project-salsationcruise-3.png"
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "cg-carworks",
+    "title": "CG-Carworks",
+    "category": "web",
+    "subCategories": ["WordPress", "UI/UX Design"],
+    "featured": false,
+    "shortDescription": "Automotive repair and modification services",
+    "description": "A service website for automotive repair and modification. Responsibilities included designing and developing service pages using Elementor, creating responsive layouts, and optimizing content for search engine visibility to attract local customers.",
+    "tech": ["WordPress", "Elementor", "SEO", "Copywriting"],
+    "role": "WordPress Development",
+    "demo": "https://www.cg-carworks.com/",
+    "image": "/images/project-cgcarworks-1.png",
+    "images": [
+      "/images/project-cgcarworks-1.png",
+      "/images/project-cgcarworks-2.png",
+      "/images/project-cgcarworks-3.png",
+      "/images/project-cgcarworks-4.png"
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "deresto",
+    "title": "DeResto",
+    "category": "web",
+    "subCategories": ["WordPress", "UI/UX Design"],
+    "featured": false,
+    "shortDescription": "Premium car care and detailing services",
+    "description": "A service website for premium car care including shampooing and detailing. Responsibilities included developing service showcase pages, designing layout with Elementor, and writing compelling service descriptions to effectively communicate value propositions to potential customers.",
+    "tech": ["WordPress", "Elementor", "Copywriting"],
+    "role": "WordPress Development",
+    "demo": "https://www.deresto.eu/",
+    "image": "/images/project-deresto-1.png",
+    "images": [
+      "/images/project-deresto-1.png",
+      "/images/project-deresto-2.png",
+      "/images/project-deresto-3.png",
+      "/images/project-deresto-4.png"
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "theextramile",
+    "title": "The Extra Mile",
+    "category": "web",
+    "subCategories": ["WordPress", "UI/UX Design"],
+    "featured": false,
+    "shortDescription": "Motorcycle rental services in Bali",
+    "description": "A website for motorcycle rental services in Bali's tourism market. Responsibilities included designing responsive layouts using Elementor and optimizing the user experience for mobile-first design to accommodate on-the-go booking needs of travelers.",
+    "tech": ["WordPress", "Elementor", "Responsive Design"],
+    "role": "WordPress Development",
+    "demo": "https://theextramile.co/",
+    "image": "/images/project-theextramile-1.png",
+    "images": [
+      "/images/project-theextramile-1.png",
+      "/images/project-theextramile-2.png",
+      "/images/project-theextramile-3.png"
+    ]
+  },
+  {
+    "id": 7,
+    "slug": "pelanbali",
+    "title": "Pelan Pelan Bali",
+    "category": "web",
+    "subCategories": ["WordPress", "UI/UX Design"],
+    "featured": false,
+    "shortDescription": "Surf camp and yoga retreat experiences in Bali",
+    "description": "A website for surf camp and yoga retreat services in Bali. Responsibilities included designing visually appealing layouts, implementing SEO best practices to increase search visibility, and optimizing content to attract international tourists seeking unique wellness experiences.",
+    "tech": ["WordPress", "Elementor", "SEO", "Copywriting"],
+    "role": "WordPress Development",
+    "demo": "https://pelanbali.com/",
+    "image": "/images/project-pelanbali-1.png",
+    "images": [
+      "/images/project-pelanbali-1.png",
+      "/images/project-pelanbali-2.png",
+      "/images/project-pelanbali-3.png",
+      "/images/project-pelanbali-4.png",
+      "/images/project-pelanbali-5.png"
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "owow",
+    "title": "OWOW",
+    "category": "web",
+    "subCategories": ["UI/UX Design"],
+    "featured": true,
+    "shortDescription": "Professional software development service provider",
+    "description": "A comprehensive platform for software development services, helping clients transform their business requirements into tailored digital solutions with a user-centered design approach. The platform showcases service offerings and facilitates client engagement for custom software projects.",
+    "tech": ["Figma", "Prototyping", "UI Design"],
+    "demo": "https://owow.io/",
+    "image": "/images/project-owow-1.png",
+    "images": [
+      "/images/project-owow-1.png",
+      "/images/project-owow-2.png",
+      "/images/project-owow-3.png",
+      "/images/project-owow-4.png",
+      "/images/project-owow-5.png",
+      "/images/project-owow-6.png"
+    ]
+  },
+  {
+    "id": 1,
+    "slug": "dietpro",
+    "title": "Diet Pro",
+    "category": "mobile",
+    "subCategories": ["UI/UX Design"],
+    "featured": true,
+    "shortDescription": "Health tracking application with calorie counter and informational feed",
+    "description": "A comprehensive health tracking application developed in collaboration during university. Features include a daily calorie tracker to monitor nutritional intake, a curated timeline feed with health and fitness information, and progress tracking to help users achieve their diet goals effectively.",
+    "tech": ["Android", "Kotlin", "Figma"],
+    "role": "UI/UX Design",
+    "image": "/images/project-dietpro-1.png",
+    "images": [
+      "/images/project-dietpro-1.png",
+      "/images/project-dietpro-2.png",
+      "/images/project-dietpro-3.png",
+      "/images/project-dietpro-4.png"
+    ]
+  }
 ]
