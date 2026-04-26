@@ -196,26 +196,26 @@ export const ExpertiseSection: React.FC = () => {
             <span style={{ color: '#e9d5ff' }}>frontend</span>
             <span style={{ color: '#a78bfa' }}>:</span>{' '}
             <span style={{ color: '#ddd6fe' }}>[</span>
-            <span style={{ color: '#f5d0fe' }}>'React'</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>'Next.js'</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>'Angular'</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;React&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;Next.js&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;Angular&apos;</span>
             <span style={{ color: '#ddd6fe' }}>]</span><span style={{ color: '#a78bfa' }}>,</span>
             {'\n'}
             <span style={{ color: '#6b7280' }}>  </span>
             <span style={{ color: '#e9d5ff' }}>backend</span>
             <span style={{ color: '#a78bfa' }}>:</span>{' '}
             <span style={{ color: '#ddd6fe' }}>[</span>
-            <span style={{ color: '#f5d0fe' }}>'Go'</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>'Gin'</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>'MySQL'</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;Go&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;Gin&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;MySQL&apos;</span>
             <span style={{ color: '#ddd6fe' }}>]</span><span style={{ color: '#a78bfa' }}>,</span>
             {'\n'}
             <span style={{ color: '#6b7280' }}>  </span>
             <span style={{ color: '#e9d5ff' }}>uiux</span>
             <span style={{ color: '#a78bfa' }}>:</span>{' '}
             <span style={{ color: '#ddd6fe' }}>[</span>
-            <span style={{ color: '#f5d0fe' }}>'Figma'</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>'Prototyping'</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;Figma&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
+            <span style={{ color: '#f5d0fe' }}>&apos;Prototyping&apos;</span>
             <span style={{ color: '#ddd6fe' }}>]</span>
             {'\n'}
             <span style={{ color: '#8b5cf6' }}>{'}'}</span><span style={{ color: '#a78bfa' }}>;</span>
