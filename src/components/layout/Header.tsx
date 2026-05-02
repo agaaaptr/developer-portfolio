@@ -19,7 +19,6 @@ export const Header: React.FC = () => {
   const { isAtTop } = useScrollDirection({ threshold: 50 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [showStickyHeader, setShowStickyHeader] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -27,20 +26,11 @@ export const Header: React.FC = () => {
   // Check if we're on a project page
   const isProjectPage = pathname?.startsWith('/project');
   const isDark = theme === 'dark';
+  const showStickyHeader = !isAtTop;
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // When not at top, always show sticky compact header
-  useEffect(() => {
-    if (isAtTop) {
-      setShowStickyHeader(false);
-    } else {
-      // Always show sticky header when not at top
-      setShowStickyHeader(true);
-    }
-  }, [isAtTop]);
 
   const navigateToSection = (sectionId: string) => {
     if (isProjectPage) {
@@ -72,27 +62,28 @@ export const Header: React.FC = () => {
           className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-dark-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800/30"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-14">
-              {/* Mobile Menu Button */}
-              <motion.button
-                className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                whileTap={{ scale: 0.9 }}
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </motion.button>
+            <div className="relative flex h-14 items-center justify-between">
+              <div className="flex w-10 items-center justify-start sm:w-11">
+                <motion.button
+                  className="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Toggle navigation"
+                >
+                  {mobileMenuOpen ? (
+                    <X className="w-6 h-6" />
+                  ) : (
+                    <Menu className="w-6 h-6" />
+                  )}
+                </motion.button>
+              </div>
 
-              {/* Centered Navigation - Desktop */}
-              <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 flex-1 justify-center">
+              <nav className="pointer-events-none absolute inset-x-0 hidden lg:flex items-center justify-center space-x-6 xl:space-x-8">
                 {navItems.map((item) => (
                   <motion.button
                     key={item.id}
                     onClick={() => navigateToSection(item.id)}
-                    className="relative text-gray-700 dark:text-gray-300 hover:text-accent-400 dark:hover:text-accent-400 transition-colors font-mono text-sm tracking-wide group"
+                    className="pointer-events-auto relative text-gray-700 dark:text-gray-300 hover:text-accent-400 dark:hover:text-accent-400 transition-colors font-mono text-sm tracking-wide group"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
@@ -103,19 +94,20 @@ export const Header: React.FC = () => {
                 ))}
               </nav>
 
-              {/* Theme Toggle - Mobile only */}
-              <motion.button
-                className="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-accent-400 dark:hover:text-accent-400"
-                onClick={toggleTheme}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Toggle theme"
-              >
-                {isDark ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </motion.button>
+              <div className="flex w-10 items-center justify-end sm:w-11">
+                <motion.button
+                  className="p-2 text-gray-700 dark:text-gray-300 hover:text-accent-400 dark:hover:text-accent-400 xl:hidden"
+                  onClick={toggleTheme}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Toggle theme"
+                >
+                  {isDark ? (
+                    <Sun className="w-5 h-5" />
+                  ) : (
+                    <Moon className="w-5 h-5" />
+                  )}
+                </motion.button>
+              </div>
             </div>
           </div>
         </motion.header>
@@ -128,7 +120,7 @@ export const Header: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 md:hidden"
+              className="fixed inset-0 z-40 lg:hidden"
             >
               {/* Backdrop */}
               <motion.div
@@ -203,7 +195,7 @@ export const Header: React.FC = () => {
             </motion.button>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               {navItems.map((item) => (
                 <motion.button
                   key={item.id}
@@ -221,7 +213,7 @@ export const Header: React.FC = () => {
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden p-2 text-gray-300 hover:text-white"
+              className="lg:hidden p-2 text-gray-300 hover:text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               whileTap={{ scale: 0.9 }}
             >
@@ -248,7 +240,7 @@ export const Header: React.FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-center h-14">
                 {/* Centered Navigation - no logo */}
-                <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+                <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
                   {navItems.map((item) => (
                     <motion.button
                       key={item.id}
@@ -266,7 +258,7 @@ export const Header: React.FC = () => {
 
                 {/* Mobile Menu Button */}
                 <motion.button
-                  className="md:hidden p-2 text-gray-300 hover:text-white"
+                  className="lg:hidden p-2 text-gray-300 hover:text-white"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -290,7 +282,7 @@ export const Header: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 z-40 lg:hidden"
           >
             {/* Backdrop */}
             <motion.div

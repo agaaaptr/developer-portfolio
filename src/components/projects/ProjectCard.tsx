@@ -24,6 +24,7 @@ interface Project {
   role?: string;
   github?: string;
   demo?: string;
+  originalIndex?: number;
 }
 
 interface ProjectCardProps {
@@ -31,6 +32,29 @@ interface ProjectCardProps {
   index: number;
   size?: 'small' | 'medium' | 'large';
 }
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.985 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.44,
+      delay: 0.06 + index * 0.045,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  }),
+  exit: {
+    opacity: 0,
+    y: 16,
+    scale: 0.97,
+    transition: {
+      duration: 0.24,
+      ease: [0.4, 0, 0.2, 1] as const,
+    },
+  },
+};
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ 
   project, 
@@ -56,18 +80,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ 
-        duration: 0.6, 
-        delay: 0.15 + index * 0.15,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }}
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.18 }}
+      exit="exit"
       className={`${sizeClasses[size]}`}
     >
       <motion.div
-        className="relative h-full rounded-2xl bg-dark-400/50 border border-gray-700/50 overflow-hidden group cursor-pointer"
+        className="group relative h-full cursor-pointer overflow-hidden rounded-2xl border border-gray-700/50 bg-dark-400/50 transform-gpu"
         whileHover={{ 
           y: -8,
           borderColor: 'rgba(168, 85, 247, 0.4)',
@@ -75,18 +97,20 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
       >
         {/* Image or Placeholder */}
-        <div className="relative h-40 md:h-48 bg-dark-300/50 overflow-hidden">
-          <ImageWithFallback
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-            isDark={true}
-          />
-          
-          {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-400/90 via-dark-400/20 to-transparent" />
+        <div className="relative h-40 overflow-hidden bg-dark-300/50 md:h-48 [transform:translateZ(0)]">
+          <div className="absolute inset-0 transform-gpu transition-transform duration-500 will-change-transform group-hover:scale-[1.04] [backface-visibility:hidden]">
+            <ImageWithFallback
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover [backface-visibility:hidden] [transform:translateZ(0)]"
+              isDark={true}
+            />
+
+            {/* Overlay gradient */}
+            <div className="pointer-events-none absolute inset-x-0 -bottom-px top-0 bg-gradient-to-t from-dark-400/90 via-dark-400/20 to-transparent" />
+          </div>
           
           {/* Category badge */}
           <div className="absolute top-4 left-4 flex items-center gap-2">
@@ -106,7 +130,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 md:p-6">
+        <div className="relative -mt-px bg-dark-400/50 p-5 md:p-6">
           <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-accent-400 transition-colors">
             {project.title}
           </h3>

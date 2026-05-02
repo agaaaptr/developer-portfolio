@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, ArrowUpRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
+import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 // Simple SVG icons for social media
 const GithubIcon = () => (
@@ -92,32 +93,49 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
+      className="relative overflow-hidden bg-dark-900 py-8 [content-visibility:auto] [contain-intrinsic-size:980px] md:py-12"
     >
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
+      <SectionGridBackground />
 
       {/* Bottom center purple glow */}
-      <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[80%] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(147, 51, 234, 0.5) 0%, rgba(126, 34, 206, 0.3) 25%, rgba(88, 28, 135, 0.15) 45%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
-      
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[80%] pointer-events-none">
+        <motion.div
+          className="h-full w-full will-change-transform"
+          animate={{
+            opacity: [0.72, 0.92, 0.72],
+            scaleX: [0.94, 1.08, 0.94],
+            scaleY: [0.98, 1.04, 0.98],
+            y: [0, -8, 0],
+          }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div
+            className="h-full w-full"
+            style={{
+              background: 'radial-gradient(ellipse 82% 64% at 50% 100%, rgba(147, 51, 234, 0.75) 0%, rgba(126, 34, 206, 0.5) 24%, rgba(88, 28, 135, 0.24) 48%, transparent 72%)',
+              filter: 'blur(42px)',
+            }}
+          />
+        </motion.div>
+      </div>
+       
       {/* Secondary purple ambient glow - animated */}
       <motion.div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70%] h-[60%] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at bottom center, rgba(168, 85, 247, 0.35) 0%, transparent 65%)',
-          filter: 'blur(60px)',
-        }}
+        className="absolute bottom-0 left-1/2 h-[60%] w-[70%] -translate-x-1/2 pointer-events-none will-change-transform"
         animate={{ 
-          opacity: [0.5, 0.7, 0.5],
+          opacity: [0.46, 0.62, 0.46],
+          scale: [0.98, 1.03, 0.98],
         }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      />
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            background: 'radial-gradient(ellipse at bottom center, rgba(168, 85, 247, 0.35) 0%, transparent 65%)',
+            filter: 'blur(52px)',
+          }}
+        />
+      </motion.div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16">
@@ -140,11 +158,19 @@ export const ContactSection: React.FC = () => {
                 Available for select<br />
                 <span className="text-accent-400">freelance opportunities</span>
               </h2>
-              <p className="text-gray-400 font-mono text-xs sm:text-sm md:text-base leading-relaxed">
-                Have an exciting project you need<br className="hidden sm:block" />
-                help with?<br className="hidden sm:block" />
-                Send me an email or contact me via<br className="hidden sm:block" />
-                instant message!
+              <p className="font-mono text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
+                <span className="sm:hidden">
+                  Have an exciting project you need help with? Send me an email or contact me via instant message!
+                </span>
+                <span className="hidden sm:inline">
+                  Have an exciting project you need
+                  <br />
+                  help with?
+                  <br />
+                  Send me an email or contact me via
+                  <br />
+                  instant message!
+                </span>
               </p>
             </motion.div>
 
@@ -166,7 +192,7 @@ export const ContactSection: React.FC = () => {
                 aria-hidden="true"
               />
               {/* Underline */}
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent-400" />
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent-500" />
             </motion.a>
 
             {/* Social Links - Text style */}
