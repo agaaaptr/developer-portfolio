@@ -1,18 +1,22 @@
 "use client";
 
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import projectsData from '@/data/projects.json';
 import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
 import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 export const WorkSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
   const [gridHeight, setGridHeight] = useState<number | null>(null);
+  const [showPreviewNote, setShowPreviewNote] = useState(false);
   const gridContentRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaQuery('(max-width: 639px)');
+  const isTablet = useMediaQuery('(min-width: 640px) and (max-width: 1023px)');
 
   // Calculate counts for each category
   const filterOptions = useMemo(() => {
@@ -40,6 +44,29 @@ export const WorkSection: React.FC = () => {
     return indexedProjects.filter((p) => p.category === activeFilter);
   }, [activeFilter, indexedProjects]);
 
+  const visibleLimit = isMobile ? 3 : isTablet ? 4 : 6;
+  const visibleProjects = useMemo(
+    () => filteredProjects.slice(0, visibleLimit),
+    [filteredProjects, visibleLimit]
+  );
+  const shouldShowPreviewNote = filteredProjects.length > visibleProjects.length;
+
+  useEffect(() => {
+    if (!shouldShowPreviewNote) {
+      setShowPreviewNote(false);
+      return;
+    }
+
+    setShowPreviewNote(false);
+    const timer = window.setTimeout(() => {
+      setShowPreviewNote(true);
+    }, 760);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [activeFilter, shouldShowPreviewNote, visibleProjects.length]);
+
   useLayoutEffect(() => {
     const node = gridContentRef.current;
 
@@ -62,7 +89,7 @@ export const WorkSection: React.FC = () => {
     return () => {
       observer.disconnect();
     };
-  }, [activeFilter, filteredProjects.length]);
+  }, [activeFilter, visibleProjects.length]);
 
   return (
     <section
@@ -99,7 +126,7 @@ export const WorkSection: React.FC = () => {
             </span>
           </motion.h2>
           <motion.p 
-            className="max-w-2xl text-gray-400 text-lg mt-4 font-mono"
+            className="mt-3 max-w-2xl font-mono text-sm leading-relaxed text-gray-400 sm:mt-4 sm:text-base md:max-w-[42rem] lg:text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -147,7 +174,22 @@ export const WorkSection: React.FC = () => {
         >
           <div ref={gridContentRef}>
             {/* Projects Grid */}
-            <ProjectGrid projects={filteredProjects} filterKey={activeFilter} />
+            <ProjectGrid projects={visibleProjects} filterKey={activeFilter} />
+
+            <AnimatePresence initial={false}>
+              {showPreviewNote && shouldShowPreviewNote && (
+                <motion.p
+                  className="mt-5 max-w-2xl text-xs leading-relaxed text-gray-500 sm:text-sm"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  Showing {visibleProjects.length} selected projects here.
+                  Use <span className="text-gray-400">View All Projects</span> for the full portfolio.
+                </motion.p>
+              )}
+            </AnimatePresence>
 
             {/* Empty state */}
             {filteredProjects.length === 0 && (

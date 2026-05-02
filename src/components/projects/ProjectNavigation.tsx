@@ -45,50 +45,67 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
 
   return (
     <>
-      {/* Mobile version - simple bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden">
-        <div className={`flex items-center justify-between px-4 py-3 backdrop-blur-md border-t ${
-          isDark 
-            ? 'bg-dark-900/95 border-accent-500/20' 
-            : 'bg-white/90 border-slate-200/90 shadow-[0_-14px_35px_rgba(15,23,42,0.14)]'
-        }`}>
-          {prevProject ? (
-            <Link href={`/project/${prevProject.slug}`} className="flex-1">
-              <div className={`flex items-center gap-2 p-2 rounded-lg transition-colors ${
-                isDark ? 'text-accent-300 active:bg-accent-500/20' : 'text-slate-700 active:bg-accent-50'
-              }`}>
-                <ChevronLeft className="w-5 h-5" />
+      <div className="relative z-20 mx-auto max-w-6xl px-4 pt-4 sm:px-6 sm:pt-5 lg:hidden">
+        <div className={`grid gap-3 ${prevProject && nextProject ? 'sm:grid-cols-2' : 'grid-cols-1'}`}>
+          {prevProject && (
+            <Link
+              href={`/project/${prevProject.slug}`}
+              className={`rounded-2xl border px-4 py-3 backdrop-blur-md transition-colors ${
+                isDark
+                  ? 'border-accent-500/20 bg-dark-900/80 hover:border-accent-400/35 hover:bg-accent-500/10'
+                  : 'border-slate-200/90 bg-white/90 hover:border-accent-400/35 hover:bg-accent-50/80'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div
+                  className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border ${
+                    isDark
+                      ? 'border-accent-500/25 bg-accent-500/10 text-accent-300'
+                      : 'border-slate-200 bg-white text-slate-700'
+                  }`}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </div>
                 <div className="min-w-0">
-                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Previous</p>
-                  <p className={`text-sm font-medium truncate ${isDark ? 'text-accent-200' : 'text-slate-900'}`}>{prevProject.title}</p>
+                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Previous Project</p>
+                  <p className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-slate-900'}`}>{prevProject.title}</p>
                 </div>
               </div>
             </Link>
-          ) : (
-            <div className="flex-1" />
           )}
-          
-          {nextProject ? (
-            <Link href={`/project/${nextProject.slug}`} className="flex-1">
-              <div className={`flex items-center justify-end gap-2 p-2 rounded-lg transition-colors ${
-                isDark ? 'text-accent-300 active:bg-accent-500/20' : 'text-slate-700 active:bg-accent-50'
-              }`}>
-                <div className="min-w-0 text-right">
-                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Next</p>
-                  <p className={`text-sm font-medium truncate ${isDark ? 'text-accent-200' : 'text-slate-900'}`}>{nextProject.title}</p>
+
+          {nextProject && (
+            <Link
+              href={`/project/${nextProject.slug}`}
+              className={`rounded-2xl border px-4 py-3 backdrop-blur-md transition-colors ${
+                isDark
+                  ? 'border-accent-500/20 bg-dark-900/80 hover:border-accent-400/35 hover:bg-accent-500/10'
+                  : 'border-slate-200/90 bg-white/90 hover:border-accent-400/35 hover:bg-accent-50/80'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Next Project</p>
+                  <p className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-slate-900'}`}>{nextProject.title}</p>
                 </div>
-                <ChevronRight className="w-5 h-5" />
+                <div
+                  className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border ${
+                    isDark
+                      ? 'border-accent-500/25 bg-accent-500/10 text-accent-300'
+                      : 'border-slate-200 bg-white text-slate-700'
+                  }`}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </div>
               </div>
             </Link>
-          ) : (
-            <div className="flex-1" />
           )}
         </div>
       </div>
 
       {/* Desktop version - floating card */}
       <motion.div
-        className="hidden md:block fixed bottom-16 lg:bottom-24 right-3 lg:right-6 z-40"
+        className="hidden lg:block fixed bottom-16 xl:bottom-24 right-3 xl:right-6 z-40"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}

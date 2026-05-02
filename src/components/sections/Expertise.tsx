@@ -46,77 +46,39 @@ const ExpertiseCard: React.FC<ExpertiseCardProps> = ({ expertise, index }) => {
         }}
         transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
       >
-        {/* Hover gradient effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-navy-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-navy-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Content */}
         <div className="relative z-10">
           {/* Icon */}
-          <motion.div
-            className="w-14 h-14 mb-6 rounded-xl bg-dark-300/50 border border-gray-700/50 flex items-center justify-center group-hover:border-accent-500/30 transition-colors"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.5 + index * 0.2 }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
-          >
+          <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-gray-700/50 bg-dark-300/50 transition-colors group-hover:border-accent-500/30">
             <Icon className="w-7 h-7 text-accent-400" />
-          </motion.div>
+          </div>
 
           {/* Title & Subtitle */}
-          <motion.h3 
-            className="text-xl md:text-2xl font-bold text-white mb-2"
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.6 + index * 0.2 }}
-          >
+          <h3 className="mb-2 text-xl font-bold text-white md:text-2xl">
             {expertise.title}
-          </motion.h3>
-          <motion.p 
-            className="text-sm font-mono text-accent-400 mb-4"
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.65 + index * 0.2 }}
-          >
+          </h3>
+          <p className="mb-4 text-sm font-mono text-accent-400">
             {expertise.subtitle}
-          </motion.p>
+          </p>
 
           {/* Description */}
-          <motion.p 
-            className="text-gray-400 text-sm md:text-base leading-relaxed mb-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.7 + index * 0.2 }}
-          >
+          <p className="mb-6 text-sm leading-relaxed text-gray-400 md:text-base">
             {expertise.description}
-          </motion.p>
+          </p>
 
           {/* Technologies */}
-          <motion.div 
-            className="flex flex-wrap gap-2"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.75 + index * 0.2 }}
-          >
+          <div className="flex flex-wrap gap-2">
             {expertise.technologies.map((tech, i) => (
-              <motion.span
+              <span
                 key={i}
                 className="px-3 py-1 text-xs font-mono text-gray-400 bg-dark-300/50 border border-gray-700/50 rounded-full"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.8 + index * 0.2 + i * 0.05 }}
               >
                 {tech}
-              </motion.span>
+              </span>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Decorative corner */}
@@ -343,14 +305,14 @@ export const ExpertiseSection: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="mb-12 text-center sm:mb-14 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
+            className="mb-4 text-2xl font-bold text-white sm:text-3xl md:text-4xl lg:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -359,7 +321,7 @@ export const ExpertiseSection: React.FC = () => {
             My <span className="text-accent-400">Expertise</span>
           </motion.h2>
           <motion.p
-            className="max-w-2xl mx-auto text-gray-400 text-lg"
+            className="mx-auto max-w-2xl text-sm text-gray-400 sm:text-base md:text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -370,13 +332,13 @@ export const ExpertiseSection: React.FC = () => {
         </motion.div>
 
         {/* Expertise Cards Grid */}
-        <div className="relative z-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="relative z-20 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {expertiseData.expertise.map((item, index) => (
             <ExpertiseCard key={item.id} expertise={item} index={index} />
           ))}
         </div>
 
-        <div className="relative z-10 -mt-10 flex justify-center px-4 md:-mt-14 lg:-mt-16">
+        <div className="relative z-10 hidden justify-center px-4 lg:-mt-14 lg:flex xl:-mt-16">
           <HtmlSnippetDecoration />
         </div>
       </div>

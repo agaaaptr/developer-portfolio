@@ -33,6 +33,29 @@ interface ProjectCardProps {
   size?: 'small' | 'medium' | 'large';
 }
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.985 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.44,
+      delay: 0.06 + index * 0.045,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  }),
+  exit: {
+    opacity: 0,
+    y: 16,
+    scale: 0.97,
+    transition: {
+      duration: 0.24,
+      ease: [0.4, 0, 0.2, 1] as const,
+    },
+  },
+};
+
 export const ProjectCard: React.FC<ProjectCardProps> = ({ 
   project, 
   index,
@@ -57,20 +80,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{
-        opacity: 0,
-        y: 16,
-        scale: 0.97,
-        transition: { duration: 0.24, ease: [0.4, 0, 0.2, 1] }
-      }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ 
-        duration: 0.44,
-        delay: 0.06 + index * 0.045,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }}
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.18 }}
+      exit="exit"
       className={`${sizeClasses[size]}`}
     >
       <motion.div

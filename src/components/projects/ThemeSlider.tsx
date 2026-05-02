@@ -11,7 +11,7 @@ export const ThemeSlider: React.FC = () => {
 
   return (
     <motion.div
-      className="fixed left-6 top-1/2 -translate-y-1/2 z-40 hidden md:block"
+      className="fixed left-6 top-1/2 -translate-y-1/2 z-40 hidden xl:block"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.4 }}

@@ -100,17 +100,16 @@ export const ContactSection: React.FC = () => {
       {/* Bottom center purple glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[80%] pointer-events-none">
         <motion.div
-          className="h-full w-full"
+          className="h-full w-full will-change-transform"
           style={{
             background: 'radial-gradient(ellipse 82% 64% at 50% 100%, rgba(147, 51, 234, 0.75) 0%, rgba(126, 34, 206, 0.5) 24%, rgba(88, 28, 135, 0.24) 48%, transparent 72%)',
-            filter: 'blur(46px)',
+            filter: 'blur(42px)',
           }}
           animate={{
-            opacity: [0.72, 1, 0.72],
-            scaleX: [0.88, 1.18, 0.88],
-            scaleY: [0.94, 1.08, 0.94],
-            y: [0, -12, 0],
-            filter: ['blur(40px)', 'blur(54px)', 'blur(40px)'],
+            opacity: [0.72, 0.92, 0.72],
+            scaleX: [0.94, 1.08, 0.94],
+            scaleY: [0.98, 1.04, 0.98],
+            y: [0, -8, 0],
           }}
           transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -118,13 +117,14 @@ export const ContactSection: React.FC = () => {
       
       {/* Secondary purple ambient glow - animated */}
       <motion.div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70%] h-[60%] pointer-events-none"
+        className="absolute bottom-0 left-1/2 h-[60%] w-[70%] -translate-x-1/2 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse at bottom center, rgba(168, 85, 247, 0.35) 0%, transparent 65%)',
-          filter: 'blur(60px)',
+          filter: 'blur(52px)',
         }}
         animate={{ 
-          opacity: [0.5, 0.7, 0.5],
+          opacity: [0.46, 0.62, 0.46],
+          scale: [0.98, 1.03, 0.98],
         }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -150,11 +150,19 @@ export const ContactSection: React.FC = () => {
                 Available for select<br />
                 <span className="text-accent-400">freelance opportunities</span>
               </h2>
-              <p className="text-gray-400 font-mono text-xs sm:text-sm md:text-base leading-relaxed">
-                Have an exciting project you need<br className="hidden sm:block" />
-                help with?<br className="hidden sm:block" />
-                Send me an email or contact me via<br className="hidden sm:block" />
-                instant message!
+              <p className="font-mono text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
+                <span className="sm:hidden">
+                  Have an exciting project you need help with? Send me an email or contact me via instant message!
+                </span>
+                <span className="hidden sm:inline">
+                  Have an exciting project you need
+                  <br />
+                  help with?
+                  <br />
+                  Send me an email or contact me via
+                  <br />
+                  instant message!
+                </span>
               </p>
             </motion.div>
 

@@ -190,7 +190,7 @@ export default function ProjectDetailPage() {
           {/* Info Cards */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10 md:mb-12"
+            className="mb-8 grid grid-cols-1 gap-4 sm:mb-10 sm:grid-cols-2 sm:gap-6 md:mb-12 lg:grid-cols-3"
           >
             {project.role && (
               <div className={`p-4 sm:p-6 rounded-lg sm:rounded-xl border ${cardSurface}`}>

@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom';
 import { ArrowUpRight, ChevronDown, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { ScrollIndicator } from '@/components/ui/ScrollIndicator';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 const displayFont = Anton({ subsets: ['latin'], weight: '400', display: 'swap' });
 const scriptFont = Caveat({ subsets: ['latin'], weight: ['700'], display: 'swap' });
@@ -53,9 +54,13 @@ export const HeroSection: React.FC = () => {
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
+  const isCompactLayout = useMediaQuery('(max-width: 1023px)');
   const nameParts = personalData.professionalName.trim().split(/\s+/);
   const primaryName = nameParts[0] ?? personalData.professionalName;
   const secondaryName = nameParts.slice(1).join(' ');
+  const heroDescription = isCompactLayout
+    ? 'Crafting performant, accessible web experiences with modern frontend systems and polished UI detail.'
+    : personalData.bio;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -148,9 +153,9 @@ export const HeroSection: React.FC = () => {
           filter: 'blur(36px)',
         }}
         animate={{
-          opacity: [0.72, 1, 0.78, 0.72],
-          scaleX: [1, 1.06, 0.98, 1],
-          scaleY: [1, 1.08, 0.96, 1],
+          opacity: [0.72, 0.92, 0.78, 0.72],
+          scaleX: [1, 1.03, 0.99, 1],
+          scaleY: [1, 1.04, 0.98, 1],
         }}
         transition={{ duration: 8.5, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -159,27 +164,30 @@ export const HeroSection: React.FC = () => {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[17%] z-0 flex flex-col items-center"
+        className="pointer-events-none absolute inset-x-0 top-[7.25rem] z-0 flex flex-col items-center sm:top-[8.5rem] lg:top-[17%]"
       >
-        <span className="text-[clamp(4.8rem,18vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.08]">
+        <span className="text-[clamp(4.6rem,24vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.12] sm:text-[clamp(5.2rem,20vw,17rem)] lg:text-[clamp(4.8rem,18vw,17rem)] lg:text-white/[0.08]">
           {primaryName}
         </span>
         {secondaryName && (
-          <span className="-mt-[0.09em] text-[clamp(4.8rem,18vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.08]">
+          <span className="-mt-[0.09em] text-[clamp(4.6rem,24vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.12] sm:text-[clamp(5.2rem,20vw,17rem)] lg:text-[clamp(4.8rem,18vw,17rem)] lg:text-white/[0.08]">
             {secondaryName}
           </span>
         )}
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-end px-5 pb-24 pt-28 sm:px-8 lg:px-12">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-start px-5 pb-16 pt-24 sm:px-8 sm:pt-28 lg:items-end lg:px-12 lg:pb-24">
         <motion.div
           className="grid w-full gap-8 lg:grid-cols-[minmax(0,270px)_minmax(0,1fr)_minmax(0,260px)] lg:items-end"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <motion.div className="order-2 flex flex-col gap-6 lg:order-1 lg:pb-10" variants={itemVariants}>
-            <div className="flex flex-wrap gap-2">
+          <motion.div
+            className="order-2 flex flex-col items-center gap-4 text-center lg:order-1 lg:items-start lg:gap-6 lg:pb-10 lg:text-left"
+            variants={itemVariants}
+          >
+            <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
               {heroPills.map((pill) => (
                 <span
                   key={pill}
@@ -195,24 +203,24 @@ export const HeroSection: React.FC = () => {
                 <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-gray-500">
                   {personalData.professionalName}
                 </p>
-                <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.02] text-white sm:text-4xl lg:text-[3.2rem]">
+                <h1 className="mx-auto max-w-[11ch] text-[clamp(2.4rem,11vw,4.2rem)] font-semibold leading-[0.98] text-white sm:max-w-[12ch] lg:mx-0 lg:max-w-[14ch] lg:text-[3.2rem]">
                   Building digital products with a sharper visual voice.
                 </h1>
               </div>
 
-              <p className="max-w-[34ch] text-sm leading-relaxed text-gray-400 sm:text-[15px]">
-                {personalData.bio}
+              <p className="mx-auto max-w-[30ch] text-sm leading-relaxed text-gray-400 sm:max-w-[34ch] sm:text-[15px] lg:mx-0">
+                {heroDescription}
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="relative inline-flex">
+            <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:w-auto lg:justify-start">
+              <div className="relative inline-flex w-full sm:w-auto">
                 <motion.button
                   ref={buttonRef}
                   onClick={() => setIsCvDropdownOpen((current) => !current)}
                   aria-expanded={isCvDropdownOpen}
                   aria-haspopup="menu"
-                  className="group inline-flex items-center gap-3 rounded-full border border-white/16 bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08]"
+                  className="group inline-flex w-full items-center justify-between gap-3 rounded-full border border-white/16 bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:w-auto"
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
@@ -230,7 +238,7 @@ export const HeroSection: React.FC = () => {
               <motion.button
                 type="button"
                 onClick={() => scrollToSection('work')}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-gray-200 transition-colors duration-300 hover:border-white/20 hover:text-white"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-gray-200 transition-colors duration-300 hover:border-white/20 hover:text-white sm:w-auto"
                 whileHover={{ x: 4 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -239,14 +247,14 @@ export const HeroSection: React.FC = () => {
               </motion.button>
             </div>
 
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center justify-center gap-2 text-sm text-gray-500 lg:justify-start">
               <MapPin className="h-4 w-4 text-accent-400" />
               <span>{personalData.location}</span>
             </div>
           </motion.div>
 
           <motion.div
-            className="order-1 flex min-h-[430px] items-center justify-center lg:order-2 lg:min-h-[680px]"
+            className="order-1 flex min-h-[250px] items-start justify-center pt-4 sm:min-h-[320px] sm:pt-8 lg:order-2 lg:min-h-[680px] lg:items-center lg:pt-0"
             variants={glassEnterVariants}
           >
             <div className="relative flex h-full w-full items-center justify-center">
@@ -254,22 +262,22 @@ export const HeroSection: React.FC = () => {
               <div className="absolute inset-x-[10%] bottom-[12%] h-[24%] rounded-full bg-[radial-gradient(circle,rgba(147,51,234,0.18)_0%,rgba(88,28,135,0.08)_46%,transparent_78%)] blur-[52px]" />
 
               <div className="relative flex w-full flex-col items-center text-center">
-                <div className="relative w-full max-w-[680px] py-12 sm:py-16">
+                <div className="relative w-full max-w-[680px] py-4 sm:py-6 lg:py-12">
                   <motion.div
-                    className="relative top-10 mx-auto max-w-[560px] will-change-transform sm:top-14 lg:top-16"
-                    animate={{ x: [0, 10, 0, -8, 0], y: [0, -9, 3, -5, 0], rotate: [-1.5, -0.4, 1, 0.1, -1.5] }}
-                    transition={{ delay: 0.85, duration: 6.8, repeat: Infinity, ease: 'easeInOut' }}
+                    className="relative top-3 mx-auto max-w-[320px] will-change-transform sm:top-8 sm:max-w-[460px] lg:top-16 lg:max-w-[560px]"
+                    animate={{ x: [0, 5, 0, -4, 0], y: [0, -4, 1, -2, 0], rotate: [-0.7, -0.15, 0.45, 0.08, -0.7] }}
+                    transition={{ delay: 0.85, duration: 7.6, repeat: Infinity, ease: 'easeInOut' }}
                   >
-                    <div className="flex flex-col items-center rounded-[32px] bg-white/[0.005] px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.34)] backdrop-blur-[2px] sm:px-10 sm:py-10">
+                    <div className="flex flex-col items-center rounded-[28px] bg-white/[0.014] px-5 py-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-[2px] sm:rounded-[32px] sm:bg-white/[0.01] sm:px-8 sm:py-8 lg:bg-white/[0.005] lg:px-10 lg:py-10">
                       <div className="flex flex-col items-center">
                         <span
-                          className={`${scriptFont.className} text-center text-[clamp(2.6rem,7vw,5.3rem)] leading-none text-accent-400/95`}
+                          className={`${scriptFont.className} text-center text-[clamp(2.2rem,9vw,5.3rem)] leading-none text-accent-400/95`}
                           style={{ textShadow: '0 0 28px rgba(168, 85, 247, 0.32)' }}
                         >
                           {heroAccentLines[0]}
                         </span>
                         <span
-                          className={`${scriptFont.className} -mt-[0.18em] text-center text-[clamp(2.3rem,6.2vw,4.6rem)] leading-none text-accent-300/92`}
+                          className={`${scriptFont.className} -mt-[0.18em] text-center text-[clamp(2rem,8vw,4.6rem)] leading-none text-accent-300/92`}
                           style={{ textShadow: '0 0 24px rgba(168, 85, 247, 0.24)' }}
                         >
                           {heroAccentLines[1]}
@@ -279,7 +287,7 @@ export const HeroSection: React.FC = () => {
                       <div className="my-5 h-px w-full max-w-[180px] bg-gradient-to-r from-transparent via-white/25 to-transparent sm:my-6" />
 
                       <p
-                        className={`${displayFont.className} text-center text-[clamp(1.2rem,2.6vw,2rem)] uppercase leading-[0.92] tracking-[0.08em] text-white`}
+                        className={`${displayFont.className} text-center text-[clamp(1rem,4vw,2rem)] uppercase leading-[0.92] tracking-[0.08em] text-white`}
                         style={{ textShadow: '0 12px 42px rgba(0, 0, 0, 0.36)' }}
                       >
                         {heroTagline}
@@ -291,13 +299,13 @@ export const HeroSection: React.FC = () => {
             </div>
           </motion.div>
 
-          <motion.div className="order-3 flex lg:justify-end lg:pb-10" variants={glassEnterVariants}>
-            <div className="grid w-full max-w-[260px] gap-4">
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
+          <motion.div className="order-3 flex justify-center lg:justify-end lg:pb-10" variants={glassEnterVariants}>
+            <div className="grid w-full max-w-[620px] gap-4 sm:grid-cols-2 lg:max-w-[260px] lg:grid-cols-1">
+              <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-6">
                 <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
                   Current focus
                 </p>
-                <p className="mt-4 text-2xl font-semibold leading-[1.02] text-white">
+                <p className="mt-4 text-xl font-semibold leading-[1.02] text-white sm:text-2xl">
                   Web interfaces that feel deliberate.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-gray-400">
@@ -305,7 +313,7 @@ export const HeroSection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="rounded-[24px] border border-white/8 bg-black/20 p-5 text-sm text-gray-400">
+              <div className="rounded-[24px] border border-white/8 bg-black/20 p-5 text-sm text-gray-400 sm:p-6">
                 <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
                   Availability
                 </p>
@@ -375,7 +383,7 @@ export const HeroSection: React.FC = () => {
           document.body
         )}
 
-      <div className="pointer-events-none absolute bottom-8 left-0 right-0 flex justify-center">
+      <div className="pointer-events-none absolute inset-x-0 bottom-24 z-20 hidden justify-center lg:flex xl:bottom-28">
         <div className="pointer-events-auto">
           <ScrollIndicator onClick={() => scrollToSection('expertise')} />
         </div>

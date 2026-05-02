@@ -2,7 +2,6 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { LayoutGroup, motion } from 'framer-motion';
 import { Footer } from '@/components/layout/Footer';
 
 // Dynamic imports for sections to avoid hydration issues with framer-motion
@@ -30,19 +29,13 @@ const ContactSection = dynamic(
 export default function Home() {
   return (
     <div className="min-h-screen bg-dark-900">
-      <LayoutGroup>
-        <main>
-          <HeroSection />
-          <ExpertiseSection />
-          <WorkSection />
-          <motion.div layout="position">
-            <ExperienceSection />
-          </motion.div>
-          <motion.div layout="position">
-            <ContactSection />
-          </motion.div>
-        </main>
-      </LayoutGroup>
+      <main>
+        <HeroSection />
+        <ExpertiseSection />
+        <WorkSection />
+        <ExperienceSection />
+        <ContactSection />
+      </main>
 
       <Footer />
     </div>
