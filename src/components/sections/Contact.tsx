@@ -93,7 +93,7 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
+      className="relative overflow-hidden bg-dark-900 py-8 [content-visibility:auto] [contain-intrinsic-size:980px] md:py-12"
     >
       <SectionGridBackground />
 
@@ -101,10 +101,6 @@ export const ContactSection: React.FC = () => {
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[80%] pointer-events-none">
         <motion.div
           className="h-full w-full will-change-transform"
-          style={{
-            background: 'radial-gradient(ellipse 82% 64% at 50% 100%, rgba(147, 51, 234, 0.75) 0%, rgba(126, 34, 206, 0.5) 24%, rgba(88, 28, 135, 0.24) 48%, transparent 72%)',
-            filter: 'blur(42px)',
-          }}
           animate={{
             opacity: [0.72, 0.92, 0.72],
             scaleX: [0.94, 1.08, 0.94],
@@ -112,22 +108,34 @@ export const ContactSection: React.FC = () => {
             y: [0, -8, 0],
           }}
           transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-        />
+        >
+          <div
+            className="h-full w-full"
+            style={{
+              background: 'radial-gradient(ellipse 82% 64% at 50% 100%, rgba(147, 51, 234, 0.75) 0%, rgba(126, 34, 206, 0.5) 24%, rgba(88, 28, 135, 0.24) 48%, transparent 72%)',
+              filter: 'blur(42px)',
+            }}
+          />
+        </motion.div>
       </div>
-      
+       
       {/* Secondary purple ambient glow - animated */}
       <motion.div 
-        className="absolute bottom-0 left-1/2 h-[60%] w-[70%] -translate-x-1/2 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at bottom center, rgba(168, 85, 247, 0.35) 0%, transparent 65%)',
-          filter: 'blur(52px)',
-        }}
+        className="absolute bottom-0 left-1/2 h-[60%] w-[70%] -translate-x-1/2 pointer-events-none will-change-transform"
         animate={{ 
           opacity: [0.46, 0.62, 0.46],
           scale: [0.98, 1.03, 0.98],
         }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-      />
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            background: 'radial-gradient(ellipse at bottom center, rgba(168, 85, 247, 0.35) 0%, transparent 65%)',
+            filter: 'blur(52px)',
+          }}
+        />
+      </motion.div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16">

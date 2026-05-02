@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type ScrollDirection = 'up' | 'down' | null;
 
@@ -11,9 +11,8 @@ interface UseScrollDirectionOptions {
 
 export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
   const { threshold = 10, initialDirection = null } = options;
-  
+
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(initialDirection);
-  const [scrollY, setScrollY] = useState(0);
   const [isAtTop, setIsAtTop] = useState(true);
 
   useEffect(() => {
@@ -22,16 +21,17 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
 
     const updateScrollDirection = () => {
       const currentScrollY = window.scrollY;
-      
-      setScrollY(currentScrollY);
-      setIsAtTop(currentScrollY < 50);
+      const nextIsAtTop = currentScrollY < 50;
+
+      setIsAtTop((previous) => (previous === nextIsAtTop ? previous : nextIsAtTop));
 
       if (Math.abs(currentScrollY - lastScrollY) < threshold) {
         ticking = false;
         return;
       }
 
-      setScrollDirection(currentScrollY > lastScrollY ? 'down' : 'up');
+      const nextDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+      setScrollDirection((previous) => (previous === nextDirection ? previous : nextDirection));
       lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
       ticking = false;
     };
@@ -50,5 +50,5 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
     };
   }, [threshold]);
 
-  return { scrollDirection, scrollY, isAtTop };
+  return { scrollDirection, isAtTop };
 }

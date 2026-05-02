@@ -87,7 +87,7 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section
       id="experience"
-      className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
+      className="relative overflow-hidden bg-dark-900 py-8 [content-visibility:auto] [contain-intrinsic-size:900px] md:py-12"
     >
       <SectionGridBackground />
 

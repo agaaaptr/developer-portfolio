@@ -19,7 +19,6 @@ export const Header: React.FC = () => {
   const { isAtTop } = useScrollDirection({ threshold: 50 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [showStickyHeader, setShowStickyHeader] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -27,20 +26,11 @@ export const Header: React.FC = () => {
   // Check if we're on a project page
   const isProjectPage = pathname?.startsWith('/project');
   const isDark = theme === 'dark';
+  const showStickyHeader = !isAtTop;
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // When not at top, always show sticky compact header
-  useEffect(() => {
-    if (isAtTop) {
-      setShowStickyHeader(false);
-    } else {
-      // Always show sticky header when not at top
-      setShowStickyHeader(true);
-    }
-  }, [isAtTop]);
 
   const navigateToSection = (sectionId: string) => {
     if (isProjectPage) {

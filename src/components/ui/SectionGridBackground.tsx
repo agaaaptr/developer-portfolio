@@ -20,7 +20,7 @@ export const SectionGridBackground: React.FC = () => {
               'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.14) 10%, rgba(0, 0, 0, 0.55) 18%, #000 28%, #000 100%)',
           }}
         />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-dark-900/95 via-dark-900/72 to-transparent backdrop-blur-[10px]" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-dark-900 via-dark-900/82 to-transparent" />
       </div>
     </>
   );

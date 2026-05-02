@@ -61,6 +61,17 @@ export const HeroSection: React.FC = () => {
   const heroDescription = isCompactLayout
     ? 'Crafting performant, accessible web experiences with modern frontend systems and polished UI detail.'
     : personalData.bio;
+  const floatingGlassPanelClasses = 'bg-white/[0.014] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-[2px] sm:bg-white/[0.01] lg:bg-white/[0.005]';
+  const focusGlassCardClasses = 'border border-white/10 bg-white/[0.04] backdrop-blur-xl';
+  const heroAmbientGlowAnimation = isCompactLayout
+    ? {
+        opacity: [0.72, 0.88, 0.78, 0.72],
+      }
+    : {
+        opacity: [0.72, 0.92, 0.78, 0.72],
+        scaleX: [1, 1.03, 0.99, 1],
+        scaleY: [1, 1.04, 0.98, 1],
+      };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -146,19 +157,19 @@ export const HeroSection: React.FC = () => {
       />
 
       <motion.div
-        className="absolute inset-x-0 top-[10%] h-[52%] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 36% 42% at 50% 48%, rgba(192, 132, 252, 0.18) 0%, rgba(147, 51, 234, 0.12) 24%, rgba(88, 28, 135, 0.05) 54%, transparent 72%)',
-          filter: 'blur(36px)',
-        }}
-        animate={{
-          opacity: [0.72, 0.92, 0.78, 0.72],
-          scaleX: [1, 1.03, 0.99, 1],
-          scaleY: [1, 1.04, 0.98, 1],
-        }}
+        className="absolute inset-x-0 top-[10%] h-[52%] pointer-events-none will-change-transform"
+        animate={heroAmbientGlowAnimation}
         transition={{ duration: 8.5, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            background:
+              'radial-gradient(ellipse 36% 42% at 50% 48%, rgba(192, 132, 252, 0.18) 0%, rgba(147, 51, 234, 0.12) 24%, rgba(88, 28, 135, 0.05) 54%, transparent 72%)',
+            filter: 'blur(36px)',
+          }}
+        />
+      </motion.div>
 
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_42%,rgba(0,0,0,0.34)_100%)]" />
 
@@ -268,7 +279,7 @@ export const HeroSection: React.FC = () => {
                     animate={{ x: [0, 5, 0, -4, 0], y: [0, -4, 1, -2, 0], rotate: [-0.7, -0.15, 0.45, 0.08, -0.7] }}
                     transition={{ delay: 0.85, duration: 7.6, repeat: Infinity, ease: 'easeInOut' }}
                   >
-                    <div className="flex flex-col items-center rounded-[28px] bg-white/[0.014] px-5 py-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-[2px] sm:rounded-[32px] sm:bg-white/[0.01] sm:px-8 sm:py-8 lg:bg-white/[0.005] lg:px-10 lg:py-10">
+                    <div className={`flex flex-col items-center rounded-[28px] px-5 py-6 sm:rounded-[32px] sm:px-8 sm:py-8 lg:px-10 lg:py-10 ${floatingGlassPanelClasses}`}>
                       <div className="flex flex-col items-center">
                         <span
                           className={`${scriptFont.className} text-center text-[clamp(2.2rem,9vw,5.3rem)] leading-none text-accent-400/95`}
@@ -301,7 +312,7 @@ export const HeroSection: React.FC = () => {
 
           <motion.div className="order-3 flex justify-center lg:justify-end lg:pb-10" variants={glassEnterVariants}>
             <div className="grid w-full max-w-[620px] gap-4 sm:grid-cols-2 lg:max-w-[260px] lg:grid-cols-1">
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-6">
+              <div className={`rounded-[28px] p-5 sm:p-6 ${focusGlassCardClasses}`}>
                 <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
                   Current focus
                 </p>
