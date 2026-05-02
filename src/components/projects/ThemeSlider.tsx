@@ -24,15 +24,17 @@ export const ThemeSlider: React.FC = () => {
         {/* Dark mode button */}
         <motion.button
           onClick={() => !isDark && toggleTheme()}
-          className={`p-2.5 rounded-xl transition-all ${
+          disabled={isDark}
+          className={`p-2.5 rounded-xl border transition-colors duration-150 disabled:cursor-default ${
             isDark 
-              ? 'bg-accent-500/20 text-accent-400 border border-accent-500/30' 
-              : 'text-gray-400 hover:text-gray-600 border border-transparent hover:bg-gray-100'
+              ? 'bg-accent-500/20 text-accent-400 border-accent-500/30 shadow-sm' 
+              : 'text-gray-400 border-transparent hover:text-gray-600 hover:border-gray-200 hover:bg-gray-100'
           }`}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
+          whileHover={isDark ? undefined : { scale: 1.05 }}
+          whileTap={isDark ? undefined : { scale: 0.96 }}
+          transition={{ duration: 0.16, ease: 'easeOut' }}
           aria-label="Dark mode"
+          aria-pressed={isDark}
         >
           <Moon className="w-4 h-4" />
         </motion.button>
@@ -51,15 +53,17 @@ export const ThemeSlider: React.FC = () => {
         {/* Light mode button */}
         <motion.button
           onClick={() => isDark && toggleTheme()}
-          className={`p-2.5 rounded-xl transition-all ${
+          disabled={!isDark}
+          className={`p-2.5 rounded-xl border transition-colors duration-150 disabled:cursor-default ${
             !isDark 
-              ? 'bg-accent-500/20 text-accent-400 border border-accent-500/30' 
-              : 'text-gray-500 hover:text-gray-300 border border-transparent hover:bg-dark-300/50'
+              ? 'bg-accent-500/20 text-accent-500 border-accent-500/30 shadow-sm' 
+              : 'text-gray-500 border-transparent hover:text-gray-300 hover:border-gray-700/50 hover:bg-dark-300/50'
           }`}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
+          whileHover={isDark ? { scale: 1.05 } : undefined}
+          whileTap={isDark ? { scale: 0.96 } : undefined}
+          transition={{ duration: 0.16, ease: 'easeOut' }}
           aria-label="Light mode"
+          aria-pressed={!isDark}
         >
           <Sun className="w-4 h-4" />
         </motion.button>

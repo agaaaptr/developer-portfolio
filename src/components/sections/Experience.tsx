@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Globe, ExternalLink } from 'lucide-react';
 import experienceData from '@/data/experience.json';
 import { Accordion } from '@/components/ui/Accordion';
+import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 interface ExperienceItem {
   id: number;
@@ -88,8 +89,7 @@ export const ExperienceSection: React.FC = () => {
       id="experience"
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
+      <SectionGridBackground />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

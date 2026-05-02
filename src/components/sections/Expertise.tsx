@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Monitor, Terminal, PenTool } from 'lucide-react';
 import expertiseData from '@/data/expertise.json';
+import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 const iconMap: Record<string, React.ElementType> = {
   monitor: Monitor,
@@ -125,22 +126,219 @@ const ExpertiseCard: React.FC<ExpertiseCardProps> = ({ expertise, index }) => {
   );
 };
 
+const subtleTitleTextStyle = { color: 'rgba(138, 146, 160, 0.52)' };
+const subtleHeadingTextStyle = { color: 'rgba(132, 140, 154, 0.48)' };
+const subtleBodyTextStyle = { color: 'rgba(126, 134, 148, 0.44)' };
+const subtleBodyMutedTextStyle = { color: 'rgba(122, 130, 144, 0.40)' };
+const subtlePipeTextStyle = { color: 'rgba(110, 118, 132, 0.36)' };
+const subtlePipeMutedTextStyle = { color: 'rgba(104, 112, 126, 0.32)' };
+const subtleAttributeTextStyle = { color: 'rgba(132, 163, 201, 0.62)' };
+const subtleStringTextStyle = { color: 'rgba(143, 176, 141, 0.54)' };
+const subtlePunctuationTextStyle = { color: 'rgba(154, 162, 176, 0.50)' };
+
+const snippetLines: Array<{ id: string; depth: number; content: React.ReactNode }> = [
+  {
+    id: 'html-open',
+    depth: 0,
+    content: (
+      <>
+        <span className="text-[#b5179e]/55">&lt;html</span>{' '}
+        <span style={subtleAttributeTextStyle}>lang</span>
+        <span style={subtlePunctuationTextStyle}>=</span>
+        <span style={subtleStringTextStyle}>&quot;en&quot;</span>
+        <span className="text-[#b5179e]/55">&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'head-open',
+    depth: 1,
+    content: (
+      <>
+        <span className="text-[#b5179e]/50">&lt;head&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'meta',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;meta</span>{' '}
+        <span style={subtleAttributeTextStyle}>name</span>
+        <span style={subtlePunctuationTextStyle}>=</span>
+        <span style={subtleStringTextStyle}>&quot;viewport&quot;</span>{' '}
+        <span style={subtleAttributeTextStyle}>content</span>
+        <span style={subtlePunctuationTextStyle}>=</span>
+        <span style={subtleStringTextStyle}>&quot;width=device-width, initial-scale=1.0&quot;</span>
+        <span className="text-[#b5179e]/45">&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'title',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;title&gt;</span>
+        <span style={subtleTitleTextStyle}>What do I do</span>
+        <span className="text-[#b5179e]/45">&lt;/title&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'head-close',
+    depth: 1,
+    content: (
+      <>
+        <span className="text-[#b5179e]/50">&lt;/head&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'body-open',
+    depth: 1,
+    content: (
+      <>
+        <span className="text-[#b5179e]/50">&lt;body&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'h1',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;h1&gt;</span>
+        <span style={subtleHeadingTextStyle}>Things I do to build polished digital products</span>
+        <span className="text-[#b5179e]/45">&lt;/h1&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'p',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;p&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'p-line-frontend',
+    depth: 3,
+    content: (
+      <>
+        <span style={subtlePipeTextStyle}>|</span>{' '}
+        <span style={subtleBodyTextStyle}>Building responsive interfaces with React, Next.js, and Angular.</span>
+      </>
+    ),
+  },
+  {
+    id: 'p-line-backend',
+    depth: 3,
+    content: (
+      <>
+        <span style={subtlePipeTextStyle}>|</span>{' '}
+        <span style={subtleBodyTextStyle}>Shipping scalable APIs with Go, Gin, and MySQL.</span>
+      </>
+    ),
+  },
+  {
+    id: 'p-close',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;/p&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'span',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;span&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'span-line',
+    depth: 3,
+    content: (
+      <>
+        <span style={subtlePipeMutedTextStyle}>|</span>{' '}
+        <span style={subtleBodyMutedTextStyle}>Adding UI/UX polish with Figma and WordPress across client projects.</span>
+      </>
+    ),
+  },
+  {
+    id: 'span-close',
+    depth: 2,
+    content: (
+      <>
+        <span className="text-[#b5179e]/45">&lt;/span&gt;</span>
+      </>
+    ),
+  },
+  {
+    id: 'body-close',
+    depth: 1,
+    content: <span className="text-[#b5179e]/50">&lt;/body&gt;</span>,
+  },
+  {
+    id: 'html-close',
+    depth: 0,
+    content: <span className="text-[#b5179e]/55">&lt;/html&gt;</span>,
+  },
+];
+
+const renderSnippetIndentedContent = (depth: number, content: React.ReactNode): React.ReactNode => {
+  let node = <>{content}</>;
+
+  for (let index = 0; index < depth; index += 1) {
+    node = (
+      <div className="ml-3 pl-3 sm:ml-4 sm:pl-4">
+        {node}
+      </div>
+    );
+  }
+
+  return node;
+};
+
+const HtmlSnippetDecoration: React.FC = () => {
+  return (
+    <motion.div
+      className="pointer-events-none relative w-full max-w-4xl"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.8, duration: 0.7 }}
+    >
+      <div className="absolute inset-x-24 top-2 h-20 bg-[radial-gradient(circle,rgba(168,85,247,0.12),transparent_74%)] blur-3xl" />
+      <div className="relative overflow-hidden px-4 pt-7 opacity-[0.82] sm:px-8 sm:pt-9 md:px-12">
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent" />
+
+        <div className="space-y-0.5 font-mono text-[10px] leading-[1.22] tracking-[0.03em] sm:text-[11px] sm:leading-[1.28] md:text-[12px] md:leading-[1.34]">
+          {snippetLines.map((line) => (
+            <div key={line.id} className="max-w-3xl whitespace-pre-wrap">
+              {renderSnippetIndentedContent(line.depth, line.content)}
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export const ExpertiseSection: React.FC = () => {
   return (
     <section
       id="expertise"
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
-      {/* Fade from hero section */}
-      <div 
-        className="absolute top-0 left-0 right-0 h-32 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, #0a0a12 0%, transparent 100%)',
-        }}
-      />
-      
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-40" />
+      <SectionGridBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -172,55 +370,15 @@ export const ExpertiseSection: React.FC = () => {
         </motion.div>
 
         {/* Expertise Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="relative z-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {expertiseData.expertise.map((item, index) => (
             <ExpertiseCard key={item.id} expertise={item} index={index} />
           ))}
         </div>
 
-        {/* Code snippet decoration */}
-        <motion.div
-          className="relative mt-8 font-mono text-sm max-w-lg"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-        >
-          <pre className="opacity-40">
-            <span style={{ color: '#a78bfa' }}>const</span>{' '}
-            <span style={{ color: '#c4b5fd' }}>expertise</span>
-            <span style={{ color: '#a78bfa' }}> =</span>{' '}
-            <span style={{ color: '#8b5cf6' }}>{'{'}</span>
-            {'\n'}
-            <span style={{ color: '#6b7280' }}>  </span>
-            <span style={{ color: '#e9d5ff' }}>frontend</span>
-            <span style={{ color: '#a78bfa' }}>:</span>{' '}
-            <span style={{ color: '#ddd6fe' }}>[</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;React&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;Next.js&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;Angular&apos;</span>
-            <span style={{ color: '#ddd6fe' }}>]</span><span style={{ color: '#a78bfa' }}>,</span>
-            {'\n'}
-            <span style={{ color: '#6b7280' }}>  </span>
-            <span style={{ color: '#e9d5ff' }}>backend</span>
-            <span style={{ color: '#a78bfa' }}>:</span>{' '}
-            <span style={{ color: '#ddd6fe' }}>[</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;Go&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;Gin&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;MySQL&apos;</span>
-            <span style={{ color: '#ddd6fe' }}>]</span><span style={{ color: '#a78bfa' }}>,</span>
-            {'\n'}
-            <span style={{ color: '#6b7280' }}>  </span>
-            <span style={{ color: '#e9d5ff' }}>uiux</span>
-            <span style={{ color: '#a78bfa' }}>:</span>{' '}
-            <span style={{ color: '#ddd6fe' }}>[</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;Figma&apos;</span><span style={{ color: '#a78bfa' }}>,</span>
-            <span style={{ color: '#f5d0fe' }}>&apos;Prototyping&apos;</span>
-            <span style={{ color: '#ddd6fe' }}>]</span>
-            {'\n'}
-            <span style={{ color: '#8b5cf6' }}>{'}'}</span><span style={{ color: '#a78bfa' }}>;</span>
-          </pre>
-        </motion.div>
+        <div className="relative z-10 -mt-10 flex justify-center px-4 md:-mt-14 lg:-mt-16">
+          <HtmlSnippetDecoration />
+        </div>
       </div>
 
       {/* Bottom fade */}

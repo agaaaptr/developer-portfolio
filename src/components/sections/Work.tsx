@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import projectsData from '@/data/projects.json';
 import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
+import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 export const WorkSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
+  const [gridHeight, setGridHeight] = useState<number | null>(null);
+  const gridContentRef = useRef<HTMLDivElement>(null);
 
   // Calculate counts for each category
   const filterOptions = useMemo(() => {
@@ -24,21 +27,49 @@ export const WorkSection: React.FC = () => {
     ];
   }, []);
 
+  const indexedProjects = useMemo(
+    () => projectsData.map((project, index) => ({ ...project, originalIndex: index })),
+    []
+  );
+
   // Filter projects based on active filter
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') {
-      return projectsData;
+      return indexedProjects;
     }
-    return projectsData.filter(p => p.category === activeFilter);
-  }, [activeFilter]);
+    return indexedProjects.filter((p) => p.category === activeFilter);
+  }, [activeFilter, indexedProjects]);
+
+  useLayoutEffect(() => {
+    const node = gridContentRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    const updateHeight = () => {
+      setGridHeight(node.getBoundingClientRect().height);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(() => {
+      updateHeight();
+    });
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [activeFilter, filteredProjects.length]);
 
   return (
     <section
       id="work"
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
+      <SectionGridBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - Left aligned */}
@@ -106,21 +137,32 @@ export const WorkSection: React.FC = () => {
           onFilterChange={setActiveFilter}
         />
 
-        {/* Projects Grid */}
-        <ProjectGrid projects={filteredProjects} />
+        <motion.div
+          className="overflow-hidden"
+          initial={false}
+          animate={gridHeight === null ? undefined : { height: gridHeight }}
+          transition={{
+            height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
+          }}
+        >
+          <div ref={gridContentRef}>
+            {/* Projects Grid */}
+            <ProjectGrid projects={filteredProjects} filterKey={activeFilter} />
 
-        {/* Empty state */}
-        {filteredProjects.length === 0 && (
-          <motion.div
-            className="text-center py-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <p className="text-gray-500 text-lg">
-              No projects found in this category.
-            </p>
-          </motion.div>
-        )}
+            {/* Empty state */}
+            {filteredProjects.length === 0 && (
+              <motion.div
+                className="text-center py-16"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <p className="text-gray-500 text-lg">
+                  No projects found in this category.
+                </p>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
       </div>
 
       {/* Bottom fade */}

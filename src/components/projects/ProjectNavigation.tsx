@@ -30,6 +30,14 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
 
   // Show next project by default, or prev if no next
   const defaultProject = nextProject || prevProject;
+  const activeProjectLabel =
+    hoveredProject === 'prev'
+      ? 'Previous Project'
+      : hoveredProject === 'next'
+        ? 'Next Project'
+        : nextProject
+          ? 'Next Project'
+          : 'Previous Project';
   
   // When hovering, show the hovered project's image
   const hoveredProjectData = hoveredProject === 'prev' ? prevProject : hoveredProject === 'next' ? nextProject : null;
@@ -42,17 +50,17 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
         <div className={`flex items-center justify-between px-4 py-3 backdrop-blur-md border-t ${
           isDark 
             ? 'bg-dark-900/95 border-accent-500/20' 
-            : 'bg-white/95 border-accent-500/20'
+            : 'bg-white/90 border-slate-200/90 shadow-[0_-14px_35px_rgba(15,23,42,0.14)]'
         }`}>
           {prevProject ? (
             <Link href={`/project/${prevProject.slug}`} className="flex-1">
               <div className={`flex items-center gap-2 p-2 rounded-lg transition-colors ${
-                isDark ? 'text-accent-300 active:bg-accent-500/20' : 'text-accent-600 active:bg-accent-500/10'
+                isDark ? 'text-accent-300 active:bg-accent-500/20' : 'text-slate-700 active:bg-accent-50'
               }`}>
                 <ChevronLeft className="w-5 h-5" />
                 <div className="min-w-0">
-                  <p className="text-xs opacity-70">Previous</p>
-                  <p className="text-sm font-medium truncate">{prevProject.title}</p>
+                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Previous</p>
+                  <p className={`text-sm font-medium truncate ${isDark ? 'text-accent-200' : 'text-slate-900'}`}>{prevProject.title}</p>
                 </div>
               </div>
             </Link>
@@ -63,11 +71,11 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
           {nextProject ? (
             <Link href={`/project/${nextProject.slug}`} className="flex-1">
               <div className={`flex items-center justify-end gap-2 p-2 rounded-lg transition-colors ${
-                isDark ? 'text-accent-300 active:bg-accent-500/20' : 'text-accent-600 active:bg-accent-500/10'
+                isDark ? 'text-accent-300 active:bg-accent-500/20' : 'text-slate-700 active:bg-accent-50'
               }`}>
                 <div className="min-w-0 text-right">
-                  <p className="text-xs opacity-70">Next</p>
-                  <p className="text-sm font-medium truncate">{nextProject.title}</p>
+                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Next</p>
+                  <p className={`text-sm font-medium truncate ${isDark ? 'text-accent-200' : 'text-slate-900'}`}>{nextProject.title}</p>
                 </div>
                 <ChevronRight className="w-5 h-5" />
               </div>
@@ -88,8 +96,8 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
         <motion.div 
           className={`flex flex-col items-end gap-0 p-3 lg:p-4 rounded-xl lg:rounded-2xl backdrop-blur-md border ${
             isDark 
-              ? 'bg-accent-500/20 border-accent-500/40' 
-              : 'bg-accent-500/10 border-accent-500/30'
+              ? 'bg-accent-500/20 border-accent-500/40 shadow-[0_24px_60px_rgba(10,10,18,0.38)]' 
+              : 'bg-white/90 border-slate-200/90 shadow-[0_24px_60px_rgba(15,23,42,0.16)]'
           }`}
           style={{ width: 220 }}
         >
@@ -109,8 +117,8 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
                 className="w-full overflow-hidden"
               >
                 <motion.div 
-                  className={`relative w-full h-full rounded-lg lg:rounded-xl overflow-hidden ${
-                    isDark ? 'bg-dark-300/50' : 'bg-gray-100'
+                  className={`relative w-full h-[120px] rounded-lg lg:rounded-xl overflow-hidden ${
+                    isDark ? 'bg-dark-300/50' : 'bg-slate-100'
                   }`}
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -147,8 +155,8 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
 
           {/* Project info - always visible */}
           <div className="w-full mb-2 lg:mb-3">
-            <p className={`text-xs mb-0.5 lg:mb-1 ${isDark ? 'text-accent-300/70' : 'text-accent-600/70'}`}>
-              {hoveredProject === 'prev' ? 'Previous Project' : 'Next Project'}
+            <p className={`text-xs mb-0.5 lg:mb-1 ${isDark ? 'text-accent-300/70' : 'text-accent-700/70'}`}>
+              {activeProjectLabel}
             </p>
             <p className={`font-medium truncate text-xs lg:text-sm ${isDark ? 'text-white' : 'text-dark-900'}`}>
               {hoveredProject === 'prev' && prevProject 
@@ -167,7 +175,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
                   className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border transition-all duration-200 ${
                     isDark 
                       ? 'bg-dark-900/50 border-accent-500/30 text-accent-300 hover:text-white hover:border-accent-400 hover:bg-accent-500/20' 
-                      : 'bg-white/50 border-accent-500/30 text-accent-600 hover:text-accent-700 hover:border-accent-500 hover:bg-accent-500/10'
+                      : 'bg-white border-slate-200 text-slate-700 hover:text-accent-700 hover:border-accent-400 hover:bg-accent-50 shadow-sm'
                   }`}
                   aria-label="Previous project"
                   onMouseEnter={() => setHoveredProject('prev')}
@@ -180,9 +188,9 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
               <div className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border cursor-not-allowed ${
                 isDark 
                   ? 'bg-dark-900/30 border-gray-800/30 text-gray-600' 
-                  : 'bg-gray-100/50 border-gray-200 text-gray-400'
-              }`}>
-                <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
+                  : 'bg-slate-100 border-slate-200 text-slate-400'
+                }`}>
+                <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5 pointer-events-none cursor-not-allowed" />
               </div>
             )}
 
@@ -192,7 +200,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
                   className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border transition-all duration-200 ${
                     isDark 
                       ? 'bg-dark-900/50 border-accent-500/30 text-accent-300 hover:text-white hover:border-accent-400 hover:bg-accent-500/20' 
-                      : 'bg-white/50 border-accent-500/30 text-accent-600 hover:text-accent-700 hover:border-accent-500 hover:bg-accent-500/10'
+                      : 'bg-white border-slate-200 text-slate-700 hover:text-accent-700 hover:border-accent-400 hover:bg-accent-50 shadow-sm'
                   }`}
                   aria-label="Next project"
                   onMouseEnter={() => setHoveredProject('next')}
@@ -205,9 +213,9 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
               <div className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border cursor-not-allowed ${
                 isDark 
                   ? 'bg-dark-900/30 border-gray-800/30 text-gray-600' 
-                  : 'bg-gray-100/50 border-gray-200 text-gray-400'
-              }`}>
-                <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
+                  : 'bg-slate-100 border-slate-200 text-slate-400'
+                }`}>
+                <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5 pointer-events-none cursor-not-allowed" />
               </div>
             )}
           </div>

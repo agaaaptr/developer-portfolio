@@ -120,26 +120,30 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
+            initial={{ height: 0, opacity: 0, marginTop: 0 }}
             animate={{ 
               height: 'auto', 
               opacity: 1,
+              marginTop: 4,
               transition: {
                 height: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
-                opacity: { duration: 0.25, delay: 0.05 }
+                opacity: { duration: 0.25, delay: 0.05 },
+                marginTop: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
               }
             }}
             exit={{ 
               height: 0, 
               opacity: 0,
+              marginTop: 0,
               transition: {
                 height: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
-                opacity: { duration: 0.2 }
+                opacity: { duration: 0.2 },
+                marginTop: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }
               }
             }}
             className="overflow-hidden"
           >
-            <div className="px-4 sm:px-6 py-4 sm:py-6 mt-1 bg-dark-400/50 border border-gray-700/50 rounded-lg sm:rounded-xl">
+            <div className="px-4 sm:px-6 py-4 sm:py-6 bg-dark-400/50 border border-gray-700/50 rounded-lg sm:rounded-xl">
               {item.content}
             </div>
           </motion.div>

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, ArrowUpRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
+import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 // Simple SVG icons for social media
 const GithubIcon = () => (
@@ -94,17 +95,26 @@ export const ContactSection: React.FC = () => {
       id="contact"
       className="relative py-8 md:py-12 bg-dark-900 overflow-hidden"
     >
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-30" />
+      <SectionGridBackground />
 
       {/* Bottom center purple glow */}
-      <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[80%] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(147, 51, 234, 0.5) 0%, rgba(126, 34, 206, 0.3) 25%, rgba(88, 28, 135, 0.15) 45%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[80%] pointer-events-none">
+        <motion.div
+          className="h-full w-full"
+          style={{
+            background: 'radial-gradient(ellipse 82% 64% at 50% 100%, rgba(147, 51, 234, 0.75) 0%, rgba(126, 34, 206, 0.5) 24%, rgba(88, 28, 135, 0.24) 48%, transparent 72%)',
+            filter: 'blur(46px)',
+          }}
+          animate={{
+            opacity: [0.72, 1, 0.72],
+            scaleX: [0.88, 1.18, 0.88],
+            scaleY: [0.94, 1.08, 0.94],
+            y: [0, -12, 0],
+            filter: ['blur(40px)', 'blur(54px)', 'blur(40px)'],
+          }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
       
       {/* Secondary purple ambient glow - animated */}
       <motion.div 
@@ -166,7 +176,7 @@ export const ContactSection: React.FC = () => {
                 aria-hidden="true"
               />
               {/* Underline */}
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent-400" />
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent-500" />
             </motion.a>
 
             {/* Social Links - Text style */}

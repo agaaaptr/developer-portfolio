@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import projectsData from '@/data/projects.json';
 import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
@@ -9,25 +9,55 @@ import { ThemeSlider } from '@/components/projects/ThemeSlider';
 
 export default function AllProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
+  const [gridHeight, setGridHeight] = useState<number | null>(null);
+  const gridContentRef = useRef<HTMLDivElement>(null);
+  const indexedProjects = useMemo(
+    () => projectsData.map((project, index) => ({ ...project, originalIndex: index })),
+    []
+  );
 
   const filterOptions = useMemo(() => {
-    const allCount = projectsData.length;
-    const webCount = projectsData.filter(p => p.category === 'web').length;
-    const mobileCount = projectsData.filter(p => p.category === 'mobile').length;
+    const allCount = indexedProjects.length;
+    const webCount = indexedProjects.filter(p => p.category === 'web').length;
+    const mobileCount = indexedProjects.filter(p => p.category === 'mobile').length;
 
     return [
       { id: 'all' as ProjectCategory, label: 'All', count: allCount },
       { id: 'web' as ProjectCategory, label: 'Web Development', count: webCount },
       { id: 'mobile' as ProjectCategory, label: 'Mobile Development', count: mobileCount },
     ];
-  }, []);
+  }, [indexedProjects]);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') {
-      return projectsData;
+      return indexedProjects;
     }
-    return projectsData.filter(p => p.category === activeFilter);
-  }, [activeFilter]);
+    return indexedProjects.filter(p => p.category === activeFilter);
+  }, [activeFilter, indexedProjects]);
+
+  useLayoutEffect(() => {
+    const node = gridContentRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    const updateHeight = () => {
+      setGridHeight(node.getBoundingClientRect().height);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(() => {
+      updateHeight();
+    });
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [activeFilter, filteredProjects.length]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -84,21 +114,32 @@ export default function AllProjectsPage() {
 
           {/* Projects Grid */}
           <motion.div variants={itemVariants}>
-            <ProjectGrid projects={filteredProjects} />
-          </motion.div>
-
-          {/* Empty state */}
-          {filteredProjects.length === 0 && (
             <motion.div
-              className="text-center py-12 sm:py-16"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              className="overflow-hidden"
+              initial={false}
+              animate={gridHeight === null ? undefined : { height: gridHeight }}
+              transition={{
+                height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
+              }}
             >
-              <p className="text-gray-500 text-base sm:text-lg">
-                No projects found in this category.
-              </p>
+              <div ref={gridContentRef}>
+                <ProjectGrid projects={filteredProjects} filterKey={activeFilter} />
+
+                {/* Empty state */}
+                {filteredProjects.length === 0 && (
+                  <motion.div
+                    className="text-center py-12 sm:py-16"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    <p className="text-gray-500 text-base sm:text-lg">
+                      No projects found in this category.
+                    </p>
+                  </motion.div>
+                )}
+              </div>
             </motion.div>
-          )}
+          </motion.div>
         </motion.div>
       </div>
     </main>

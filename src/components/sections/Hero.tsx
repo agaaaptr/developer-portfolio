@@ -1,247 +1,66 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Anton, Caveat } from 'next/font/google';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
+import { ArrowUpRight, ChevronDown, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { ScrollIndicator } from '@/components/ui/ScrollIndicator';
-import { ChevronDown, Globe, Languages } from 'lucide-react';
 
-// Holographic 3D Cube - simple CSS-based hover with framer-motion idle animation
-const HolographicCube: React.FC<{
-  size: number;
-  position: { x: number; y: number };
-  delay: number;
-  duration: number;
-  colorScheme: 'purple' | 'pink' | 'blue' | 'gold';
-  floatRange?: number;
-  driftX?: number;
-  isGroupHovered: boolean;
-}> = ({ size, position, delay, duration, colorScheme, floatRange = 10, driftX = 0, isGroupHovered }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const halfSize = size / 2;
-  
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), delay * 1000);
-    return () => clearTimeout(timer);
-  }, [delay]);
-  
-  const colors = {
-    purple: {
-      front: 'linear-gradient(145deg, #2d1f4e 0%, #1a1030 100%)',
-      right: 'linear-gradient(180deg, #a855f7 0%, #7c3aed 50%, #5b21b6 100%)',
-      left: 'linear-gradient(180deg, #c084fc 0%, #a855f7 50%, #7c3aed 100%)',
-      top: 'linear-gradient(135deg, #3b2d5f 0%, #2d1f4e 100%)',
-      glow: 'rgba(168, 85, 247, 0.5)',
-      border: 'rgba(168, 85, 247, 0.6)',
-    },
-    pink: {
-      front: 'linear-gradient(145deg, #3d1f3d 0%, #2a1030 100%)',
-      right: 'linear-gradient(180deg, #ec4899 0%, #db2777 50%, #9d174d 100%)',
-      left: 'linear-gradient(180deg, #f472b6 0%, #ec4899 50%, #db2777 100%)',
-      top: 'linear-gradient(135deg, #4d2d4d 0%, #3d1f3d 100%)',
-      glow: 'rgba(236, 72, 153, 0.5)',
-      border: 'rgba(236, 72, 153, 0.6)',
-    },
-    blue: {
-      front: 'linear-gradient(145deg, #1e2a4a 0%, #0f1629 100%)',
-      right: 'linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)',
-      left: 'linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)',
-      top: 'linear-gradient(135deg, #2a3a5a 0%, #1e2a4a 100%)',
-      glow: 'rgba(59, 130, 246, 0.5)',
-      border: 'rgba(59, 130, 246, 0.6)',
-    },
-    gold: {
-      front: 'linear-gradient(145deg, #3d3520 0%, #2a2515 100%)',
-      right: 'linear-gradient(180deg, #fbbf24 0%, #d97706 50%, #b45309 100%)',
-      left: 'linear-gradient(180deg, #fcd34d 0%, #fbbf24 50%, #d97706 100%)',
-      top: 'linear-gradient(135deg, #4d4530 0%, #3d3520 100%)',
-      glow: 'rgba(251, 191, 36, 0.5)',
-      border: 'rgba(251, 191, 36, 0.6)',
-    },
-  };
-  
-  const scheme = colors[colorScheme];
+const displayFont = Anton({ subsets: ['latin'], weight: '400', display: 'swap' });
+const scriptFont = Caveat({ subsets: ['latin'], weight: ['700'], display: 'swap' });
+const heroPills = ['Frontend Systems', 'Go APIs', 'Editorial UI'];
+const heroAccentLines = ['Frontend craft', 'with precision'];
+const heroTagline = 'Built for modern products.';
 
-  if (!isVisible) return null;
-  
-  return (
-    <motion.div
-      className="absolute pointer-events-none"
-      style={{ 
-        left: `${position.x}%`, 
-        top: `${position.y}%`,
-      }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ 
-        opacity: 1,
-        scale: 1,
-        // More dynamic floating - larger range, varied movement
-        x: [0, driftX, -driftX * 0.3, driftX * 0.7, 0],
-        y: [0, -floatRange, -floatRange * 0.4, -floatRange * 0.8, 0],
-      }}
-      transition={{
-        opacity: { duration: 0.8, ease: "easeOut" },
-        scale: { duration: 0.8, ease: "easeOut" },
-        x: { duration: duration, repeat: Infinity, ease: "easeInOut" },
-        y: { duration: duration * 0.8, repeat: Infinity, ease: "easeInOut" },
-      }}
-    >
-      {/* Cube wrapper - CSS transitions for hover effects */}
-      <div
-        style={{ 
-          width: size,
-          height: size,
-          position: 'absolute',
-          left: -size / 2,
-          top: -size / 2,
-          transform: isGroupHovered ? 'scale(1.15)' : 'scale(1)',
-          transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-        }}
-      >
-        {/* Glow */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            inset: -size * 0.5,
-            background: `radial-gradient(circle, ${scheme.glow} 0%, transparent 65%)`,
-            filter: 'blur(25px)',
-            opacity: isGroupHovered ? 1 : 0.6,
-            transform: isGroupHovered ? 'scale(1.4)' : 'scale(1)',
-            transition: 'opacity 0.4s ease, transform 0.4s ease',
-          }}
-        />
-        
-        {/* 3D Cube */}
-        <div style={{ perspective: '800px', width: size, height: size }}>
-          <motion.div
-            style={{ 
-              transformStyle: "preserve-3d",
-              width: size,
-              height: size,
-            }}
-            animate={{ 
-              rotateX: [-15, -18, -15],
-              rotateY: [25, 32, 25],
-              rotateZ: [0, 1, 0],
-            }}
-            transition={{ 
-              duration: duration, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-            }}
-          >
-            {/* Front */}
-            <div 
-              className="absolute rounded-lg"
-              style={{ 
-                width: size, height: size,
-                transform: `translateZ(${halfSize}px)`,
-                background: scheme.front,
-                boxShadow: `inset 0 1px 0 rgba(255,255,255,0.15), 0 0 ${isGroupHovered ? 50 : 30}px ${scheme.glow}`,
-                border: `1px solid ${scheme.border}`,
-                transition: 'box-shadow 0.4s ease',
-              }}
-            >
-              <div 
-                className="absolute inset-[3px] rounded-md opacity-25"
-                style={{
-                  backgroundImage: `linear-gradient(${scheme.border} 1px, transparent 1px), linear-gradient(90deg, ${scheme.border} 1px, transparent 1px)`,
-                  backgroundSize: `${size / 5}px ${size / 5}px`,
-                }}
-              />
-            </div>
-            
-            {/* Back */}
-            <div 
-              className="absolute rounded-lg"
-              style={{ 
-                width: size, height: size,
-                transform: `translateZ(-${halfSize}px) rotateY(180deg)`,
-                background: scheme.front,
-                border: `1px solid ${scheme.border}`,
-                opacity: 0.7,
-              }}
-            />
-            
-            {/* Right */}
-            <div 
-              className="absolute rounded-lg"
-              style={{ 
-                width: size, height: size,
-                transform: `translateX(${halfSize}px) rotateY(90deg)`,
-                background: scheme.right,
-                border: `1px solid ${scheme.border}`,
-                filter: isGroupHovered ? 'brightness(1.15)' : 'brightness(1)',
-                transition: 'filter 0.4s ease',
-              }}
-            />
-            
-            {/* Left */}
-            <div 
-              className="absolute rounded-lg"
-              style={{ 
-                width: size, height: size,
-                transform: `translateX(-${halfSize}px) rotateY(-90deg)`,
-                background: scheme.left,
-                border: `1px solid ${scheme.border}`,
-                filter: isGroupHovered ? 'brightness(1.1)' : 'brightness(1)',
-                transition: 'filter 0.4s ease',
-              }}
-            />
-            
-            {/* Top */}
-            <div 
-              className="absolute rounded-lg"
-              style={{ 
-                width: size, height: size,
-                transform: `translateY(-${halfSize}px) rotateX(90deg)`,
-                background: scheme.top,
-                border: `1px solid ${scheme.border}`,
-                filter: isGroupHovered ? 'brightness(1.2)' : 'brightness(1)',
-                transition: 'filter 0.4s ease',
-              }}
-            />
-            
-            {/* Bottom */}
-            <div 
-              className="absolute rounded-lg"
-              style={{ 
-                width: size, height: size,
-                transform: `translateY(${halfSize}px) rotateX(-90deg)`,
-                background: scheme.front,
-                border: `1px solid ${scheme.border}`,
-                opacity: 0.5,
-              }}
-            />
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  );
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.18,
+    },
+  },
 };
 
-// 5 cubes in dynamic cluster - larger sizes, more movement
-const cubesConfig = [
-  // Main large cube - center focus
-  { size: 95, position: { x: 72, y: 35 }, delay: 0.1, duration: 5, colorScheme: 'purple' as const, floatRange: 18, driftX: 12 },
-  // Secondary cubes
-  { size: 75, position: { x: 62, y: 50 }, delay: 0.2, duration: 6, colorScheme: 'pink' as const, floatRange: 22, driftX: -15 },
-  { size: 70, position: { x: 82, y: 48 }, delay: 0.15, duration: 7, colorScheme: 'blue' as const, floatRange: 16, driftX: 10 },
-  // Smaller accent cubes
-  { size: 55, position: { x: 68, y: 65 }, delay: 0.25, duration: 5.5, colorScheme: 'gold' as const, floatRange: 20, driftX: -8 },
-  { size: 50, position: { x: 85, y: 28 }, delay: 0.3, duration: 6.5, colorScheme: 'pink' as const, floatRange: 14, driftX: 6 },
-];
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
+const glassEnterVariants = {
+  hidden: { y: 28, scale: 0.985 },
+  visible: {
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
 
 export const HeroSection: React.FC = () => {
-  const [isGroupHovered, setIsGroupHovered] = useState(false);
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
+  const nameParts = personalData.professionalName.trim().split(/\s+/);
+  const primaryName = nameParts[0] ?? personalData.professionalName;
+  const secondaryName = nameParts.slice(1).join(' ');
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
+
       if (
         isCvDropdownOpen &&
         buttonRef.current &&
@@ -262,6 +81,40 @@ export const HeroSection: React.FC = () => {
     };
   }, [isCvDropdownOpen]);
 
+  useEffect(() => {
+    if (!isCvDropdownOpen) {
+      setDropdownPosition(null);
+      return;
+    }
+
+    const updateDropdownPosition = () => {
+      if (!buttonRef.current) {
+        return;
+      }
+
+      const rect = buttonRef.current.getBoundingClientRect();
+      const dropdownWidth = 224;
+      const viewportPadding = 16;
+      const minCenter = viewportPadding + dropdownWidth / 2;
+      const maxCenter = window.innerWidth - viewportPadding - dropdownWidth / 2;
+      const centerX = Math.max(minCenter, Math.min(rect.left + rect.width / 2, maxCenter));
+
+      setDropdownPosition({
+        top: rect.bottom + 12,
+        left: centerX,
+      });
+    };
+
+    updateDropdownPosition();
+    window.addEventListener('resize', updateDropdownPosition);
+    window.addEventListener('scroll', updateDropdownPosition, true);
+
+    return () => {
+      window.removeEventListener('resize', updateDropdownPosition);
+      window.removeEventListener('scroll', updateDropdownPosition, true);
+    };
+  }, [isCvDropdownOpen]);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -269,188 +122,232 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-      },
-    },
-  };
-
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ backgroundColor: '#050508' }}
+      className="relative flex min-h-screen items-center overflow-hidden bg-[#050508]"
     >
-      {/* Main gradient background - Strong purple glow from bottom-left corner */}
-      <div 
+      <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 150% 120% at -10% 120%, rgba(147, 51, 234, 0.9) 0%, rgba(126, 34, 206, 0.7) 15%, rgba(88, 28, 135, 0.4) 35%, rgba(59, 28, 100, 0.2) 50%, transparent 65%),
-            radial-gradient(ellipse 100% 100% at 0% 60%, rgba(139, 92, 246, 0.35) 0%, rgba(88, 28, 135, 0.15) 40%, transparent 60%),
-            radial-gradient(ellipse 80% 60% at 0% 20%, rgba(147, 51, 234, 0.2) 0%, transparent 50%),
-            linear-gradient(180deg, #050508 0%, #08080d 50%, #0a0a12 100%)
+            radial-gradient(circle at 18% 20%, rgba(255,255,255,0.08) 0%, transparent 22%),
+            radial-gradient(circle at 84% 16%, rgba(255,255,255,0.07) 0%, transparent 18%),
+            radial-gradient(ellipse 72% 62% at 50% 52%, rgba(101, 46, 180, 0.16) 0%, rgba(70, 24, 125, 0.1) 28%, transparent 72%),
+            radial-gradient(ellipse 80% 70% at 50% 100%, rgba(147, 51, 234, 0.14) 0%, transparent 70%),
+            linear-gradient(180deg, #07070a 0%, #050508 45%, #0a0a12 100%)
           `,
         }}
       />
 
-      {/* Strong purple ambient glow - animated */}
-      <motion.div 
-        className="absolute bottom-0 left-0 w-[80%] h-[90%] pointer-events-none"
+      <motion.div
+        className="absolute inset-x-0 top-[10%] h-[52%] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 100% 90% at 0% 100%, rgba(147, 51, 234, 0.4) 0%, rgba(126, 34, 206, 0.2) 40%, transparent 70%)',
-          filter: 'blur(60px)',
+          background:
+            'radial-gradient(ellipse 36% 42% at 50% 48%, rgba(192, 132, 252, 0.18) 0%, rgba(147, 51, 234, 0.12) 24%, rgba(88, 28, 135, 0.05) 54%, transparent 72%)',
+          filter: 'blur(36px)',
         }}
-        animate={{ 
-          opacity: [0.8, 1, 0.8],
+        animate={{
+          opacity: [0.72, 1, 0.78, 0.72],
+          scaleX: [1, 1.06, 0.98, 1],
+          scaleY: [1, 1.08, 0.96, 1],
         }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 8.5, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Extended fade to next section */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-[40%] pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #0a0a12 100%)',
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_42%,rgba(0,0,0,0.34)_100%)]" />
 
-      {/* Subtle vignette effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
-        }}
-      />
-
-      {/* 3D Cubes cluster - Desktop */}
-      <div className="absolute inset-0 hidden md:block">
-        {cubesConfig.map((cube, index) => (
-          <HolographicCube 
-            key={index} 
-            {...cube} 
-            isGroupHovered={isGroupHovered}
-          />
-        ))}
-        {/* Hitbox covering cube cluster area - tight to cube positions */}
-        <div
-          className="absolute cursor-pointer"
-          style={{
-            left: '60%',
-            top: '28%',
-            width: '28%',
-            height: '42%',
-            zIndex: 50,
-            // Debug: uncomment to see hitbox
-            // background: 'rgba(255,0,0,0.2)',
-          }}
-          onMouseEnter={() => setIsGroupHovered(true)}
-          onMouseLeave={() => setIsGroupHovered(false)}
-        />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[17%] z-0 flex flex-col items-center"
+      >
+        <span className="text-[clamp(4.8rem,18vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.08]">
+          {primaryName}
+        </span>
+        {secondaryName && (
+          <span className="-mt-[0.09em] text-[clamp(4.8rem,18vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.08]">
+            {secondaryName}
+          </span>
+        )}
       </div>
 
-      {/* Content - Left aligned */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-end px-5 pb-24 pt-28 sm:px-8 lg:px-12">
         <motion.div
-          className="max-w-lg"
+          className="grid w-full gap-8 lg:grid-cols-[minmax(0,270px)_minmax(0,1fr)_minmax(0,260px)] lg:items-end"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Badge */}
-          <motion.div
-            className="inline-flex items-center gap-3 mb-5"
-            variants={itemVariants}
-          >
-            <span className="px-3 py-1.5 text-xs font-semibold bg-accent-500/20 text-accent-300 rounded-full border border-accent-500/30">
-              Open to Work
-            </span>
-            <span className="text-gray-400 text-sm">Available for freelance projects</span>
+          <motion.div className="order-2 flex flex-col gap-6 lg:order-1 lg:pb-10" variants={itemVariants}>
+            <div className="flex flex-wrap gap-2">
+              {heroPills.map((pill) => (
+                <span
+                  key={pill}
+                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] text-gray-300"
+                >
+                  {pill}
+                </span>
+              ))}
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-gray-500">
+                  {personalData.professionalName}
+                </p>
+                <h1 className="max-w-[14ch] text-3xl font-semibold leading-[1.02] text-white sm:text-4xl lg:text-[3.2rem]">
+                  Building digital products with a sharper visual voice.
+                </h1>
+              </div>
+
+              <p className="max-w-[34ch] text-sm leading-relaxed text-gray-400 sm:text-[15px]">
+                {personalData.bio}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="relative inline-flex">
+                <motion.button
+                  ref={buttonRef}
+                  onClick={() => setIsCvDropdownOpen((current) => !current)}
+                  aria-expanded={isCvDropdownOpen}
+                  aria-haspopup="menu"
+                  className="group inline-flex items-center gap-3 rounded-full border border-white/16 bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08]"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
+                >
+                  Download CV
+                  <span
+                    className={`flex h-8 w-8 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
+                      }`}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </span>
+                </motion.button>
+              </div>
+
+              <motion.button
+                type="button"
+                onClick={() => scrollToSection('work')}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-gray-200 transition-colors duration-300 hover:border-white/20 hover:text-white"
+                whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                See selected work
+                <ArrowUpRight className="h-4 w-4" />
+              </motion.button>
+            </div>
+
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <MapPin className="h-4 w-4 text-accent-400" />
+              <span>{personalData.location}</span>
+            </div>
           </motion.div>
 
-          {/* Main heading - Balanced size */}
-          <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] mb-6"
-            variants={itemVariants}
+          <motion.div
+            className="order-1 flex min-h-[430px] items-center justify-center lg:order-2 lg:min-h-[680px]"
+            variants={glassEnterVariants}
           >
-            <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-              Aga
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-accent-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
-              Putra
-            </span>
-          </motion.h1>
+            <div className="relative flex h-full w-full items-center justify-center">
+              <div className="absolute inset-x-[6%] top-[18%] h-[34%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12)_0%,rgba(168,85,247,0.14)_26%,transparent_72%)] blur-3xl" />
+              <div className="absolute inset-x-[10%] bottom-[12%] h-[24%] rounded-full bg-[radial-gradient(circle,rgba(147,51,234,0.18)_0%,rgba(88,28,135,0.08)_46%,transparent_78%)] blur-[52px]" />
 
-          {/* Role/Title */}
-          <motion.p
-            className="text-gray-200 text-lg md:text-xl font-medium mb-3"
-            variants={itemVariants}
-          >
-            {personalData.title}
-          </motion.p>
+              <div className="relative flex w-full flex-col items-center text-center">
+                <div className="relative w-full max-w-[680px] py-12 sm:py-16">
+                  <motion.div
+                    className="relative top-10 mx-auto max-w-[560px] will-change-transform sm:top-14 lg:top-16"
+                    animate={{ x: [0, 10, 0, -8, 0], y: [0, -9, 3, -5, 0], rotate: [-1.5, -0.4, 1, 0.1, -1.5] }}
+                    transition={{ delay: 0.85, duration: 6.8, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <div className="flex flex-col items-center rounded-[32px] bg-white/[0.005] px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.34)] backdrop-blur-[2px] sm:px-10 sm:py-10">
+                      <div className="flex flex-col items-center">
+                        <span
+                          className={`${scriptFont.className} text-center text-[clamp(2.6rem,7vw,5.3rem)] leading-none text-accent-400/95`}
+                          style={{ textShadow: '0 0 28px rgba(168, 85, 247, 0.32)' }}
+                        >
+                          {heroAccentLines[0]}
+                        </span>
+                        <span
+                          className={`${scriptFont.className} -mt-[0.18em] text-center text-[clamp(2.3rem,6.2vw,4.6rem)] leading-none text-accent-300/92`}
+                          style={{ textShadow: '0 0 24px rgba(168, 85, 247, 0.24)' }}
+                        >
+                          {heroAccentLines[1]}
+                        </span>
+                      </div>
 
-          {/* Description */}
-          <motion.p
-            className="text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-md"
-            variants={itemVariants}
-          >
-            {personalData.bio}
-          </motion.p>
+                      <div className="my-5 h-px w-full max-w-[180px] bg-gradient-to-r from-transparent via-white/25 to-transparent sm:my-6" />
 
-          {/* CTA Button - Download CV with Dropdown */}
-          <motion.div variants={itemVariants} className="relative inline-block">
-            <motion.button
-              ref={buttonRef}
-              onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)}
-              className="group inline-flex items-center gap-3 px-6 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-white font-medium hover:bg-white/10 hover:border-accent-500/50"
-              whileHover={{ y: -4, scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-              style={{ transition: 'background-color 0.3s, border-color 0.3s' }}
-            >
-              Download CV
-              <span className={`flex items-center justify-center w-8 h-8 bg-accent-500 rounded-full transition-all duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''}`}>
-                <ChevronDown className="w-4 h-4" />
-              </span>
-            </motion.button>
+                      <p
+                        className={`${displayFont.className} text-center text-[clamp(1.2rem,2.6vw,2rem)] uppercase leading-[0.92] tracking-[0.08em] text-white`}
+                        style={{ textShadow: '0 12px 42px rgba(0, 0, 0, 0.36)' }}
+                      >
+                        {heroTagline}
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
-            {/* Dropdown Menu */}
-            <AnimatePresence>
-              {isCvDropdownOpen && (
+          <motion.div className="order-3 flex lg:justify-end lg:pb-10" variants={glassEnterVariants}>
+            <div className="grid w-full max-w-[260px] gap-4">
+              <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
+                <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
+                  Current focus
+                </p>
+                <p className="mt-4 text-2xl font-semibold leading-[1.02] text-white">
+                  Web interfaces that feel deliberate.
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-gray-400">
+                  Shipping React, Next.js, Go, and UI details that make products feel more premium.
+                </p>
+              </div>
+
+              <div className="rounded-[24px] border border-white/8 bg-black/20 p-5 text-sm text-gray-400">
+                <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
+                  Availability
+                </p>
+                <p className="mt-3 text-base font-medium text-white">Open for freelance work</p>
+                <p className="mt-2 leading-relaxed">
+                  Select projects, product collaborations, and frontend-heavy builds with strong visual polish.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {typeof window !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {isCvDropdownOpen && dropdownPosition && (
+              <div
+                className="fixed"
+                style={{
+                  top: dropdownPosition.top,
+                  left: dropdownPosition.left,
+                  transform: 'translateX(-50%)',
+                  zIndex: 80,
+                }}
+              >
                 <motion.div
                   ref={dropdownMenuRef}
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute top-full left-0 mt-3 w-56 bg-dark-800/95 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden z-50"
+                  className="w-56 overflow-hidden rounded-2xl border border-gray-700/50 bg-dark-800/95 shadow-2xl backdrop-blur-md"
                 >
                   <div className="py-2">
                     <a
                       href="/api/cv/english"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-accent-500/10 transition-all duration-200"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 transition-all duration-200 hover:bg-accent-500/10 hover:text-white"
                       onClick={() => setIsCvDropdownOpen(false)}
                     >
-                      <span className="flex items-center justify-center w-8 h-8 bg-accent-500/20 rounded-lg text-accent-400">
-                        <Globe className="w-4 h-4" />
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400">
+                        <Globe className="h-4 w-4" />
                       </span>
                       <div className="flex flex-col">
                         <span className="text-sm font-medium">English</span>
@@ -459,11 +356,11 @@ export const HeroSection: React.FC = () => {
                     </a>
                     <a
                       href="/api/cv/indonesian"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-accent-500/10 transition-all duration-200"
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 transition-all duration-200 hover:bg-accent-500/10 hover:text-white"
                       onClick={() => setIsCvDropdownOpen(false)}
                     >
-                      <span className="flex items-center justify-center w-8 h-8 bg-accent-500/20 rounded-lg text-accent-400">
-                        <Languages className="w-4 h-4" />
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400">
+                        <Languages className="h-4 w-4" />
                       </span>
                       <div className="flex flex-col">
                         <span className="text-sm font-medium">Indonesian</span>
@@ -472,22 +369,19 @@ export const HeroSection: React.FC = () => {
                     </a>
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </motion.div>
-      </div>
+              </div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
 
-      {/* Scroll Indicator - wrapped in container for proper centering */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center pointer-events-none">
+      <div className="pointer-events-none absolute bottom-8 left-0 right-0 flex justify-center">
         <div className="pointer-events-auto">
           <ScrollIndicator onClick={() => scrollToSection('expertise')} />
         </div>
       </div>
 
-      {/* Bottom fade to ensure smooth transition */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none" />
     </section>
   );
 };
-
