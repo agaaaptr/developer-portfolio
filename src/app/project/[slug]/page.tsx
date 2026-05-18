@@ -38,7 +38,7 @@ export default function ProjectDetailPage() {
   const isDark = theme === 'dark';
 
   const project = typedProjectsData.find((p: Project) => p.slug === slug);
-  
+
   const { prevProject, nextProject } = useMemo(() => {
     const currentIndex = typedProjectsData.findIndex((p: Project) => p.slug === slug);
     return {
@@ -50,6 +50,8 @@ export default function ProjectDetailPage() {
   if (!project) {
     notFound();
   }
+
+  const additionalImages = (project.images ?? []).filter((img) => img !== project.image);
 
   const categoryLabels: Record<string, string> = {
     web: 'Web Development',
@@ -262,12 +264,12 @@ export default function ProjectDetailPage() {
           </motion.div>
 
           {/* Additional Images */}
-          {project.images && project.images.length > 0 && (
+          {additionalImages.length > 0 && (
             <motion.div
               variants={itemVariants}
               className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
             >
-              {project.images.map((img, index) => (
+              {additionalImages.map((img, index) => (
                 <div
                   key={index}
                   className={`relative aspect-video rounded-lg sm:rounded-xl overflow-hidden border ${mediaSurface}`}
