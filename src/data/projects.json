@@ -4,11 +4,19 @@
     "slug": "tembusin",
     "title": "TembusIn",
     "category": "web",
-    "subCategories": ["Frontend Development"],
+    "subCategories": [
+      "Frontend Development"
+    ],
     "featured": false,
     "shortDescription": "Learning Management System for test preparation courses",
     "description": "A comprehensive Learning Management System providing courses for various test preparations including SNBT, TKA, CPNS, and PPPK. Developed the frontend for both admin and student interfaces, implementing responsive layouts following Figma design specifications. Integrated RESTful APIs with the backend to display real-time data from the database. Optimized animation performance and data flow to ensure smooth user experience with minimal bugs. Managed manual deployment of the frontend application to VPS server for production environment.",
-    "tech": ["React", "Vite", "TypeScript", "Tailwind CSS", "REST API"],
+    "tech": [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST API"
+    ],
     "role": "Frontend Development",
     "demo": "https://fe-tembusin.deecodesoftware.com/",
     "image": "/images/project-tembusin-1.webp",
@@ -24,11 +32,18 @@
     "slug": "salsation-cruise",
     "title": "Salsation Cruise",
     "category": "web",
-    "subCategories": ["WordPress", "UI/UX Design"],
+    "subCategories": [
+      "WordPress Development",
+      "UI/UX Design"
+    ],
     "featured": false,
     "shortDescription": "Premium cruise services with multi-language support",
     "description": "A website for premium cruise service offerings. Responsibilities included implementing multi-language translation pages for international visitors and integrating with the cruise booking system to provide seamless reservation experiences.",
-    "tech": ["WordPress", "Elementor", "WPML"],
+    "tech": [
+      "WordPress",
+      "Elementor",
+      "WPML"
+    ],
     "role": "WordPress Development",
     "demo": "https://www.salsationcruise.com/",
     "image": "/images/project-salsationcruise-1.webp",
@@ -43,11 +58,19 @@
     "slug": "cg-carworks",
     "title": "CG-Carworks",
     "category": "web",
-    "subCategories": ["WordPress", "UI/UX Design"],
+    "subCategories": [
+      "WordPress Development",
+      "UI/UX Design"
+    ],
     "featured": false,
     "shortDescription": "Automotive repair and modification services",
     "description": "A service website for automotive repair and modification. Responsibilities included designing and developing service pages using Elementor, creating responsive layouts, and optimizing content for search engine visibility to attract local customers.",
-    "tech": ["WordPress", "Elementor", "SEO", "Copywriting"],
+    "tech": [
+      "WordPress",
+      "Elementor",
+      "SEO",
+      "Copywriting"
+    ],
     "role": "WordPress Development",
     "demo": "https://www.cg-carworks.com/",
     "image": "/images/project-cgcarworks-1.webp",
@@ -63,11 +86,18 @@
     "slug": "deresto",
     "title": "DeResto",
     "category": "web",
-    "subCategories": ["WordPress", "UI/UX Design"],
+    "subCategories": [
+      "WordPress Development",
+      "UI/UX Design"
+    ],
     "featured": false,
     "shortDescription": "Premium car care and detailing services",
     "description": "A service website for premium car care including shampooing and detailing. Responsibilities included developing service showcase pages, designing layout with Elementor, and writing compelling service descriptions to effectively communicate value propositions to potential customers.",
-    "tech": ["WordPress", "Elementor", "Copywriting"],
+    "tech": [
+      "WordPress",
+      "Elementor",
+      "Copywriting"
+    ],
     "role": "WordPress Development",
     "demo": "https://www.deresto.eu/",
     "image": "/images/project-deresto-1.webp",
@@ -83,11 +113,18 @@
     "slug": "theextramile",
     "title": "The Extra Mile",
     "category": "web",
-    "subCategories": ["WordPress", "UI/UX Design"],
+    "subCategories": [
+      "WordPress Development",
+      "UI/UX Design"
+    ],
     "featured": false,
     "shortDescription": "Motorcycle rental services in Vietnam",
     "description": "A website for motorcycle rental services in Vietnam's tourism market. Responsibilities included designing responsive layouts using Elementor and optimizing the user experience for mobile-first design to accommodate the on-the-go booking needs of travelers.",
-    "tech": ["WordPress", "Elementor", "Responsive Design"],
+    "tech": [
+      "WordPress",
+      "Elementor",
+      "Responsive Design"
+    ],
     "role": "WordPress Development",
     "demo": "https://theextramile.co/",
     "image": "/images/project-theextramile-1.webp",
@@ -102,11 +139,19 @@
     "slug": "pelanbali",
     "title": "Pelan Pelan Bali",
     "category": "web",
-    "subCategories": ["WordPress", "UI/UX Design"],
+    "subCategories": [
+      "WordPress Development",
+      "UI/UX Design"
+    ],
     "featured": false,
     "shortDescription": "Surf camp and yoga retreat experiences in Bali",
     "description": "A website for surf camp and yoga retreat services in Bali. Responsibilities included designing visually appealing layouts, implementing SEO best practices to increase search visibility, and optimizing content to attract international tourists seeking unique wellness experiences.",
-    "tech": ["WordPress", "Elementor", "SEO", "Copywriting"],
+    "tech": [
+      "WordPress",
+      "Elementor",
+      "SEO",
+      "Copywriting"
+    ],
     "role": "WordPress Development",
     "demo": "https://pelanbali.com/",
     "image": "/images/project-pelanbali-1.webp",
@@ -123,12 +168,18 @@
     "slug": "owow",
     "title": "OWOW",
     "category": "web",
-    "subCategories": ["UI/UX Design"],
+    "subCategories": [
+      "UI/UX Design"
+    ],
     "featured": true,
     "shortDescription": "Professional software development service provider",
     "description": "A comprehensive platform for software development services, helping clients transform their business requirements into tailored digital solutions with a user-centered design approach. The platform showcases service offerings and facilitates client engagement for custom software projects.",
-    "tech": ["Figma", "Prototyping", "UI Design"],
-    "role": "UX/UX Design",
+    "tech": [
+      "Figma",
+      "Prototyping",
+      "UI Design"
+    ],
+    "role": "UI/UX Design",
     "demo": "https://owow.io/",
     "image": "/images/project-owow-1.webp",
     "images": [
@@ -145,11 +196,17 @@
     "slug": "dietpro",
     "title": "Diet Pro",
     "category": "mobile",
-    "subCategories": ["UI/UX Design"],
+    "subCategories": [
+      "UI/UX Design"
+    ],
     "featured": true,
     "shortDescription": "Health tracking application with calorie counter and informational feed",
     "description": "A comprehensive health tracking application developed in collaboration during university. Features include a daily calorie tracker to monitor nutritional intake, a curated timeline feed with health and fitness information, and progress tracking to help users achieve their diet goals effectively.",
-    "tech": ["Android", "Kotlin", "Figma"],
+    "tech": [
+      "Android",
+      "Kotlin",
+      "Figma"
+    ],
     "role": "UI/UX Design",
     "image": "/images/project-dietpro-1.webp",
     "images": [
