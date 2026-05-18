@@ -128,6 +128,7 @@
     "shortDescription": "Professional software development service provider",
     "description": "A comprehensive platform for software development services, helping clients transform their business requirements into tailored digital solutions with a user-centered design approach. The platform showcases service offerings and facilitates client engagement for custom software projects.",
     "tech": ["Figma", "Prototyping", "UI Design"],
+    "role": "UX/UX Design",
     "demo": "https://owow.io/",
     "image": "/images/project-owow-1.webp",
     "images": [
