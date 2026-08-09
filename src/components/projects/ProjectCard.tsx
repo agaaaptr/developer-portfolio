@@ -62,20 +62,22 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   size = 'medium'
 }) => {
   const sizeClasses = {
-    small: 'min-h-[280px]',
-    medium: 'min-h-[320px]',
-    large: 'min-h-[380px]',
+    small: 'min-h-[300px]',
+    medium: 'min-h-[350px]',
+    large: 'min-h-[420px]',
   };
 
   const categoryLabels: Record<string, string> = {
     web: 'Web Development',
     mobile: 'Mobile Development',
+    ai: 'AI Development',
   };
 
   const subCategoryLabels: Record<string, string> = {
     'Frontend Development': 'Frontend',
     'WordPress Development': 'WordPress',
     'UI/UX Design': 'UI/UX',
+    'DevTools': 'DevTools',
   };
 
   interface ProjectWithSubCategories extends Project {
@@ -103,14 +105,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
       >
         {/* Image or Placeholder */}
-        <div className="relative h-40 overflow-hidden bg-dark-300/50 md:h-48 [transform:translateZ(0)]">
+        <div className="relative aspect-video overflow-hidden bg-dark-300/50 [transform:translateZ(0)]">
           <div className="absolute inset-0 transform-gpu transition-transform duration-500 will-change-transform group-hover:scale-[1.04] [backface-visibility:hidden]">
             <ImageWithFallback
               src={project.image}
               alt={project.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover [backface-visibility:hidden] [transform:translateZ(0)]"
+              className="object-contain [backface-visibility:hidden] [transform:translateZ(0)]"
               isDark={true}
             />
 

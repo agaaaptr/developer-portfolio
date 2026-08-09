@@ -5,11 +5,11 @@ export const runtime = 'edge';
 const CV_FILES = {
   english: {
     path: '/documents/cv-english.pdf',
-    filename: 'CV_Aga_Putra_English.pdf',
+    filename: 'Aga_Putra_Software_Engineer_CV_EN.pdf',
   },
   indonesian: {
     path: '/documents/cv-indonesian.pdf',
-    filename: 'CV_Aga_Putra_Indonesian.pdf',
+    filename: 'Aga_Putra_Software_Engineer_CV_ID.pdf',
   },
 };
 

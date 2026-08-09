@@ -155,21 +155,19 @@ export const ContactSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                Available for select<br />
-                <span className="text-accent-400">freelance opportunities</span>
+                Let&apos;s build something<br />
+                <span className="text-accent-400">together</span>
               </h2>
               <p className="font-mono text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
                 <span className="sm:hidden">
-                  Have an exciting project you need help with? Send me an email or contact me via instant message!
+                  Full-time role, freelance project, or remote work — send me an email or contact me via instant message!
                 </span>
                 <span className="hidden sm:inline">
-                  Have an exciting project you need
+                  Full-time role, freelance project, or
                   <br />
-                  help with?
+                  remote work — send me an email
                   <br />
-                  Send me an email or contact me via
-                  <br />
-                  instant message!
+                  or contact me via instant message!
                 </span>
               </p>
             </motion.div>

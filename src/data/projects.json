@@ -1,5 +1,37 @@
 [
   {
+    "id": 9,
+    "slug": "noir",
+    "title": "Noir",
+    "category": "ai",
+    "subCategories": [
+      "DevTools"
+    ],
+    "featured": true,
+    "shortDescription": "The discipline, context, and memory layer for any agentic CLI",
+    "description": "An 11-package pnpm monorepo that serves as a host-agnostic orchestration layer for AI coding agents. Noir provides three core capabilities: a spec-driven development workflow (idea → spec → plan → implement → verify), a hybrid retrieval engine combining BM25 and vector kNN with Reciprocal Rank Fusion for working context, and cross-session memory with full governance including audit trail and governed deletion. Features an interactive Ink-based terminal dashboard, a persistent MCP server daemon, 34 built-in skills, and adapters for 5 AI coding hosts. Published as @noir-ai/cli on npm with native installers for macOS, Linux, and Windows. Entirely local-first and privacy-by-construction — no data ever leaves the machine without explicit opt-in.",
+    "tech": [
+      "TypeScript",
+      "Node.js",
+      "pnpm",
+      "SQLite",
+      "Ink",
+      "React",
+      "Biome",
+      "Vitest",
+      "MCP",
+      "Anthropic SDK"
+    ],
+    "role": "Developer",
+    "github": "https://github.com/agaaaptr/noir",
+    "image": "/images/project-noir-1.png",
+    "images": [
+      "/images/project-noir-1.png",
+      "/images/project-noir-2.png",
+      "/images/project-noir-3.png"
+    ]
+  },
+  {
     "id": 8,
     "slug": "tembusin",
     "title": "TembusIn",

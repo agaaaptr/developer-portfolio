@@ -56,6 +56,7 @@ export default function ProjectDetailPage() {
   const categoryLabels: Record<string, string> = {
     web: 'Web Development',
     mobile: 'Mobile Development',
+    ai: 'AI Development',
   };
 
   const containerVariants = {
@@ -257,7 +258,7 @@ export default function ProjectDetailPage() {
               alt={project.title}
               fill
               sizes="100vw"
-              className="object-cover"
+              className="object-contain"
               priority
               isDark={isDark}
             />
@@ -279,7 +280,7 @@ export default function ProjectDetailPage() {
                     alt={`${project.title} screenshot ${index + 1}`}
                     fill
                     sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
+                    className="object-contain"
                     isDark={isDark}
                   />
                 </div>

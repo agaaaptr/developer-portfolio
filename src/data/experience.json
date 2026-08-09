@@ -2,67 +2,83 @@
     "experience": [
         {
             "id": 1,
-            "company": "Freelance",
-            "position": "Frontend Developer",
-            "duration": "2025 – Present",
-            "location": "Remote",
-            "website": "",
-            "description": "Delivering high-quality frontend solutions with a focus on modern React and Next.js development. Specializing in translating Figma designs into pixel-perfect, responsive code with smooth animations and contemporary visual effects.",
-            "achievements": [
-                "Fast and accurate project delivery",
-                "Precise translation of Figma designs into production code",
-                "Implementation of modern animations and visual effects"
-            ],
-            "technologies": [
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Tailwind CSS",
-                "Framer Motion"
-            ]
-        },
-        {
-            "id": 2,
-            "company": "BSI Islamic University of Indonesia",
+            "company": "BSI UII",
             "position": "Software Engineer",
-            "duration": "2024 – Present",
+            "duration": "Oct 2024 – Present",
             "location": "Yogyakarta, Indonesia",
             "website": "https://bsi.uii.ac.id/",
-            "description": "Developing and maintaining web applications with full-stack responsibilities. Building scalable frontend solutions with Angular and implementing backend services with Go and Gin framework.",
+            "description": "Full-stack engineer building scalable enterprise web applications — architecting responsive Angular frontends backed by secure Go & Gin services, delivering end-to-end features from design to production.",
             "achievements": [
-                "Full-stack development for enterprise applications",
-                "Scalable API development with Go and Gin",
-                "Responsive UI development with Angular and TypeScript"
+                "Design, develop, and maintain scalable web applications across both frontend (Angular, TypeScript) and backend (Go, Gin, MySQL) environments",
+                "Design and implement modular, reusable UI components while maintaining high performance, responsiveness, and cross-browser compatibility",
+                "Build and integrate RESTful APIs, including data flow management, validation, and state management for dynamic application features",
+                "Improve application performance, reliability, and maintainability through code refactoring, best practices, and efficient database query management",
+                "Collaborate cross-functionally with designers and engineers to define system requirements, align architectural decisions, and deliver end-to-end solutions"
             ],
             "technologies": [
                 "Angular",
                 "TypeScript",
-                "SCSS",
-                "Bootstrap",
                 "Go",
                 "Gin",
-                "MySQL"
+                "MySQL",
+                "REST API"
+            ]
+        },
+        {
+            "id": 2,
+            "company": "Softwaredeecode",
+            "position": "Front-End Developer (Freelance)",
+            "duration": "Nov 2025 – Apr 2026",
+            "location": "Remote",
+            "website": "",
+            "description": "Freelance frontend developer shipping production-ready React solutions — translating Figma designs into pixel-perfect, high-performance interfaces with clean architecture clients trust.",
+            "achievements": [
+                "Developed scalable and high-performance frontend solutions using React, Vite, TypeScript, and Tailwind CSS, with a strong focus on clean architecture and maintainability",
+                "Translated Figma designs into pixel-perfect, responsive interfaces featuring modern UI patterns and smooth user interactions",
+                "Integrated RESTful APIs and collaborated directly with clients to deliver efficient, production-ready features aligned with business requirements"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "TypeScript",
+                "Tailwind CSS",
+                "REST API"
             ]
         },
         {
             "id": 3,
-            "company": "Terra Code",
-            "position": "Frontend Developer (WordPress)",
-            "duration": "2022 – 2023",
+            "company": "TerraCode",
+            "position": "Web Developer (WordPress)",
+            "duration": "Oct 2023 – Jan 2024",
             "location": "Remote",
-            "website": "https://terracode.io/",
-            "description": "Built custom components with Elementor plugin for clients around the world. Achieved a client satisfaction rating of 4.8/5 and successfully delivered 15+ client projects.",
+            "website": "",
+            "description": "Delivered polished WordPress websites for international clients — designing corporate profiles and e-commerce platforms with Elementor, tailored to client requirements.",
             "achievements": [
-                "Client satisfaction rating of 4.8/5",
-                "Successfully delivered 15+ client projects",
-                "Optimized website loading times by 30%"
+                "Managed websites for international clients using WordPress and Elementor",
+                "Designed and developed websites, including corporate profiles and e-commerce platforms, based on client requirements using WordPress and Elementor"
             ],
             "technologies": [
                 "WordPress",
-                "Elementor",
-                "PHP",
-                "JavaScript",
-                "CSS"
+                "Elementor"
+            ]
+        },
+        {
+            "id": 4,
+            "company": "Diet Pro",
+            "position": "UI/UX Designer",
+            "duration": "Jun 2023 – Sep 2023",
+            "location": "Remote",
+            "website": "",
+            "description": "Designed the UI/UX for a health-tracking Android app — from low-fidelity wireframes to high-fidelity mockups, shaping an intuitive experience for calorie tracking.",
+            "achievements": [
+                "Created low-fidelity wireframes and high-fidelity mockups for Android applications using Whimsical and Figma",
+                "Designed Android application interfaces and translated UI designs into XML layouts using Android Studio",
+                "Continuously optimized the user interface to improve usability and provide intuitive navigation"
+            ],
+            "technologies": [
+                "Figma",
+                "Whimsical",
+                "Android Studio"
             ]
         }
     ]

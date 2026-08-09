@@ -11,9 +11,9 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 const displayFont = Anton({ subsets: ['latin'], weight: '400', display: 'swap' });
 const scriptFont = Caveat({ subsets: ['latin'], weight: ['700'], display: 'swap' });
-const heroPills = ['Frontend Systems', 'Go APIs', 'Editorial UI'];
-const heroAccentLines = ['Frontend craft', 'with precision'];
-const heroTagline = 'Built for modern products.';
+const heroPills = ['Frontend Systems', 'Go APIs'];
+const heroAccentLines = ['Software', 'Engineer'];
+const heroTagline = 'From UI to API.';
 
 const containerVariants = {
   hidden: {},
@@ -59,7 +59,7 @@ export const HeroSection: React.FC = () => {
   const primaryName = nameParts[0] ?? personalData.professionalName;
   const secondaryName = nameParts.slice(1).join(' ');
   const heroDescription = isCompactLayout
-    ? 'Crafting performant, accessible web experiences with modern frontend systems and polished UI detail.'
+    ? 'Full-stack engineer — Angular & React frontends, Go & MySQL backends.'
     : personalData.bio;
   const floatingGlassPanelClasses = 'bg-white/[0.014] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-[2px] sm:bg-white/[0.01] lg:bg-white/[0.005]';
   const focusGlassCardClasses = 'border border-white/10 bg-white/[0.04] backdrop-blur-xl';
@@ -214,8 +214,8 @@ export const HeroSection: React.FC = () => {
                 <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-gray-500">
                   {personalData.professionalName}
                 </p>
-                <h1 className="mx-auto max-w-[11ch] text-[clamp(2.4rem,11vw,4.2rem)] font-semibold leading-[0.98] text-white sm:max-w-[12ch] lg:mx-0 lg:max-w-[14ch] lg:text-[3.2rem]">
-                  Building digital products with a sharper visual voice.
+                <h1 className="mx-auto max-w-[20ch] text-[clamp(2.4rem,11vw,4.2rem)] font-semibold leading-[1.05] text-balance text-white sm:max-w-[22ch] lg:mx-0 lg:max-w-[24ch] lg:text-[3.2rem]">
+                  Full-stack engineer shipping Angular & React apps backed by Go.
                 </h1>
               </div>
 
@@ -317,10 +317,10 @@ export const HeroSection: React.FC = () => {
                   Current focus
                 </p>
                 <p className="mt-4 text-xl font-semibold leading-[1.02] text-white sm:text-2xl">
-                  Web interfaces that feel deliberate.
+                  Angular, React & Go.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-gray-400">
-                  Shipping React, Next.js, Go, and UI details that make products feel more premium.
+                  Building responsive frontends and REST APIs end-to-end.
                 </p>
               </div>
 
@@ -328,9 +328,9 @@ export const HeroSection: React.FC = () => {
                 <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
                   Availability
                 </p>
-                <p className="mt-3 text-base font-medium text-white">Open for freelance work</p>
+                <p className="mt-3 text-base font-medium text-white">Open to new opportunities</p>
                 <p className="mt-2 leading-relaxed">
-                  Select projects, product collaborations, and frontend-heavy builds with strong visual polish.
+                  Full-time, freelance, or remote.
                 </p>
               </div>
             </div>

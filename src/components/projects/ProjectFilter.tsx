@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export type ProjectCategory = 'all' | 'web' | 'mobile';
+export type ProjectCategory = 'all' | 'web' | 'mobile' | 'ai';
 
 interface FilterOption {
   id: ProjectCategory;
@@ -62,7 +62,7 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
           }}
         >
           <span className="hidden sm:inline">{option.label}</span>
-          <span className="sm:hidden">{option.id === 'all' ? 'All' : option.id === 'web' ? 'Web' : 'Mobile'}</span>
+          <span className="sm:hidden">{option.id === 'all' ? 'All' : option.id === 'web' ? 'Web' : option.id === 'ai' ? 'AI' : 'Mobile'}</span>
           <sup className="ml-0.5 sm:ml-1 text-[10px] sm:text-xs opacity-70">
             {option.count.toString().padStart(2, '0')}
           </sup>

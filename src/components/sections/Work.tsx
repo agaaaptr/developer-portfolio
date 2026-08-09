@@ -23,11 +23,13 @@ export const WorkSection: React.FC = () => {
     const allCount = projectsData.length;
     const webCount = projectsData.filter(p => p.category === 'web').length;
     const mobileCount = projectsData.filter(p => p.category === 'mobile').length;
+    const aiCount = projectsData.filter(p => p.category === 'ai').length;
 
     return [
       { id: 'all' as ProjectCategory, label: 'All', count: allCount },
       { id: 'web' as ProjectCategory, label: 'Web Development', count: webCount },
       { id: 'mobile' as ProjectCategory, label: 'Mobile Development', count: mobileCount },
+      { id: 'ai' as ProjectCategory, label: 'AI Development', count: aiCount },
     ];
   }, []);
 
