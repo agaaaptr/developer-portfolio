@@ -5,7 +5,7 @@
             "icon": "monitor",
             "title": "Frontend Development",
             "subtitle": "React, Next.js, Angular",
-            "description": "Passionate about crafting responsive and performant user interfaces with modern JavaScript frameworks. Proficient in building scalable web applications using React ecosystem, Next.js for SSR, and Angular for enterprise solutions. Strong foundation in semantic HTML, CSS, and TypeScript.",
+            "description": "Building responsive user interfaces with React, Next.js, and Angular. Focused on component architecture, TypeScript, and semantic HTML/CSS that hold up in production.",
             "technologies": ["React", "Next.js", "Angular", "TypeScript", "HTML5", "CSS3"]
         },
         {
@@ -13,7 +13,7 @@
             "icon": "terminal",
             "title": "Backend Development",
             "subtitle": "Go, Gin, MySQL",
-            "description": "Experienced in building robust and high-performance RESTful APIs using Go with Gin framework. Skilled in database design, query optimization, and data management with MySQL. Focused on clean architecture, efficient code, and scalable backend solutions.",
+            "description": "Building RESTful APIs with Go and Gin, backed by MySQL. Focused on clean architecture, query optimization, and data integrity.",
             "technologies": ["Go", "Gin", "MySQL", "REST API", "SQL"]
         },
         {
@@ -21,7 +21,7 @@
             "icon": "pen-tool",
             "title": "UI/UX Design",
             "subtitle": "Figma, Prototyping",
-            "description": "Combining technical expertise with design thinking to create intuitive and visually appealing user experiences. Proficient in using Figma for designing interfaces, creating interactive prototypes, and conducting user testing for Android applications. Bridging the gap between design and development.",
+            "description": "Designing interfaces and prototypes with Figma and Whimsical, from low-fidelity wireframes to Android app layouts.",
             "technologies": ["Figma", "Prototyping", "User Research", "Wireframing", "Android Design"]
         }
     ]

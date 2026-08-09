@@ -143,7 +143,7 @@ const snippetLines: Array<{ id: string; depth: number; content: React.ReactNode 
     content: (
       <>
         <span className="text-[#b5179e]/45">&lt;title&gt;</span>
-        <span style={subtleTitleTextStyle}>What do I do</span>
+        <span style={subtleTitleTextStyle}>What I do</span>
         <span className="text-[#b5179e]/45">&lt;/title&gt;</span>
       </>
     ),
@@ -172,7 +172,7 @@ const snippetLines: Array<{ id: string; depth: number; content: React.ReactNode 
     content: (
       <>
         <span className="text-[#b5179e]/45">&lt;h1&gt;</span>
-        <span style={subtleHeadingTextStyle}>Things I do to build polished digital products</span>
+        <span style={subtleHeadingTextStyle}>Frontend to backend, end to end</span>
         <span className="text-[#b5179e]/45">&lt;/h1&gt;</span>
       </>
     ),

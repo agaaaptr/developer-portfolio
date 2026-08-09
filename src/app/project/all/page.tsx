@@ -20,11 +20,13 @@ export default function AllProjectsPage() {
     const allCount = indexedProjects.length;
     const webCount = indexedProjects.filter(p => p.category === 'web').length;
     const mobileCount = indexedProjects.filter(p => p.category === 'mobile').length;
+    const aiCount = indexedProjects.filter(p => p.category === 'ai').length;
 
     return [
       { id: 'all' as ProjectCategory, label: 'All', count: allCount },
       { id: 'web' as ProjectCategory, label: 'Web Development', count: webCount },
       { id: 'mobile' as ProjectCategory, label: 'Mobile Development', count: mobileCount },
+      { id: 'ai' as ProjectCategory, label: 'AI Development', count: aiCount },
     ];
   }, [indexedProjects]);
 
