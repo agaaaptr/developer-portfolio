@@ -77,7 +77,7 @@ cv:
         highlights:
           - "IPK: 3.58/4.00"
 design:
-  theme: classic
+  theme: engineeringresumes
   page:
     size: a4
     show_top_note: false

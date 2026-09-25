@@ -64,25 +64,6 @@
                 "WordPress",
                 "Elementor"
             ]
-        },
-        {
-            "id": 4,
-            "company": "Diet Pro",
-            "position": "UI/UX Designer",
-            "duration": "Jun 2023 – Sep 2023",
-            "location": "Remote",
-            "website": "",
-            "description": "Designed the UI/UX for a health-tracking Android app, from low-fidelity wireframes to high-fidelity mockups.",
-            "achievements": [
-                "Created low-fidelity wireframes and high-fidelity mockups for Android applications using Whimsical and Figma",
-                "Designed Android application interfaces and translated UI designs into XML layouts using Android Studio",
-                "Continuously optimized the user interface to improve usability and provide intuitive navigation"
-            ],
-            "technologies": [
-                "Figma",
-                "Whimsical",
-                "Android Studio"
-            ]
         }
     ]
 }

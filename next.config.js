@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'your-domain.com',
+        hostname: 'aga-putra.vercel.app',
         port: '',
         pathname: '/**',
       },
