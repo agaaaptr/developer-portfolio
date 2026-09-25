@@ -59,7 +59,7 @@ export const HeroSection: React.FC = () => {
   const primaryName = nameParts[0] ?? personalData.professionalName;
   const secondaryName = nameParts.slice(1).join(' ');
   const heroDescription = isCompactLayout
-    ? 'Full-stack engineer — Angular & React frontends, Go & MySQL backends.'
+    ? 'Full-stack engineer · Angular, TypeScript & Go'
     : personalData.bio;
   const floatingGlassPanelClasses = 'bg-white/[0.014] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-[2px] sm:bg-white/[0.01] lg:bg-white/[0.005]';
   const focusGlassCardClasses = 'border border-white/10 bg-white/[0.04] backdrop-blur-xl';

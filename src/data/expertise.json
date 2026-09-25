@@ -13,7 +13,7 @@
             "icon": "terminal",
             "title": "Backend Development",
             "subtitle": "Go, Gin, MySQL",
-            "description": "Building RESTful APIs with Go and Gin, backed by MySQL. Focused on clean architecture, query optimization, and data integrity.",
+            "description": "Building RESTful APIs with Go and Gin, backed by MySQL. Focused on query optimization and data integrity.",
             "technologies": ["Go", "Gin", "MySQL", "REST API", "SQL"]
         },
         {

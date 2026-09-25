@@ -2,24 +2,27 @@
     "experience": [
         {
             "id": 1,
-            "company": "BSI UII",
+            "company": "Badan Sistem Informasi, Universitas Islam Indonesia",
             "position": "Software Engineer",
             "duration": "Oct 2024 – Present",
             "location": "Yogyakarta, Indonesia",
             "website": "https://bsi.uii.ac.id/",
-            "description": "Full-stack engineer building scalable enterprise web applications — architecting responsive Angular frontends backed by secure Go & Gin services, delivering end-to-end features from design to production.",
+            "description": "Full-stack engineer building university-wide systems in Angular, TypeScript, and Go. Focused on the structural work: CI pipelines, database optimization, and internal tooling.",
             "achievements": [
-                "Design, develop, and maintain scalable web applications across both frontend (Angular, TypeScript) and backend (Go, Gin, MySQL) environments",
-                "Design and implement modular, reusable UI components while maintaining high performance, responsiveness, and cross-browser compatibility",
-                "Build and integrate RESTful APIs, including data flow management, validation, and state management for dynamic application features",
-                "Improve application performance, reliability, and maintainability through code refactoring, best practices, and efficient database query management",
-                "Collaborate cross-functionally with designers and engineers to define system requirements, align architectural decisions, and deliver end-to-end solutions"
+                "Rebuilt the GitLab CI deployment pipeline for a 20+ module Angular platform backed by 13 REST endpoints, cutting release time from 20–30 minutes to 1–3 minutes; adopted as the standard across 7 engineering teams",
+                "Cut MySQL queries that regularly timed out from up to a minute to under 10 seconds, using composite indexes and N+1 query elimination on Go/Gin and PHP/Lumen backends",
+                "Converted a 66,000-line Angular library to full Indonesian and English support: 53 templates, 1,718 bindings, and 619 dictionary keys. Authored the migration schema and a file-by-file pre-work audit",
+                "De-duplicated 7 near-identical submission-form modules and eliminated RxJS subscription leaks and race conditions across partnership components",
+                "Designed multi-level RBAC routing with 21 per-role workflow components",
+                "Authored the team's engineering standards, development workflow guide, and release-versioning model: 120 KB of documentation that now governs multi-environment releases"
             ],
             "technologies": [
                 "Angular",
                 "TypeScript",
                 "Go",
                 "Gin",
+                "PHP",
+                "Lumen",
                 "MySQL",
                 "REST API"
             ]
@@ -31,11 +34,11 @@
             "duration": "Nov 2025 – Apr 2026",
             "location": "Remote",
             "website": "",
-            "description": "Freelance frontend developer shipping production-ready React solutions — translating Figma designs into pixel-perfect, high-performance interfaces with clean architecture clients trust.",
+            "description": "Freelance frontend work in React, Vite, TypeScript, and Tailwind CSS, shipped alongside a full-time role.",
             "achievements": [
-                "Developed scalable and high-performance frontend solutions using React, Vite, TypeScript, and Tailwind CSS, with a strong focus on clean architecture and maintainability",
-                "Translated Figma designs into pixel-perfect, responsive interfaces featuring modern UI patterns and smooth user interactions",
-                "Integrated RESTful APIs and collaborated directly with clients to deliver efficient, production-ready features aligned with business requirements"
+                "Developed the admin and student frontends of TembusIn, a 4-track exam-prep LMS (SNBT, TKA, CPNS, PPPK), in React, Vite, TypeScript, and Tailwind CSS. Live at fe-tembusin.deecodesoftware.com",
+                "Translated Figma specs into responsive interfaces and integrated REST APIs with typed clients and skeleton loading states",
+                "Optimized animation performance and deployed the production build to a VPS"
             ],
             "technologies": [
                 "React",
@@ -48,14 +51,14 @@
         {
             "id": 3,
             "company": "TerraCode",
-            "position": "Web Developer (WordPress)",
+            "position": "Web Developer",
             "duration": "Oct 2023 – Jan 2024",
             "location": "Remote",
             "website": "",
-            "description": "Delivered polished WordPress websites for international clients — designing corporate profiles and e-commerce platforms with Elementor, tailored to client requirements.",
+            "description": "WordPress sites for international clients using Elementor and WPML.",
             "achievements": [
-                "Managed websites for international clients using WordPress and Elementor",
-                "Designed and developed websites, including corporate profiles and e-commerce platforms, based on client requirements using WordPress and Elementor"
+                "Delivered 5 client websites in WordPress and Elementor across Indonesian, Vietnamese, and European markets",
+                "Built a WPML multilingual cruise-booking site and ran on-page SEO campaigns for lead-generation sites: salsationcruise.com, deresto.eu, theextramile.co, cg-carworks.com, and pelanbali.com"
             ],
             "technologies": [
                 "WordPress",
@@ -69,7 +72,7 @@
             "duration": "Jun 2023 – Sep 2023",
             "location": "Remote",
             "website": "",
-            "description": "Designed the UI/UX for a health-tracking Android app — from low-fidelity wireframes to high-fidelity mockups, shaping an intuitive experience for calorie tracking.",
+            "description": "Designed the UI/UX for a health-tracking Android app, from low-fidelity wireframes to high-fidelity mockups.",
             "achievements": [
                 "Created low-fidelity wireframes and high-fidelity mockups for Android applications using Whimsical and Figma",
                 "Designed Android application interfaces and translated UI designs into XML layouts using Android Studio",

@@ -7,6 +7,7 @@
             "Next.js",
             "TypeScript",
             "Tailwind CSS",
+            "Vite",
             "HTML5",
             "CSS3"
         ]
@@ -16,28 +17,26 @@
         "items": [
             "Go",
             "Gin",
-            "MySQL",
-            "Node.js",
-            "Express"
+            "PHP",
+            "Lumen",
+            "Node.js"
         ]
     },
     {
         "category": "Tools",
         "items": [
             "Git",
-            "Docker",
             "Figma",
             "Vercel",
-            "AWS"
+            "WordPress",
+            "Supabase"
         ]
     },
     {
         "category": "Databases",
         "items": [
             "MySQL",
-            "PostgreSQL",
-            "MongoDB",
-            "Redis"
+            "PostgreSQL"
         ]
     }
 ]

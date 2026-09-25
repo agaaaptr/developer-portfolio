@@ -9,7 +9,7 @@
     ],
     "featured": true,
     "shortDescription": "The discipline, context, and memory layer for any agentic CLI",
-    "description": "An 11-package pnpm monorepo that serves as a host-agnostic orchestration layer for AI coding agents. Noir provides three core capabilities: a spec-driven development workflow (idea → spec → plan → implement → verify), a hybrid retrieval engine combining BM25 and vector kNN with Reciprocal Rank Fusion for working context, and cross-session memory with full governance including audit trail and governed deletion. Features an interactive Ink-based terminal dashboard, a persistent MCP server daemon, 34 built-in skills, and adapters for 5 AI coding hosts. Published as @noir-ai/cli on npm with native installers for macOS, Linux, and Windows. Entirely local-first and privacy-by-construction — no data ever leaves the machine without explicit opt-in.",
+    "description": "An 11-package pnpm monorepo that serves as a host-agnostic orchestration layer for AI coding agents. Noir provides three core capabilities: a spec-driven development workflow (idea → spec → plan → implement → verify), a hybrid retrieval engine combining BM25 and vector kNN with Reciprocal Rank Fusion for working context, and cross-session memory with full governance including audit trail and governed deletion. Features an interactive Ink-based terminal dashboard, a persistent MCP server daemon, 27 built-in skills, and adapters for 5 AI coding hosts. Published as @noir-ai/cli on npm with native installers for macOS, Linux, and Windows. Entirely local-first and privacy-by-construction, with no data leaving the machine without explicit opt-in.",
     "tech": [
       "TypeScript",
       "Node.js",
@@ -41,7 +41,7 @@
     ],
     "featured": false,
     "shortDescription": "Learning Management System for test preparation courses",
-    "description": "A comprehensive Learning Management System providing courses for various test preparations including SNBT, TKA, CPNS, and PPPK. Developed the frontend for both admin and student interfaces, implementing responsive layouts following Figma design specifications. Integrated RESTful APIs with the backend to display real-time data from the database. Optimized animation performance and data flow to ensure smooth user experience with minimal bugs. Managed manual deployment of the frontend application to VPS server for production environment.",
+    "description": "A comprehensive Learning Management System providing courses for various test preparations including SNBT, TKA, CPNS, and PPPK. Developed the frontend for both admin and student interfaces, implementing responsive layouts following Figma design specifications. Integrated RESTful APIs with the backend to display real-time data from the database. Optimized animation performance and data flow to keep the UI responsive, then deployed the frontend to a VPS.",
     "tech": [
       "React",
       "Vite",
