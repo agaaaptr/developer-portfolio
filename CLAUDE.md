@@ -19,17 +19,16 @@ This is a single-page portfolio website built with Next.js 16 (App Router), Reac
 
 - **Single-page application**: All sections rendered on one page with smooth scrolling navigation
 - **Dynamic imports**: All sections are dynamically imported with `ssr: false` to avoid hydration issues with framer-motion animations
-- **Client-side rendering**: Root layout wraps content in client components for state management (loading overlay, background manager, scroll tracking)
+- **Client-side rendering**: Root layout wraps content in client components for state management (theme, scroll tracking)
 
 ### Key Directories
 
 - `src/app/` - Next.js App Router (layout.tsx, page.tsx, globals.css)
-- `src/components/sections/` - Hero, About, Skills, Experience, Projects, Capabilities, Contact
-- `src/components/layout/` - Header, Footer, RootLayoutClient, BodyWrapper, LoadingOverlay, BackgroundManager
-- `src/components/ui/` - Reusable UI components (Button, Card, GradientCard, ShowMoreButton, ScrollToTopButton)
-- `src/lib/animations/variants.ts` - Shared framer-motion animation variants
-- `src/lib/hooks/` - Custom hooks (useSectionTracker, useMediaQuery, useTouchDevice, useAutofill)
-- `src/data/` - JSON data files for content (personal, skills, experience, projects, capabilities)
+- `src/components/sections/` - Hero, Expertise, Work, Experience, Contact
+- `src/components/layout/` - Header, Footer, RootLayoutClient, BodyWrapper
+- `src/components/ui/` - Reusable UI components (Accordion, ImageWithFallback, ScrollIndicator, ScrollToTopButton, SectionGridBackground)
+- `src/lib/hooks/` - Custom hooks (useMediaQuery, useTouchDevice, useScrollDirection)
+- `src/data/` - JSON data files for content (personal, skills, experience, projects, expertise)
 
 ### Content Management
 
@@ -37,10 +36,7 @@ Content is managed through JSON files in `src/data/`. To update portfolio inform
 
 ### Animation System
 
-Uses framer-motion with shared variants defined in `variants.ts`:
-- `containerVariants` - For parent containers with staggered children
-- `itemVariants` - Standard fade-in with Y translation
-- `cardItemVariants` - For cards with entrance/exit animations
+Uses framer-motion with per-component animation variants defined inline in each section and page (for example `containerVariants` and `itemVariants` in `src/components/sections/Hero.tsx` and the project pages). There is no shared variants module.
 
 **Important**: When adding animations with `type: "spring"`, use `as const` assertion for TypeScript compatibility with React 19:
 ```typescript
@@ -57,10 +53,6 @@ transition: { type: "spring" as const, stiffness: 300, damping: 20 }
 ### Icon Conventions
 
 Uses lucide-react ^1.7.0 (see package.json). GitHub, LinkedIn, and Instagram brand icons are locally defined SVG components (`GithubIcon`, `LinkedinIcon`, `InstagramIcon`), not lucide imports, so there are no lucide brand-icon names to migrate.
-
-### Section Tracking
-
-The `useSectionTracker` hook manages scroll-based section tracking for the "Return to Previous Section" button. It tracks sections defined in the `sectionMap` object within the hook.
 
 ### Touch Device Handling
 

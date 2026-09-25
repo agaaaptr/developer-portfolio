@@ -4,7 +4,7 @@ This file provides context for the Gemini CLI to understand and work with this p
 
 ## Project Overview
 
-This is a personal developer portfolio website built with Next.js, TypeScript, and Tailwind CSS. It includes sections for about, capabilities, contact, experience, hero, projects, and skills.
+This is a personal developer portfolio website built with Next.js, TypeScript, and Tailwind CSS. It includes sections for home, expertise, work, experience, and contact.
 
 ## Tech Stack
 
@@ -29,9 +29,9 @@ This is a personal developer portfolio website built with Next.js, TypeScript, a
 
 - `src/app/`: Main application pages, layout, and API routes.
 - `src/components/`: Reusable React components, organized into `layout`, `sections`, and `ui`.
-- `src/data/`: JSON files containing portfolio data (experience, personal, projects, skills).
+- `src/data/`: JSON files containing portfolio data (experience, expertise, personal, projects, skills).
 - `src/lib/`: Utility functions or libraries.
-- `src/styles/`: Global styles.
+- `src/app/globals.css`: Global styles.
 - `public/`: Static assets like images, robots.txt, and sitemap.xml.
 - `next.config.js`: Next.js configuration.
 - `tailwind.config.js`: Tailwind CSS configuration.

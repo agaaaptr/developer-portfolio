@@ -23,8 +23,6 @@ interface Project {
   shortDescription?: string;
   tech: string[];
   role?: string;
-  client?: string;
-  strategy?: string;
   github?: string;
   npm?: string;
   demo?: string;
@@ -200,12 +198,6 @@ export default function ProjectDetailPage() {
               <div className={`p-4 sm:p-6 rounded-lg sm:rounded-xl border ${cardSurface}`}>
                 <p className={`text-xs sm:text-sm mb-1.5 sm:mb-2 ${cardLabel}`}>Role</p>
                 <p className={`font-medium text-sm sm:text-base ${cardValue}`}>{project.role}</p>
-              </div>
-            )}
-            {project.client && (
-              <div className={`p-4 sm:p-6 rounded-lg sm:rounded-xl border ${cardSurface}`}>
-                <p className={`text-xs sm:text-sm mb-1.5 sm:mb-2 ${cardLabel}`}>Client</p>
-                <p className={`font-medium text-sm sm:text-base ${cardValue}`}>{project.client}</p>
               </div>
             )}
           </motion.div>
