@@ -74,7 +74,7 @@ export const ContactSection: React.FC = () => {
       name: 'GitHub', 
       url: `https://github.com/${personalData.socials.github}`, 
       icon: GithubIcon,
-      label: 'Github'
+      label: 'GitHub'
     },
     { 
       name: 'LinkedIn', 
@@ -160,12 +160,12 @@ export const ContactSection: React.FC = () => {
               </h2>
               <p className="font-mono text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
                 <span className="sm:hidden">
-                  Full-time role, freelance project, or remote work — send me an email or contact me via instant message!
+                  Full-time role, freelance project, or remote work, send me an email or contact me via instant message!
                 </span>
                 <span className="hidden sm:inline">
                   Full-time role, freelance project, or
                   <br />
-                  remote work — send me an email
+                  remote work, send me an email
                   <br />
                   or contact me via instant message!
                 </span>

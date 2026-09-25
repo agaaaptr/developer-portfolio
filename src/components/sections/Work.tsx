@@ -137,7 +137,7 @@ export const WorkSection: React.FC = () => {
             A collection of projects I&apos;ve worked on, showcasing my skills in frontend, backend, and UI/UX development
           </motion.p>
           
-          {/* View All Projects Button - links to first project */}
+          {/* View All Projects Button - links to full project index */}
           <motion.div
             className="mt-6"
             initial={{ opacity: 0, y: 20 }}
@@ -145,7 +145,7 @@ export const WorkSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Link href={`/project/${projectsData[0]?.slug || 'devconnect'}`}>
+            <Link href="/project/all">
               <motion.button
                 className="inline-flex items-center gap-2 px-6 py-3 bg-accent-500/10 border border-accent-500/30 text-accent-400 rounded-xl font-medium hover:bg-accent-500/20 hover:border-accent-500/50"
                 whileHover={{ y: -2, x: 4 }}

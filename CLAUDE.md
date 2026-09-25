@@ -56,7 +56,7 @@ transition: { type: "spring" as const, stiffness: 300, damping: 20 }
 
 ### Icon Conventions
 
-Uses lucide-react v0.292.0. Note that newer versions have different icon names (e.g., `Github` → `GitHub`, `Linkedin` → `LinkedIn`), so keep at v0.292.0 or update all icon references if upgrading.
+Uses lucide-react ^1.7.0 (see package.json). GitHub, LinkedIn, and Instagram brand icons are locally defined SVG components (`GithubIcon`, `LinkedinIcon`, `InstagramIcon`), not lucide imports, so there are no lucide brand-icon names to migrate.
 
 ### Section Tracking
 

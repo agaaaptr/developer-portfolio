@@ -24,6 +24,7 @@
     ],
     "role": "Developer",
     "github": "https://github.com/agaaaptr/noir",
+    "npm": "https://npmjs.com/package/@noir-ai/cli",
     "image": "/images/project-noir-1.png",
     "images": [
       "/images/project-noir-1.png",
@@ -72,7 +73,7 @@
     ],
     "featured": false,
     "shortDescription": "Premium cruise services with multi-language support",
-    "description": "A website for premium cruise service offerings. Responsibilities included implementing multi-language translation pages for international visitors and integrating with the cruise booking system to provide seamless reservation experiences.",
+    "description": "A website for premium cruise service offerings. Responsibilities included implementing multi-language translation pages for international visitors and integrating with the cruise booking system for end-to-end reservation flows.",
     "tech": [
       "WordPress",
       "Elementor",

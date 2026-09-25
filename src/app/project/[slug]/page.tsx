@@ -26,6 +26,7 @@ interface Project {
   client?: string;
   strategy?: string;
   github?: string;
+  npm?: string;
   demo?: string;
   images?: string[];
   image?: string;
@@ -243,6 +244,20 @@ export default function ProjectDetailPage() {
                 transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
               >
                 View Code
+                <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              </motion.a>
+            )}
+            {project.npm && (
+              <motion.a
+                href={project.npm}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border transition-colors text-sm sm:text-base ${secondaryButton}`}
+                whileHover={{ y: -2, x: 2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
+              >
+                View on npm
                 <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.a>
             )}

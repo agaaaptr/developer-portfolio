@@ -21,7 +21,7 @@
             "icon": "pen-tool",
             "title": "UI/UX Design",
             "subtitle": "Figma, Prototyping",
-            "description": "Designing interfaces and prototypes with Figma and Whimsical, from low-fidelity wireframes to Android app layouts.",
+            "description": "Designing interfaces and prototypes with Figma, from low-fidelity wireframes to Android app layouts.",
             "technologies": ["Figma", "Prototyping", "User Research", "Wireframing", "Android Design"]
         }
     ]

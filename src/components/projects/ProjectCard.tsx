@@ -13,6 +13,13 @@ const GithubIcon = () => (
   </svg>
 );
 
+// Simple SVG icon for npm
+const NpmIcon = () => (
+  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z" />
+  </svg>
+);
+
 interface Project {
   id: number;
   slug: string;
@@ -23,6 +30,7 @@ interface Project {
   image: string;
   role?: string;
   github?: string;
+  npm?: string;
   demo?: string;
   originalIndex?: number;
 }
@@ -191,6 +199,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   onClick={(e) => e.stopPropagation()}
                 >
                   <GithubIcon />
+                </a>
+              )}
+              {project.npm && (
+                <a
+                  href={project.npm}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-white transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <NpmIcon />
                 </a>
               )}
               {project.demo && (
