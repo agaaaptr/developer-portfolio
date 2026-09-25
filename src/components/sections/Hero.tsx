@@ -238,7 +238,7 @@ export const HeroSection: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
                 >
-                  Download
+                  Download CV
                   <span
                     className={`flex h-8 w-8 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
                       }`}
@@ -371,8 +371,8 @@ export const HeroSection: React.FC = () => {
                         <Globe className="h-4 w-4" />
                       </span>
                       <div className="flex flex-col">
-                        <span className="text-sm font-medium">English</span>
-                        <span className="text-xs text-gray-500">CV in English</span>
+                        <span className="text-sm font-medium">English CV</span>
+                        <span className="text-xs text-gray-500">Software engineer CV in English (PDF)</span>
                       </div>
                     </a>
                     <a
@@ -384,8 +384,8 @@ export const HeroSection: React.FC = () => {
                         <Languages className="h-4 w-4" />
                       </span>
                       <div className="flex flex-col">
-                        <span className="text-sm font-medium">Indonesian</span>
-                        <span className="text-xs text-gray-500">CV dalam Bahasa Indonesia</span>
+                        <span className="text-sm font-medium">Indonesian CV</span>
+                        <span className="text-xs text-gray-500">CV dalam Bahasa Indonesia (PDF)</span>
                       </div>
                     </a>
                     <a
@@ -398,8 +398,8 @@ export const HeroSection: React.FC = () => {
                         <FileText className="h-4 w-4" />
                       </span>
                       <div className="flex flex-col">
-                        <span className="text-sm font-medium">Portfolio</span>
-                        <span className="text-xs text-gray-500">Portfolio PDF</span>
+                        <span className="text-sm font-medium">Project Portfolio</span>
+                        <span className="text-xs text-gray-500">Project portfolio document (PDF)</span>
                       </div>
                     </a>
                   </div>
