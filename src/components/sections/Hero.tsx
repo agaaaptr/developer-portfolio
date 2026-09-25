@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Anton, Caveat } from 'next/font/google';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
-import { ArrowUpRight, ChevronDown, Globe, Languages, MapPin } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Download, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { ScrollIndicator } from '@/components/ui/ScrollIndicator';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
@@ -245,6 +245,19 @@ export const HeroSection: React.FC = () => {
                   </span>
                 </motion.button>
               </div>
+
+              <motion.a
+                href="/documents/Gagah-Putra-Anugrah-Portfolio.pdf"
+                download
+                aria-label="Download project portfolio (PDF)"
+                title="Download project portfolio (PDF)"
+                className="inline-flex h-[60px] w-[60px] shrink-0 items-center justify-center self-center rounded-full border border-white/16 bg-white/[0.04] text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08]"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
+              >
+                <Download className="h-5 w-5" />
+              </motion.a>
 
               <motion.button
                 type="button"

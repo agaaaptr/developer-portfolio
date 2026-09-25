@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint src",
     "cv:render": "bash cv/render.sh",
+    "portfolio:render": "python3 cv/render-portfolio.py",
     "export": "next export",
     "deploy": "vercel --prod"
   },
