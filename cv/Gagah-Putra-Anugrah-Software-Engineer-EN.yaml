@@ -54,7 +54,8 @@ cv:
           - "Built a hybrid retrieval engine combining BM25 and vector kNN with Reciprocal Rank Fusion, exposed through an MCP daemon serving 24 tools to 5 AI coding hosts"
           - "Added 216 test files and set up a release pipeline using npm OIDC trusted publishing with SLSA provenance attestation"
       - name: Portfolio & Project Showcase
-        date: "2026"
+        start_date: 2025-07
+        end_date: present
         summary: "Next.js, React, TypeScript, Tailwind CSS · aga-putra.vercel.app"
         highlights:
           - "Built a Next.js 16 portfolio with dynamically imported sections using ssr: false to eliminate framer-motion hydration mismatches"
@@ -81,9 +82,29 @@ design:
   page:
     size: a4
     show_top_note: false
+    top_margin: 0.5in
+    bottom_margin: 0.5in
+    left_margin: 0.5in
+    right_margin: 0.5in
   typography:
     alignment: left
     date_and_location_column_alignment: right
+    line_spacing: 0.42em
+    font_size:
+      body: 10pt
+      name: 22pt
+  section_titles:
+    space_above: 0.22cm
+    space_below: 0.15cm
+  sections:
+    space_between_regular_entries: 0.25cm
+    space_between_text_based_entries: 0.1cm
+  entries:
+    highlights:
+      space_above: 0.04cm
+      space_between_items: 0.03cm
+    summary:
+      space_above: 0.04cm
   header:
     connections:
       show_icons: false
