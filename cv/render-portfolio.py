@@ -26,7 +26,7 @@ IMAGE_WIDTH_PX = 1200
 # Source screenshot per project entry, in the order they appear in portfolio.typ.
 # The .webp originals go through sips; PNGs are resized in place to a copy.
 IMAGES = {
-    "noir.png": "project-noir-3.png",
+    "noir.png": "project-noir-1.png",
     "tembusin.png": "project-tembusin-1.webp",
     "owow.png": "project-owow-1.webp",
     "dietpro.png": "project-dietpro-1.webp",

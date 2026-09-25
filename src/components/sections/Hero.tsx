@@ -225,39 +225,44 @@ export const HeroSection: React.FC = () => {
             </div>
 
             <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:w-auto lg:justify-start">
-              <div className="relative inline-flex w-full sm:w-auto">
-                <motion.button
-                  ref={buttonRef}
-                  onClick={() => setIsCvDropdownOpen((current) => !current)}
-                  aria-expanded={isCvDropdownOpen}
-                  aria-haspopup="menu"
-                  className="group inline-flex w-full items-center justify-between gap-3 rounded-full border border-white/16 bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:w-auto"
+              <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:gap-3">
+                <div className="relative inline-flex shrink-0">
+                  <motion.button
+                    ref={buttonRef}
+                    onClick={() => setIsCvDropdownOpen((current) => !current)}
+                    aria-expanded={isCvDropdownOpen}
+                    aria-haspopup="menu"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/16 bg-white/[0.04] px-4 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:gap-3 sm:px-6"
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
+                  >
+                    Download CV
+                    <span
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
+                        }`}
+                    >
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
+                  </motion.button>
+                </div>
+
+                <motion.a
+                  href="/documents/Gagah-Putra-Anugrah-Portfolio.pdf"
+                  download
+                  aria-label="Download project portfolio (PDF)"
+                  title="Download project portfolio (PDF)"
+                  className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/[0.04] px-4 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:gap-3 sm:px-6"
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
                 >
-                  Download CV
-                  <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
-                      }`}
-                  >
-                    <ChevronDown className="h-4 w-4" />
+                  <span>Portfolio</span>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 text-white">
+                    <Download className="h-4 w-4" />
                   </span>
-                </motion.button>
+                </motion.a>
               </div>
-
-              <motion.a
-                href="/documents/Gagah-Putra-Anugrah-Portfolio.pdf"
-                download
-                aria-label="Download project portfolio (PDF)"
-                title="Download project portfolio (PDF)"
-                className="inline-flex h-[60px] w-[60px] shrink-0 items-center justify-center self-center rounded-full border border-white/16 bg-white/[0.04] text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08]"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
-              >
-                <Download className="h-5 w-5" />
-              </motion.a>
 
               <motion.button
                 type="button"

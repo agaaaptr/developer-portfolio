@@ -174,7 +174,7 @@ export const WorkSection: React.FC = () => {
             height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
           }}
         >
-          <div ref={gridContentRef}>
+          <div ref={gridContentRef} className="pt-3">
             {/* Projects Grid */}
             <ProjectGrid projects={visibleProjects} filterKey={activeFilter} />
 
