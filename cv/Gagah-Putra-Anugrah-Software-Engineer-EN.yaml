@@ -82,8 +82,8 @@ design:
   page:
     size: a4
     show_top_note: false
-    top_margin: 0.5in
-    bottom_margin: 0.5in
+    top_margin: 0.4in
+    bottom_margin: 0.4in
     left_margin: 0.5in
     right_margin: 0.5in
   typography:
@@ -94,8 +94,8 @@ design:
       body: 10pt
       name: 22pt
   section_titles:
-    space_above: 0.22cm
-    space_below: 0.15cm
+    space_above: 0.45cm
+    space_below: 0.25cm
   sections:
     space_between_regular_entries: 0.25cm
     space_between_text_based_entries: 0.1cm
@@ -106,6 +106,9 @@ design:
     summary:
       space_above: 0.04cm
   header:
+    space_below_name: 0.35cm
+    space_below_headline: 0.35cm
+    space_below_connections: 0.45cm
     connections:
       show_icons: false
       display_urls_instead_of_usernames: true
