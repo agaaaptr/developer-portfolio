@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Anton, Caveat } from 'next/font/google';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
-import { ArrowUpRight, ChevronDown, Download, Globe, Languages, MapPin } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { ScrollIndicator } from '@/components/ui/ScrollIndicator';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
@@ -225,43 +225,27 @@ export const HeroSection: React.FC = () => {
             </div>
 
             <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:w-auto lg:justify-start">
-              <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:gap-3">
-                <div className="relative inline-flex shrink-0">
-                  <motion.button
-                    ref={buttonRef}
-                    onClick={() => setIsCvDropdownOpen((current) => !current)}
-                    aria-expanded={isCvDropdownOpen}
-                    aria-haspopup="menu"
-                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/16 bg-white/[0.04] px-4 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:gap-3 sm:px-6"
-                    whileHover={{ y: -3 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
-                  >
-                    Download CV
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
-                        }`}
-                    >
-                      <ChevronDown className="h-4 w-4" />
-                    </span>
-                  </motion.button>
-                </div>
-
-                <motion.a
-                  href="/documents/Gagah-Putra-Anugrah-Portfolio.pdf"
-                  download
-                  aria-label="Download project portfolio (PDF)"
-                  title="Download project portfolio (PDF)"
-                  className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/[0.04] px-4 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:gap-3 sm:px-6"
+              <div className="relative inline-flex w-full sm:w-auto">
+                <motion.button
+                  ref={buttonRef}
+                  onClick={() => setIsCvDropdownOpen((current) => !current)}
+                  aria-expanded={isCvDropdownOpen}
+                  aria-haspopup="menu"
+                  aria-label="Download CV or portfolio"
+                  title="Download CV or portfolio"
+                  className="group inline-flex w-full items-center justify-between gap-3 rounded-full border border-white/16 bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:w-auto"
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
                 >
-                  <span>Portfolio</span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-500 text-white">
-                    <Download className="h-4 w-4" />
+                  Download
+                  <span
+                    className={`flex h-8 w-8 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
+                      }`}
+                  >
+                    <ChevronDown className="h-4 w-4" />
                   </span>
-                </motion.a>
+                </motion.button>
               </div>
 
               <motion.button
@@ -402,6 +386,20 @@ export const HeroSection: React.FC = () => {
                       <div className="flex flex-col">
                         <span className="text-sm font-medium">Indonesian</span>
                         <span className="text-xs text-gray-500">CV dalam Bahasa Indonesia</span>
+                      </div>
+                    </a>
+                    <a
+                      href="/documents/Gagah-Putra-Anugrah-Portfolio.pdf"
+                      download
+                      className="flex items-center gap-3 px-4 py-3 text-gray-200 transition-all duration-200 hover:bg-accent-500/10 hover:text-white"
+                      onClick={() => setIsCvDropdownOpen(false)}
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400">
+                        <FileText className="h-4 w-4" />
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">Portfolio</span>
+                        <span className="text-xs text-gray-500">Portfolio PDF</span>
                       </div>
                     </a>
                   </div>
