@@ -4,12 +4,12 @@ export const runtime = 'edge';
 
 const CV_FILES = {
   english: {
-    path: '/documents/cv-english.pdf',
-    filename: 'Aga_Putra_Software_Engineer_CV_EN.pdf',
+    path: '/documents/Gagah-Putra-Anugrah-Software-Engineer-EN.pdf',
+    filename: 'Gagah-Putra-Anugrah-Software-Engineer-EN.pdf',
   },
   indonesian: {
-    path: '/documents/cv-indonesian.pdf',
-    filename: 'Aga_Putra_Software_Engineer_CV_ID.pdf',
+    path: '/documents/Gagah-Putra-Anugrah-Software-Engineer-ID.pdf',
+    filename: 'Gagah-Putra-Anugrah-Software-Engineer-ID.pdf',
   },
 };
 
