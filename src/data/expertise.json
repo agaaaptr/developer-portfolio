@@ -18,11 +18,11 @@
         },
         {
             "id": 3,
-            "icon": "pen-tool",
-            "title": "UI/UX Design",
-            "subtitle": "Figma, Prototyping",
-            "description": "Designing interfaces and prototypes with Figma, from low-fidelity wireframes to Android app layouts.",
-            "technologies": ["Figma", "Prototyping", "User Research", "Wireframing", "Android Design"]
+            "icon": "bot",
+            "title": "AI Integration",
+            "subtitle": "Claude Code, OpenCode",
+            "description": "Integrating agentic AI tools into the daily engineering workflow: planning, implementation, and review with Claude Code and OpenCode.",
+            "technologies": ["Claude Code", "OpenCode", "MCP", "AI-assisted development"]
         }
     ]
 }

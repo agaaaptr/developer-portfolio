@@ -134,7 +134,7 @@ export const WorkSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            A collection of projects I&apos;ve worked on, showcasing my skills in frontend, backend, and UI/UX development
+            A collection of projects I&apos;ve worked on, showcasing my skills in frontend, backend, and AI-assisted development
           </motion.p>
           
           {/* View All Projects Button - links to full project index */}

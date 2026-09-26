@@ -143,8 +143,9 @@
 
 #text(font: body-font, size: 9.5pt)[
   I build and maintain production software for universities and client businesses, mostly in
-  Angular, TypeScript, and Go. This is the long-form companion to my CV: what each project does,
-  the decisions behind it, and where you can see it running.
+  Angular, TypeScript, and Go. I work AI-assisted with Claude Code and OpenCode, a practice I
+  adopted when I joined BSI UII in October 2024. This is the long-form companion to my CV: what
+  each project does, the decisions behind it, and where you can see it running.
 ]
 
 // ---- selected projects -----------------------------------------------------
@@ -304,9 +305,9 @@ European markets.
     #text(font: body-font, size: 8.6pt)[Go, Gin, MySQL, REST API, SQL]
   ],
   [
-    #text(font: body-font, weight: "bold", size: 9.2pt, fill: accent)[UI/UX Design]
+    #text(font: body-font, weight: "bold", size: 9.2pt, fill: accent)[AI Integration]
     #v(1.5pt)
-    #text(font: body-font, size: 8.6pt)[Figma, Prototyping, User Research, Wireframing, Android Design]
+    #text(font: body-font, size: 8.6pt)[Claude Code, OpenCode, MCP, AI-assisted development]
   ],
 )
 

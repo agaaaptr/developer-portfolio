@@ -13,7 +13,7 @@ cv:
       username: agaaaptr
   sections:
     summary:
-      - "Software engineer full-stack dengan 2 tahun pengalaman produksi di Angular, TypeScript, dan Go. Fokus pada lapisan struktural: pipeline CI, refactoring sistem warisan, dan tooling internal. Memelihara framework AI agen open-source dengan 57 rilis npm."
+      - "Software engineer full-stack dengan 2 tahun pengalaman produksi di Angular, TypeScript, dan Go. Fokus pada lapisan struktural: pipeline CI, refactoring sistem warisan, dan tooling internal. Bekerja dengan bantuan AI (Claude Code, OpenCode) setiap hari. Memelihara framework AI agen open-source dengan 57 rilis npm."
     experience:
       - company: Badan Sistem Informasi, Universitas Islam Indonesia
         position: Software Engineer
@@ -67,6 +67,8 @@ cv:
         details: Angular, React, Next.js, Gin, Lumen, Tailwind CSS, Vite, REST API
       - label: Database & Tools
         details: MySQL, PostgreSQL, Git, Figma, WordPress
+      - label: AI & Tooling
+        details: Claude Code, OpenCode, MCP, AI-assisted development
       - label: Bahasa
         details: Indonesia (Native), Inggris (Professional Working Proficiency)
     education:
@@ -94,10 +96,10 @@ design:
       body: 10pt
       name: 22pt
   section_titles:
-    space_above: 0.45cm
+    space_above: 0.35cm
     space_below: 0.25cm
   sections:
-    space_between_regular_entries: 0.25cm
+    space_between_regular_entries: 0.22cm
     space_between_text_based_entries: 0.1cm
   entries:
     highlights:

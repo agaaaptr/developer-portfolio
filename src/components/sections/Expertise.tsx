@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Monitor, Terminal, PenTool } from 'lucide-react';
+import { Monitor, Terminal, Bot } from 'lucide-react';
 import expertiseData from '@/data/expertise.json';
 import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 const iconMap: Record<string, React.ElementType> = {
   monitor: Monitor,
   terminal: Terminal,
-  'pen-tool': PenTool,
+  bot: Bot,
 };
 
 interface ExpertiseCardProps {
@@ -230,7 +230,7 @@ const snippetLines: Array<{ id: string; depth: number; content: React.ReactNode 
     content: (
       <>
         <span style={subtlePipeMutedTextStyle}>|</span>{' '}
-        <span style={subtleBodyMutedTextStyle}>Adding UI/UX polish with Figma and WordPress across client projects.</span>
+        <span style={subtleBodyMutedTextStyle}>Working AI-assisted with Claude Code and OpenCode across the stack.</span>
       </>
     ),
   },
