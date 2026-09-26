@@ -181,7 +181,6 @@
   ("React", "Vite", "TypeScript", "Tailwind CSS", "REST API"),
   image: "images/tembusin.png",
   caption: "Student-side course view",
-  links: [#url("fe-tembusin.deecodesoftware.com")],
 )[
   A learning management system for Indonesian exam preparation, covering four tracks: SNBT, TKA,
   CPNS, and PPPK. I built the frontend for both the admin and the student side from the Figma

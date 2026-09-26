@@ -33,7 +33,7 @@ cv:
         end_date: 2026-04
         location: Remote
         highlights:
-          - "Mengembangkan frontend admin dan siswa TembusIn, sebuah LMS persiapan ujian 4 jalur (SNBT, TKA, CPNS, PPPK) dengan React, Vite, TypeScript, dan Tailwind CSS. Live di fe-tembusin.deecodesoftware.com"
+          - "Mengembangkan frontend admin dan siswa TembusIn, sebuah LMS persiapan ujian 4 jalur (SNBT, TKA, CPNS, PPPK) dengan React, Vite, TypeScript, dan Tailwind CSS"
           - "Menerjemahkan spesifikasi Figma menjadi antarmuka responsif serta mengintegrasikan REST API dengan typed client dan skeleton loading state"
           - "Mengoptimalkan performa animasi dan men-deploy build produksi ke VPS"
       - company: TerraCode

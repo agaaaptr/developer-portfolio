@@ -36,7 +36,7 @@
             "website": "",
             "description": "Freelance frontend work in React, Vite, TypeScript, and Tailwind CSS, shipped alongside a full-time role.",
             "achievements": [
-                "Developed the admin and student frontends of TembusIn, a 4-track exam-prep LMS (SNBT, TKA, CPNS, PPPK), in React, Vite, TypeScript, and Tailwind CSS. Live at fe-tembusin.deecodesoftware.com",
+                "Developed the admin and student frontends of TembusIn, a 4-track exam-prep LMS (SNBT, TKA, CPNS, PPPK), in React, Vite, TypeScript, and Tailwind CSS",
                 "Translated Figma specs into responsive interfaces and integrated REST APIs with typed clients and skeleton loading states",
                 "Optimized animation performance and deployed the production build to a VPS"
             ],
