@@ -123,11 +123,11 @@
   ],
   [
     #set align(right)
-    #text(font: body-font, size: 8.4pt, fill: ink, "gagah.p.412@gmail.com")
+    #text(font: body-font, size: 8.4pt, fill: ink)[#link("mailto:gagah.p.412@gmail.com")[gagah.p.412\@gmail.com]]
     #linebreak()
-    #text(font: body-font, size: 8.4pt, fill: ink)[+62 812-9330-9095]
+    #text(font: body-font, size: 8.4pt, fill: ink)[#link("https://wa.me/6281293309095")[+62 812-9330-9095]]
     #linebreak()
-    #text(font: body-font, size: 8.4pt, fill: accent)[aga-putra.vercel.app]
+    #text(font: body-font, size: 8.4pt, fill: accent)[#link("https://aga-putra.vercel.app")[aga-putra.vercel.app]]
   ],
 )
 
@@ -157,7 +157,7 @@
   ("TypeScript", "Node.js", "pnpm", "SQLite", "Ink", "React", "MCP"),
   image: "images/noir.png",
   caption: "Noir terminal dashboard",
-  links: [#url("github.com/agaaaptr/noir") · npm package #text("@noir-ai/cli")],
+  links: [#url("github.com/agaaaptr/noir") · npm package #link("https://www.npmjs.com/package/@noir-ai/cli")[#text(fill: accent, "@noir-ai/cli")]],
 )[
   Noir is an orchestration and memory layer for AI coding agents, built as an #box("11-package")
   pnpm monorepo and published to npm. It started from a practical problem: agent sessions lose
