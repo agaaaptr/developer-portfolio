@@ -58,3 +58,12 @@ next-env.d.ts
 # Playwright snapshots and screenshots
 playwright/
 .screenshots/
+
+# >>> noir:ignore >>>
+/.noir/store/
+/.noir/handoff/
+/.noir/.env
+/.noir/.env.*
+!/.noir/.env.example
+/.noir/transcripts/
+# <<< noir:ignore <<<

@@ -57,3 +57,11 @@ Uses lucide-react ^1.7.0 (see package.json). GitHub, LinkedIn, and Instagram bra
 ### Touch Device Handling
 
 The project includes touch device detection via `useTouchDevice` hook. Touch devices have certain hover effects disabled via CSS media queries (`@media (hover: none)`).
+
+<!-- noir:context begin -->
+@import ".noir/NOIR.md"
+<!-- noir:context end -->
+
+<!-- noir:rules begin -->
+@import ".noir/rules/RULES.md"
+<!-- noir:rules end -->

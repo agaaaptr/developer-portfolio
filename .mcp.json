@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "noir": {
+      "command": "/Users/agaaaptr/.noir/bin/noir",
+      "args": [
+        "mcp",
+        "serve",
+        "--stdio"
+      ]
+    }
+  }
+}
