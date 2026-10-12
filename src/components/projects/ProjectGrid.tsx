@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { ProjectCard } from './ProjectCard';
 
 interface Project {
@@ -24,14 +24,8 @@ interface ProjectGridProps {
 }
 
 export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, filterKey = 'all' }) => {
-  // Determine card sizes based on index for varied layout
   const getCardSize = (index: number): 'small' | 'medium' | 'large' => {
-    // Create a varied pattern
-    const pattern = [
-      'large', 'medium', 'medium',
-      'medium', 'large', 'small',
-      'small', 'medium', 'large',
-    ];
+    const pattern = ['large', 'medium', 'medium', 'medium', 'large', 'small', 'small', 'medium', 'large'];
     return pattern[index % pattern.length] as 'small' | 'medium' | 'large';
   };
 
@@ -39,7 +33,7 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ projects, filterKey = 
     <AnimatePresence mode="wait">
       <motion.div
         key={filterKey}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}

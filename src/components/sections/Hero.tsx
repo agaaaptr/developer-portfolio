@@ -1,82 +1,56 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Anton, Caveat } from 'next/font/google';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { createPortal } from 'react-dom';
 import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
-import { ScrollIndicator } from '@/components/ui/ScrollIndicator';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
-const displayFont = Anton({ subsets: ['latin'], weight: '400', display: 'swap' });
-const scriptFont = Caveat({ subsets: ['latin'], weight: ['700'], display: 'swap' });
-const heroPills = ['Frontend Systems', 'Go APIs'];
-const heroAccentLines = ['Software', 'Engineer'];
-const heroTagline = 'From UI to API.';
+const marqueeItems = ['Angular', 'React', 'TypeScript', 'Go', 'REST APIs', 'Claude Code', '57 npm releases'];
+
+const skillCards = [
+  { label: 'Angular', sub: 'University systems', rotate: '-rotate-3' },
+  { label: 'React', sub: 'Exam-prep LMS', rotate: 'rotate-2' },
+  { label: 'TypeScript', sub: 'Types everywhere', rotate: '-rotate-1' },
+  { label: 'Go', sub: 'REST + MySQL', rotate: 'rotate-3' },
+  { label: 'Claude Code', sub: 'Daily driver', rotate: '-rotate-2' },
+  { label: 'OpenCode', sub: '57 npm releases', rotate: 'rotate-1' },
+];
+
+const cvLinks = [
+  { href: '/api/cv/english', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)' },
+  { href: '/api/cv/indonesian', icon: Languages, title: 'Indonesian CV', sub: 'CV dalam Bahasa Indonesia (PDF)' },
+  { href: '/documents/Gagah-Putra-Anugrah-Portfolio.pdf', icon: FileText, title: 'Project Portfolio', sub: 'Project portfolio document (PDF)', download: true },
+];
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.18,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
-
-const glassEnterVariants = {
-  hidden: { y: 28, scale: 0.985 },
-  visible: {
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.75,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 export const HeroSection: React.FC = () => {
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
+  const [isMarqueeVisible, setIsMarqueeVisible] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const isCompactLayout = useMediaQuery('(max-width: 1023px)');
   const nameParts = personalData.professionalName.trim().split(/\s+/);
-  const primaryName = nameParts[0] ?? personalData.professionalName;
-  const secondaryName = nameParts.slice(1).join(' ');
+  const firstName = nameParts[0] ?? personalData.professionalName;
+  const lastName = nameParts.slice(1).join(' ');
   const heroDescription = isCompactLayout
     ? 'Full-stack engineer · Angular, TypeScript & Go'
     : personalData.bio;
-  const floatingGlassPanelClasses = 'bg-white/[0.014] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-[2px] sm:bg-white/[0.01] lg:bg-white/[0.005]';
-  const focusGlassCardClasses = 'border border-white/10 bg-white/[0.04] backdrop-blur-xl';
-  const heroAmbientGlowAnimation = isCompactLayout
-    ? {
-        opacity: [0.72, 0.88, 0.78, 0.72],
-      }
-    : {
-        opacity: [0.72, 0.92, 0.78, 0.72],
-        scaleX: [1, 1.03, 0.99, 1],
-        scaleY: [1, 1.04, 0.98, 1],
-      };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-
       if (
         isCvDropdownOpen &&
         buttonRef.current &&
@@ -87,14 +61,10 @@ export const HeroSection: React.FC = () => {
         setIsCvDropdownOpen(false);
       }
     };
-
     if (isCvDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isCvDropdownOpen]);
 
   useEffect(() => {
@@ -102,34 +72,33 @@ export const HeroSection: React.FC = () => {
       setDropdownPosition(null);
       return;
     }
-
     const updateDropdownPosition = () => {
-      if (!buttonRef.current) {
-        return;
-      }
-
+      if (!buttonRef.current) return;
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownWidth = 224;
+      const dropdownWidth = 272;
       const viewportPadding = 16;
       const minCenter = viewportPadding + dropdownWidth / 2;
       const maxCenter = window.innerWidth - viewportPadding - dropdownWidth / 2;
       const centerX = Math.max(minCenter, Math.min(rect.left + rect.width / 2, maxCenter));
-
-      setDropdownPosition({
-        top: rect.bottom + 12,
-        left: centerX,
-      });
+      setDropdownPosition({ top: rect.bottom + 12, left: centerX });
     };
-
     updateDropdownPosition();
     window.addEventListener('resize', updateDropdownPosition);
     window.addEventListener('scroll', updateDropdownPosition, true);
-
     return () => {
       window.removeEventListener('resize', updateDropdownPosition);
       window.removeEventListener('scroll', updateDropdownPosition, true);
     };
   }, [isCvDropdownOpen]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsMarqueeVisible(window.scrollY < window.innerHeight);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -139,203 +108,159 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-[#050508]"
-    >
+    <section id="home" className="relative flex min-h-screen overflow-hidden bg-surface text-ink">
       <div
-        className="absolute inset-0"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
         style={{
-          background: `
-            radial-gradient(circle at 18% 20%, rgba(255,255,255,0.08) 0%, transparent 22%),
-            radial-gradient(circle at 84% 16%, rgba(255,255,255,0.07) 0%, transparent 18%),
-            radial-gradient(ellipse 72% 62% at 50% 52%, rgba(101, 46, 180, 0.16) 0%, rgba(70, 24, 125, 0.1) 28%, transparent 72%),
-            radial-gradient(ellipse 80% 70% at 50% 100%, rgba(147, 51, 234, 0.14) 0%, transparent 70%),
-            linear-gradient(180deg, #07070a 0%, #050508 45%, #0a0a12 100%)
-          `,
+          backgroundImage:
+            'linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)',
+          backgroundSize: '44px 44px',
         }}
       />
-
-      <motion.div
-        className="absolute inset-x-0 top-[10%] h-[52%] pointer-events-none will-change-transform"
-        animate={heroAmbientGlowAnimation}
-        transition={{ duration: 8.5, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-8 top-1/4 h-32 w-32 opacity-50"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(0,0,0,0.45) 1.5px, transparent 1.5px)',
+          backgroundSize: '10px 10px',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-16 top-32 hidden h-8 w-8 -rotate-12 rounded-base border-2 border-ink bg-violet sm:block"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-8 top-28 hidden h-14 w-14 rotate-12 rounded-base border-2 border-ink bg-violet shadow-neo-lg sm:block"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-52 left-8 hidden h-12 w-12 -rotate-6 rounded-base border-2 border-ink bg-lime shadow-neo md:block"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-12 bottom-64 hidden h-9 w-9 rotate-6 rounded-full border-2 border-ink bg-lime shadow-neo md:block"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-16 top-40 hidden -rotate-12 font-display text-3xl text-violet md:block"
       >
-        <div
-          className="h-full w-full"
-          style={{
-            background:
-              'radial-gradient(ellipse 36% 42% at 50% 48%, rgba(192, 132, 252, 0.18) 0%, rgba(147, 51, 234, 0.12) 24%, rgba(88, 28, 135, 0.05) 54%, transparent 72%)',
-            filter: 'blur(36px)',
-          }}
-        />
-      </motion.div>
+        ★
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-10 top-52 hidden rotate-6 font-display text-2xl text-lime md:block"
+      >
+        ✳
+      </div>
 
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_42%,rgba(0,0,0,0.34)_100%)]" />
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-72 left-10 hidden w-40 text-ink/30 lg:block"
+        viewBox="0 0 160 24"
+        fill="none"
+      >
+        <path
+          d="M2 12 Q 12 2 22 12 T 42 12 T 62 12 T 82 12 T 102 12 T 122 12 T 142 12 T 158 12"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </svg>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[7.25rem] z-0 flex flex-col items-center sm:top-[8.5rem] lg:top-[17%]"
-      >
-        <span className="text-[clamp(4.6rem,24vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.12] sm:text-[clamp(5.2rem,20vw,17rem)] lg:text-[clamp(4.8rem,18vw,17rem)] lg:text-white/[0.08]">
-          {primaryName}
-        </span>
-        {secondaryName && (
-          <span className="-mt-[0.09em] text-[clamp(4.6rem,24vw,17rem)] font-black uppercase leading-[0.86] tracking-[-0.09em] text-white/[0.12] sm:text-[clamp(5.2rem,20vw,17rem)] lg:text-[clamp(4.8rem,18vw,17rem)] lg:text-white/[0.08]">
-            {secondaryName}
-          </span>
-        )}
+        className="pointer-events-none absolute -right-16 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
+      />
+
+      {/* Rotating circular text badge */}
+      <div className="pointer-events-none absolute right-8 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
+        <motion.div
+          className="h-40 w-40"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 14, ease: 'linear', repeat: Infinity }}
+        >
+          <svg viewBox="0 0 100 100" className="h-full w-full">
+            <defs>
+              <path id="heroCirclePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none" />
+            </defs>
+            <text className="fill-ink font-mono text-[6.5px] font-bold uppercase tracking-[0.18em]">
+              <textPath href="#heroCirclePath">Full-stack · Angular · React · Go · TypeScript · OpenCode ·</textPath>
+            </text>
+            <circle cx="50" cy="50" r="20" className="fill-violet stroke-ink" strokeWidth="2" />
+            <text x="50" y="55" textAnchor="middle" className="fill-white font-display text-[12px]">✦</text>
+          </svg>
+        </motion.div>
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-start px-5 pb-16 pt-24 sm:px-8 sm:pt-28 lg:items-end lg:px-12 lg:pb-24">
-        <motion.div
-          className="grid w-full gap-8 lg:grid-cols-[minmax(0,270px)_minmax(0,1fr)_minmax(0,260px)] lg:items-end"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div
-            className="order-2 flex flex-col items-center gap-4 text-center lg:order-1 lg:items-start lg:gap-6 lg:pb-10 lg:text-left"
-            variants={itemVariants}
-          >
-            <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
-              {heroPills.map((pill) => (
-                <span
-                  key={pill}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] text-gray-300"
-                >
-                  {pill}
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col gap-7 lg:gap-9">
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full border-2 border-ink bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-neo">
+              {personalData.title}
+            </span>
+            <span className="rounded-full border-2 border-ink bg-violet px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-white transition-all hover:-translate-y-0.5 hover:shadow-neo">
+              ● Open to work
+            </span>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <h1 className="font-display uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(4rem,15vw,11.5rem)]">
+              <span className="block">{firstName}</span>
+              {lastName && (
+                <span className="mt-1 inline-block border-4 border-ink bg-lime px-[0.1em] pb-[0.06em] shadow-neo-lg">
+                  {lastName}
                 </span>
-              ))}
-            </div>
+              )}
+            </h1>
+            <p className="mt-2 flex items-center gap-2 font-hand text-2xl font-bold text-violet">
+              that&rsquo;s me <span aria-hidden="true" className="text-xl">⤴</span>
+            </p>
+          </motion.div>
 
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <p className="text-[11px] font-medium uppercase tracking-[0.38em] text-gray-500">
-                  {personalData.professionalName}
-                </p>
-                <h1 className="mx-auto max-w-[20ch] text-[clamp(2.4rem,11vw,4.2rem)] font-semibold leading-[1.05] text-balance text-white sm:max-w-[22ch] lg:mx-0 lg:max-w-[24ch] lg:text-[3.2rem]">
-                  Full-stack engineer shipping Angular & React apps backed by Go.
-                </h1>
-              </div>
+          <motion.div variants={itemVariants} className="max-w-2xl">
+            <p className="font-body text-base leading-relaxed text-ink/75 sm:text-lg">{heroDescription}</p>
+          </motion.div>
 
-              <p className="mx-auto max-w-[30ch] text-sm leading-relaxed text-gray-400 sm:max-w-[34ch] sm:text-[15px] lg:mx-0">
-                {heroDescription}
-              </p>
-            </div>
+          <motion.div variants={itemVariants} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <button
+              ref={buttonRef}
+              onClick={() => setIsCvDropdownOpen((current) => !current)}
+              aria-expanded={isCvDropdownOpen}
+              aria-haspopup="menu"
+              aria-label="Download CV or portfolio"
+              className="inline-flex items-center justify-between gap-3 rounded-full border-2 border-ink bg-lime px-6 py-3 font-display text-sm uppercase tracking-wide text-ink shadow-neo transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none"
+            >
+              Download CV
+              <ChevronDown className={`h-4 w-4 transition-transform ${isCvDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
 
-            <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:w-auto lg:justify-start">
-              <div className="relative inline-flex w-full sm:w-auto">
-                <motion.button
-                  ref={buttonRef}
-                  onClick={() => setIsCvDropdownOpen((current) => !current)}
-                  aria-expanded={isCvDropdownOpen}
-                  aria-haspopup="menu"
-                  aria-label="Download CV or portfolio"
-                  title="Download CV or portfolio"
-                  className="group inline-flex w-full items-center justify-between gap-3 rounded-full border border-white/16 bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition-colors duration-300 hover:border-accent-500/45 hover:bg-white/[0.08] sm:w-auto"
-                  whileHover={{ y: -3 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: 'spring' as const, stiffness: 300, damping: 24 }}
-                >
-                  Download CV
-                  <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-full bg-accent-500 text-white transition-transform duration-300 ${isCvDropdownOpen ? 'rotate-180' : ''
-                      }`}
-                  >
-                    <ChevronDown className="h-4 w-4" />
-                  </span>
-                </motion.button>
-              </div>
+            <button
+              type="button"
+              onClick={() => scrollToSection('work')}
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink bg-violet px-6 py-3 font-display text-sm uppercase tracking-wide text-white shadow-neo transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none"
+            >
+              See selected work
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
+          </motion.div>
 
-              <motion.button
-                type="button"
-                onClick={() => scrollToSection('work')}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-medium text-gray-200 transition-colors duration-300 hover:border-white/20 hover:text-white sm:w-auto"
-                whileHover={{ x: 4 }}
-                whileTap={{ scale: 0.98 }}
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+            {skillCards.map((card) => (
+              <div
+                key={card.label}
+                className={`${card.rotate} rounded-base border-2 border-ink bg-card px-5 py-4 shadow-neo transition-all hover:rotate-0 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none`}
               >
-                See selected work
-                <ArrowUpRight className="h-4 w-4" />
-              </motion.button>
-            </div>
-
-            <div className="flex items-center justify-center gap-2 text-sm text-gray-500 lg:justify-start">
-              <MapPin className="h-4 w-4 text-accent-400" />
-              <span>{personalData.location}</span>
-            </div>
+                <p className="font-display text-xl uppercase leading-none">{card.label}</p>
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-wide text-ink/60">{card.sub}</p>
+              </div>
+            ))}
           </motion.div>
 
-          <motion.div
-            className="order-1 flex min-h-[250px] items-start justify-center pt-4 sm:min-h-[320px] sm:pt-8 lg:order-2 lg:min-h-[680px] lg:items-center lg:pt-0"
-            variants={glassEnterVariants}
-          >
-            <div className="relative flex h-full w-full items-center justify-center">
-              <div className="absolute inset-x-[6%] top-[18%] h-[34%] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.12)_0%,rgba(168,85,247,0.14)_26%,transparent_72%)] blur-3xl" />
-              <div className="absolute inset-x-[10%] bottom-[12%] h-[24%] rounded-full bg-[radial-gradient(circle,rgba(147,51,234,0.18)_0%,rgba(88,28,135,0.08)_46%,transparent_78%)] blur-[52px]" />
-
-              <div className="relative flex w-full flex-col items-center text-center">
-                <div className="relative w-full max-w-[680px] py-4 sm:py-6 lg:py-12">
-                  <motion.div
-                    className="relative top-3 mx-auto max-w-[320px] will-change-transform sm:top-8 sm:max-w-[460px] lg:top-16 lg:max-w-[560px]"
-                    animate={{ x: [0, 5, 0, -4, 0], y: [0, -4, 1, -2, 0], rotate: [-0.7, -0.15, 0.45, 0.08, -0.7] }}
-                    transition={{ delay: 0.85, duration: 7.6, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <div className={`flex flex-col items-center rounded-[28px] px-5 py-6 sm:rounded-[32px] sm:px-8 sm:py-8 lg:px-10 lg:py-10 ${floatingGlassPanelClasses}`}>
-                      <div className="flex flex-col items-center">
-                        <span
-                          className={`${scriptFont.className} text-center text-[clamp(2.2rem,9vw,5.3rem)] leading-none text-accent-400/95`}
-                          style={{ textShadow: '0 0 28px rgba(168, 85, 247, 0.32)' }}
-                        >
-                          {heroAccentLines[0]}
-                        </span>
-                        <span
-                          className={`${scriptFont.className} -mt-[0.18em] text-center text-[clamp(2rem,8vw,4.6rem)] leading-none text-accent-300/92`}
-                          style={{ textShadow: '0 0 24px rgba(168, 85, 247, 0.24)' }}
-                        >
-                          {heroAccentLines[1]}
-                        </span>
-                      </div>
-
-                      <div className="my-5 h-px w-full max-w-[180px] bg-gradient-to-r from-transparent via-white/25 to-transparent sm:my-6" />
-
-                      <p
-                        className={`${displayFont.className} text-center text-[clamp(1rem,4vw,2rem)] uppercase leading-[0.92] tracking-[0.08em] text-white`}
-                        style={{ textShadow: '0 12px 42px rgba(0, 0, 0, 0.36)' }}
-                      >
-                        {heroTagline}
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div className="order-3 flex justify-center lg:justify-end lg:pb-10" variants={glassEnterVariants}>
-            <div className="grid w-full max-w-[620px] gap-4 sm:grid-cols-2 lg:max-w-[260px] lg:grid-cols-1">
-              <div className={`rounded-[28px] p-5 sm:p-6 ${focusGlassCardClasses}`}>
-                <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
-                  Current focus
-                </p>
-                <p className="mt-4 text-xl font-semibold leading-[1.02] text-white sm:text-2xl">
-                  Angular, React & Go.
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-gray-400">
-                  Building responsive frontends and REST APIs end-to-end.
-                </p>
-              </div>
-
-              <div className="rounded-[24px] border border-white/8 bg-black/20 p-5 text-sm text-gray-400 sm:p-6">
-                <p className="text-[11px] font-medium uppercase tracking-[0.36em] text-gray-500">
-                  Availability
-                </p>
-                <p className="mt-3 text-base font-medium text-white">Open to new opportunities</p>
-                <p className="mt-2 leading-relaxed">
-                  Full-time, freelance, or remote.
-                </p>
-              </div>
-            </div>
+          <motion.div variants={itemVariants} className="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-ink/60">
+            <MapPin className="h-4 w-4 text-violet" />
+            <span>{personalData.location}</span>
           </motion.div>
         </motion.div>
       </div>
@@ -344,64 +269,35 @@ export const HeroSection: React.FC = () => {
         createPortal(
           <AnimatePresence>
             {isCvDropdownOpen && dropdownPosition && (
-              <div
-                className="fixed"
-                style={{
-                  top: dropdownPosition.top,
-                  left: dropdownPosition.left,
-                  transform: 'translateX(-50%)',
-                  zIndex: 80,
-                }}
-              >
+              <div className="fixed" style={{ top: dropdownPosition.top, left: dropdownPosition.left, transform: 'translateX(-50%)', zIndex: 80 }}>
                 <motion.div
                   ref={dropdownMenuRef}
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="w-56 overflow-hidden rounded-2xl border border-gray-700/50 bg-dark-800/95 shadow-2xl backdrop-blur-md"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
+                  className="w-[272px] overflow-hidden rounded-base border-2 border-ink bg-card shadow-neo"
                 >
-                  <div className="py-2">
-                    <a
-                      href="/api/cv/english"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 transition-all duration-200 hover:bg-accent-500/10 hover:text-white"
-                      onClick={() => setIsCvDropdownOpen(false)}
-                    >
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400">
-                        <Globe className="h-4 w-4" />
-                      </span>
-                      <div className="flex flex-col">
-                        <span className="text-sm font-medium">English CV</span>
-                        <span className="text-xs text-gray-500">Software engineer CV in English (PDF)</span>
-                      </div>
-                    </a>
-                    <a
-                      href="/api/cv/indonesian"
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 transition-all duration-200 hover:bg-accent-500/10 hover:text-white"
-                      onClick={() => setIsCvDropdownOpen(false)}
-                    >
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400">
-                        <Languages className="h-4 w-4" />
-                      </span>
-                      <div className="flex flex-col">
-                        <span className="text-sm font-medium">Indonesian CV</span>
-                        <span className="text-xs text-gray-500">CV dalam Bahasa Indonesia (PDF)</span>
-                      </div>
-                    </a>
-                    <a
-                      href="/documents/Gagah-Putra-Anugrah-Portfolio.pdf"
-                      download
-                      className="flex items-center gap-3 px-4 py-3 text-gray-200 transition-all duration-200 hover:bg-accent-500/10 hover:text-white"
-                      onClick={() => setIsCvDropdownOpen(false)}
-                    >
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500/20 text-accent-400">
-                        <FileText className="h-4 w-4" />
-                      </span>
-                      <div className="flex flex-col">
-                        <span className="text-sm font-medium">Project Portfolio</span>
-                        <span className="text-xs text-gray-500">Project portfolio document (PDF)</span>
-                      </div>
-                    </a>
+                  <div className="flex flex-col">
+                    {cvLinks.map((link, i) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        download={link.download}
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className={`group flex items-center gap-3 px-4 py-3 font-body text-sm text-ink transition-all hover:bg-lime ${
+                          i > 0 ? 'border-t-2 border-ink/10' : ''
+                        }`}
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-base border border-ink/20 transition-colors group-hover:border-ink group-hover:bg-violet group-hover:text-white">
+                          <link.icon className="h-4 w-4" />
+                        </span>
+                        <span className="flex flex-col">
+                          <span className="font-bold">{link.title}</span>
+                          <span className="font-mono text-[11px] text-ink/60">{link.sub}</span>
+                        </span>
+                      </a>
+                    ))}
                   </div>
                 </motion.div>
               </div>
@@ -410,13 +306,29 @@ export const HeroSection: React.FC = () => {
           document.body
         )}
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-24 z-20 hidden justify-center lg:flex xl:bottom-28">
-        <div className="pointer-events-auto">
-          <ScrollIndicator onClick={() => scrollToSection('expertise')} />
+      {/* Marquee strip */}
+      <div
+        className={`fixed inset-x-0 bottom-0 z-20 overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
+          isMarqueeVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <style>{`
+          @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+          .hero-marquee-track { animation: heroMarquee 24s linear infinite; }
+        `}</style>
+        <div className="hero-marquee-track flex w-max whitespace-nowrap">
+          {[0, 1, 2, 3].map((copy) => (
+            <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
+              {marqueeItems.map((item) => (
+                <span key={item} className="flex items-center font-mono text-xs font-bold uppercase tracking-wider text-ink">
+                  <span className="px-6">{item}</span>
+                  <span aria-hidden="true" className="pr-6">✦</span>
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none" />
     </section>
   );
 };

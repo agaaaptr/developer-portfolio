@@ -1,21 +1,19 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { ImageWithFallback } from '@/components/ui/ImageWithFallback';
 
-// Simple SVG icon for GitHub
 const GithubIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
   </svg>
 );
 
-// Simple SVG icon for npm
 const NpmIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
     <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z" />
   </svg>
 );
@@ -42,33 +40,16 @@ interface ProjectCardProps {
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 28, scale: 0.985 },
+  hidden: { opacity: 0, y: 28 },
   visible: (index: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.44,
-      delay: 0.06 + index * 0.045,
-      ease: [0.25, 0.46, 0.45, 0.94] as const,
-    },
+    transition: { duration: 0.44, delay: 0.06 + index * 0.045, ease: [0.25, 0.46, 0.45, 0.94] as const },
   }),
-  exit: {
-    opacity: 0,
-    y: 16,
-    scale: 0.97,
-    transition: {
-      duration: 0.24,
-      ease: [0.4, 0, 0.2, 1] as const,
-    },
-  },
+  exit: { opacity: 0, y: 16, transition: { duration: 0.24, ease: [0.4, 0, 0.2, 1] as const } },
 };
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({
-  project,
-  index,
-  size = 'medium'
-}) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, size = 'medium' }) => {
   const sizeClasses = {
     small: 'min-h-[300px]',
     medium: 'min-h-[350px]',
@@ -81,19 +62,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     ai: 'AI Development',
   };
 
-  const subCategoryLabels: Record<string, string> = {
-    'Frontend Development': 'Frontend',
-    'WordPress Development': 'WordPress',
-    'UI/UX Design': 'UI/UX',
-    'DevTools': 'DevTools',
-  };
-
-  interface ProjectWithSubCategories extends Project {
-    subCategories?: string[];
-  }
-
-  const projectWithSub = project as ProjectWithSubCategories;
-
   return (
     <motion.div
       custom={index}
@@ -102,91 +70,51 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.18 }}
       exit="exit"
-      className={`${sizeClasses[size]}`}
+      className={sizeClasses[size]}
     >
-      <motion.div
-        className="group relative h-full cursor-pointer overflow-hidden rounded-2xl border border-gray-700/50 bg-dark-400/50 transform-gpu"
-        whileHover={{
-          y: -8,
-          borderColor: 'rgba(168, 85, 247, 0.4)',
-        }}
-        transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-      >
-        {/* Image or Placeholder */}
-        <div className="relative aspect-video overflow-hidden bg-dark-300/50 [transform:translateZ(0)]">
-          <div className="absolute inset-0 transform-gpu transition-transform duration-500 will-change-transform group-hover:scale-[1.04] [backface-visibility:hidden]">
-            <ImageWithFallback
-              src={project.image}
-              alt={project.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain [backface-visibility:hidden] [transform:translateZ(0)]"
-              isDark={true}
-            />
-
-            {/* Overlay gradient */}
-            <div className="pointer-events-none absolute inset-x-0 -bottom-px top-0 bg-gradient-to-t from-dark-400/90 via-dark-400/20 to-transparent" />
-          </div>
-
-          {/* Category badge */}
-          <div className="absolute top-4 left-4 flex items-center gap-2">
-            <span className="px-3 py-1 text-xs font-mono text-accent-400 bg-dark-900/80 backdrop-blur-sm rounded-full border border-accent-500/20">
+      <div className="group h-full overflow-hidden rounded-base border-2 border-ink bg-card shadow-neo transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none">
+        <div className="relative aspect-video overflow-hidden border-b-2 border-ink bg-surface">
+          <ImageWithFallback
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+          <div className="absolute left-4 top-4">
+            <span className="rounded-full border-2 border-ink bg-lime px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide text-ink">
               {categoryLabels[project.category] || project.category}
             </span>
-            {/* Sub category badges */}
-            {projectWithSub.subCategories?.map((subCat, index) => (
-              <span
-                key={index}
-                className="px-2 py-0.5 text-[10px] font-medium text-white bg-gray-700/60 backdrop-blur-sm rounded-full border border-gray-600/40"
-              >
-                {subCategoryLabels[subCat] || subCat}
-              </span>
-            ))}
           </div>
         </div>
 
-        {/* Content */}
-        <div className="relative -mt-px bg-dark-400/50 p-5 md:p-6">
-          <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-accent-400 transition-colors">
-            {project.title}
-          </h3>
-
-          <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+        <div className="p-5 md:p-6">
+          <h3 className="font-display text-xl uppercase leading-none">{project.title}</h3>
+          <p className="mt-2 font-body text-sm leading-relaxed text-ink/60 line-clamp-2">
             {project.shortDescription}
           </p>
 
-          {/* Tech stack */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {project.tech.slice(0, 4).map((tech, i) => (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.tech.slice(0, 4).map((tech) => (
               <span
-                key={i}
-                className="px-2 py-0.5 text-xs text-gray-500 bg-dark-300/50 rounded"
+                key={tech}
+                className="rounded-base border border-ink/30 bg-surface px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-ink/70"
               >
                 {tech}
               </span>
             ))}
             {project.tech.length > 4 && (
-              <span className="px-2 py-0.5 text-xs text-gray-600">
-                +{project.tech.length - 4}
-              </span>
+              <span className="font-mono text-xs text-ink/50">+{project.tech.length - 4}</span>
             )}
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center justify-between pt-2 border-t border-gray-700/50">
+          <div className="mt-5 flex items-center justify-between border-t-2 border-ink/10 pt-4">
             <Link
               href={`/project/${project.slug}`}
-              className="flex items-center gap-2 text-sm text-gray-400 hover:text-accent-400 transition-colors group/link"
+              className="flex items-center gap-2 font-body text-sm font-bold transition-colors hover:text-violet"
             >
-              <span>Show project</span>
-              <motion.span
-                className="inline-block"
-                initial={{ x: 0 }}
-                whileHover={{ x: 6 }}
-                transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-              >
-                <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-              </motion.span>
+              Show project
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
             <div className="flex items-center gap-3">
@@ -195,7 +123,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-white transition-colors"
+                  className="text-ink/50 transition-colors hover:text-ink"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <GithubIcon />
@@ -206,7 +134,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   href={project.npm}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-white transition-colors"
+                  className="text-ink/50 transition-colors hover:text-ink"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <NpmIcon />
@@ -217,19 +145,16 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-white transition-colors"
+                  className="text-ink/50 transition-colors hover:text-ink"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="h-4 w-4" />
                 </a>
               )}
             </div>
           </div>
         </div>
-
-        {/* Hover effect overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-navy-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

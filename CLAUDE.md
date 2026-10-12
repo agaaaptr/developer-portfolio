@@ -13,22 +13,23 @@ npm run lint     # Run ESLint on src/ directory
 
 ## Architecture
 
-This is a single-page portfolio website built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS.
+Single-page portfolio website built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS 4. Neobrutalism design, light-only. Design spec: `design.md`.
 
 ### Page Structure
 
-- **Single-page application**: All sections rendered on one page with smooth scrolling navigation
-- **Dynamic imports**: All sections are dynamically imported with `ssr: false` to avoid hydration issues with framer-motion animations
-- **Client-side rendering**: Root layout wraps content in client components for state management (theme, scroll tracking)
+- **Single-page application**: All sections rendered on one page with smooth scrolling (Lenis).
+- **Dynamic imports**: Sections are dynamically imported with `ssr: false` to avoid hydration issues with `motion` animations.
+- **Layout**: Wraps children in `SmoothScroll` (Lenis) and renders `Header` and `ScrollToTopButton` directly.
 
 ### Key Directories
 
-- `src/app/` - Next.js App Router (layout.tsx, page.tsx, globals.css)
+- `src/app/` - App Router (layout.tsx, page.tsx, globals.css, /project/all, /project/[slug], /api/cv/[lang])
 - `src/components/sections/` - Hero, Expertise, Work, Experience, Contact
-- `src/components/layout/` - Header, Footer, RootLayoutClient, BodyWrapper
-- `src/components/ui/` - Reusable UI components (Accordion, ImageWithFallback, ScrollIndicator, ScrollToTopButton, SectionGridBackground)
-- `src/lib/hooks/` - Custom hooks (useMediaQuery, useTouchDevice, useScrollDirection)
-- `src/data/` - JSON data files for content (personal, skills, experience, projects, expertise)
+- `src/components/layout/` - Header, Footer, SmoothScroll
+- `src/components/projects/` - ProjectCard, ProjectFilter, ProjectGrid, ProjectNavigation
+- `src/components/ui/` - Accordion, ImageWithFallback, ScrollToTopButton
+- `src/lib/hooks/` - useMediaQuery
+- `src/data/` - JSON data files for content (personal, experience, expertise, projects)
 
 ### Content Management
 
@@ -36,27 +37,20 @@ Content is managed through JSON files in `src/data/`. To update portfolio inform
 
 ### Animation System
 
-Uses framer-motion with per-component animation variants defined inline in each section and page (for example `containerVariants` and `itemVariants` in `src/components/sections/Hero.tsx` and the project pages). There is no shared variants module.
+Uses `motion` (imported from `motion/react`) with per-component animation variants defined inline in each section and page (for example `containerVariants` and `itemVariants` in `src/components/sections/Hero.tsx` and the project pages). There is no shared variants module.
 
-**Important**: When adding animations with `type: "spring"`, use `as const` assertion for TypeScript compatibility with React 19:
-```typescript
-transition: { type: "spring" as const, stiffness: 300, damping: 20 }
-```
+Hover and press states use plain CSS transitions (snap), not spring animation.
 
 ### Styling
 
-- **Tailwind CSS** for utility classes
-- **Custom theme**: Extended colors in `tailwind.config.js` (primary, secondary, accent)
-- **CSS animations**: Custom keyframes in `globals.css` (gradientShift, text-glow, pattern-pan)
-- **Dark mode**: Uses `darkMode: 'class'` configuration
+- **Tailwind CSS 4** for utility classes, CSS-first (`@import "tailwindcss"`).
+- **Design tokens** in `src/app/globals.css` (`@theme`): ink, surface, card, border, lime, violet, violet-bright, shadow-neo, shadow-neo-lg, radius-base.
+- **Light-only** (dark mode removed).
+- **Fonts** (next/font in layout.tsx): Archivo Black (display), Space Grotesk (body), JetBrains Mono (mono), Caveat (handwritten).
 
 ### Icon Conventions
 
-Uses lucide-react ^1.7.0 (see package.json). GitHub, LinkedIn, and Instagram brand icons are locally defined SVG components (`GithubIcon`, `LinkedinIcon`, `InstagramIcon`), not lucide imports, so there are no lucide brand-icon names to migrate.
-
-### Touch Device Handling
-
-The project includes touch device detection via `useTouchDevice` hook. Touch devices have certain hover effects disabled via CSS media queries (`@media (hover: none)`).
+Uses lucide-react ^1.55.0 (see package.json). GitHub, LinkedIn, and Instagram brand icons are locally defined SVG components (`GithubIcon`, `LinkedinIcon`, `InstagramIcon`), not lucide imports.
 
 <!-- noir:context begin -->
 @import ".noir/NOIR.md"

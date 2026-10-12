@@ -13,7 +13,6 @@ interface ImageWithFallbackProps {
   sizes?: string;
   className?: string;
   priority?: boolean;
-  isDark?: boolean;
 }
 
 export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
@@ -25,24 +24,15 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   sizes,
   className = '',
   priority = false,
-  isDark = true,
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   if (hasError || !src) {
     return (
-      <div className={`flex items-center justify-center ${
-        isDark 
-          ? 'bg-gradient-to-br from-dark-400 via-dark-500 to-dark-600' 
-          : 'bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300'
-      } ${fill ? 'absolute inset-0' : ''}`}>
-        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
-          isDark 
-            ? 'bg-dark-300/50 border border-gray-700/50' 
-            : 'bg-white/50 border border-gray-300'
-        }`}>
-          <ImageOff className={`w-8 h-8 ${isDark ? 'text-gray-500' : 'text-gray-400'}`} />
+      <div className={`flex items-center justify-center bg-surface ${fill ? 'absolute inset-0' : ''}`}>
+        <div className="flex h-16 w-16 items-center justify-center rounded-base border-2 border-ink/20">
+          <ImageOff className="h-8 w-8 text-ink/40" />
         </div>
       </div>
     );
@@ -51,16 +41,8 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   return (
     <>
       {isLoading && (
-        <div className={`flex items-center justify-center ${
-          isDark 
-            ? 'bg-gradient-to-br from-dark-400 via-dark-500 to-dark-600' 
-            : 'bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300'
-        } ${fill ? 'absolute inset-0' : ''}`}>
-          <div className={`w-8 h-8 rounded-full border-2 animate-spin ${
-            isDark 
-              ? 'border-gray-600 border-t-accent-400' 
-              : 'border-gray-300 border-t-accent-500'
-          }`} />
+        <div className={`flex items-center justify-center bg-surface ${fill ? 'absolute inset-0' : ''}`}>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-ink/30 border-t-ink" />
         </div>
       )}
       <Image

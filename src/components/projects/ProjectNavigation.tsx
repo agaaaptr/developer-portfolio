@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { useTheme } from '@/components/layout/ThemeProvider';
 import { ImageWithFallback } from '@/components/ui/ImageWithFallback';
 
 interface Project {
@@ -18,17 +17,11 @@ interface ProjectNavigationProps {
   nextProject: Project | null;
 }
 
-export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
-  prevProject,
-  nextProject,
-}) => {
+export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ prevProject, nextProject }) => {
   const [hoveredProject, setHoveredProject] = useState<'prev' | 'next' | null>(null);
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
 
   if (!nextProject && !prevProject) return null;
 
-  // Show next project by default, or prev if no next
   const defaultProject = nextProject || prevProject;
   const activeProjectLabel =
     hoveredProject === 'prev'
@@ -38,87 +31,56 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
         : nextProject
           ? 'Next Project'
           : 'Previous Project';
-  
-  // When hovering, show the hovered project's image
-  const hoveredProjectData = hoveredProject === 'prev' ? prevProject : hoveredProject === 'next' ? nextProject : null;
+
+  const hoveredProjectData =
+    hoveredProject === 'prev' ? prevProject : hoveredProject === 'next' ? nextProject : null;
   const showImageOnHover = hoveredProjectData !== null;
 
   return (
     <>
-      <div className="relative z-20 mx-auto max-w-6xl px-4 pt-4 sm:px-6 sm:pt-5 lg:hidden">
+      <div className="relative z-20 mx-auto max-w-6xl px-4 pt-4 lg:hidden">
         <div className={`grid gap-3 ${prevProject && nextProject ? 'sm:grid-cols-2' : 'grid-cols-1'}`}>
           {prevProject && (
             <Link
               href={`/project/${prevProject.slug}`}
-              className={`rounded-2xl border px-4 py-3 backdrop-blur-md transition-colors ${
-                isDark
-                  ? 'border-accent-500/20 bg-dark-900/80 hover:border-accent-400/35 hover:bg-accent-500/10'
-                  : 'border-slate-200/90 bg-white/90 hover:border-accent-400/35 hover:bg-accent-50/80'
-              }`}
+              className="flex items-center gap-3 rounded-base border-2 border-ink bg-card px-4 py-3 shadow-neo"
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border ${
-                    isDark
-                      ? 'border-accent-500/25 bg-accent-500/10 text-accent-300'
-                      : 'border-slate-200 bg-white text-slate-700'
-                  }`}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </div>
-                <div className="min-w-0">
-                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Previous Project</p>
-                  <p className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-slate-900'}`}>{prevProject.title}</p>
-                </div>
+              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-base border-2 border-ink bg-lime">
+                <ChevronLeft className="h-4 w-4" />
+              </div>
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] uppercase tracking-wide text-ink/50">Previous Project</p>
+                <p className="truncate font-body text-sm font-bold">{prevProject.title}</p>
               </div>
             </Link>
           )}
-
           {nextProject && (
             <Link
               href={`/project/${nextProject.slug}`}
-              className={`rounded-2xl border px-4 py-3 backdrop-blur-md transition-colors ${
-                isDark
-                  ? 'border-accent-500/20 bg-dark-900/80 hover:border-accent-400/35 hover:bg-accent-500/10'
-                  : 'border-slate-200/90 bg-white/90 hover:border-accent-400/35 hover:bg-accent-50/80'
-              }`}
+              className="flex items-center justify-between gap-3 rounded-base border-2 border-ink bg-card px-4 py-3 shadow-neo"
             >
-              <div className="flex items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <p className={`text-xs ${isDark ? 'text-accent-300/70' : 'text-slate-500'}`}>Next Project</p>
-                  <p className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-slate-900'}`}>{nextProject.title}</p>
-                </div>
-                <div
-                  className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border ${
-                    isDark
-                      ? 'border-accent-500/25 bg-accent-500/10 text-accent-300'
-                      : 'border-slate-200 bg-white text-slate-700'
-                  }`}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </div>
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] uppercase tracking-wide text-ink/50">Next Project</p>
+                <p className="truncate font-body text-sm font-bold">{nextProject.title}</p>
+              </div>
+              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-base border-2 border-ink bg-lime">
+                <ChevronRight className="h-4 w-4" />
               </div>
             </Link>
           )}
         </div>
       </div>
 
-      {/* Desktop version - floating card */}
       <motion.div
-        className="hidden lg:block fixed bottom-16 xl:bottom-24 right-3 xl:right-6 z-40"
+        className="fixed bottom-16 right-3 z-40 hidden lg:block xl:bottom-24 xl:right-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <motion.div 
-          className={`flex flex-col items-end gap-0 p-3 lg:p-4 rounded-xl lg:rounded-2xl backdrop-blur-md border ${
-            isDark 
-              ? 'bg-accent-500/20 border-accent-500/40 shadow-[0_24px_60px_rgba(10,10,18,0.38)]' 
-              : 'bg-white/90 border-slate-200/90 shadow-[0_24px_60px_rgba(15,23,42,0.16)]'
-          }`}
+        <div
+          className="flex flex-col items-end gap-0 rounded-base border-2 border-ink bg-card p-3 shadow-neo"
           style={{ width: 220 }}
         >
-          {/* Project image - only visible on hover (desktop only) */}
           <AnimatePresence>
             {showImageOnHover && (
               <motion.div
@@ -126,26 +88,10 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
                 initial={{ opacity: 0, height: 0, marginBottom: 0 }}
                 animate={{ opacity: 1, height: 120, marginBottom: 12 }}
                 exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                transition={{ 
-                  type: "tween",
-                  duration: 0.25,
-                  ease: "easeOut"
-                }}
+                transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
                 className="w-full overflow-hidden"
               >
-                <motion.div 
-                  className={`relative w-full h-[120px] rounded-lg lg:rounded-xl overflow-hidden ${
-                    isDark ? 'bg-dark-300/50' : 'bg-slate-100'
-                  }`}
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ 
-                    type: "tween",
-                    duration: 0.3,
-                    ease: "easeOut",
-                    delay: 0.05
-                  }}
-                >
+                <div className="relative h-[120px] w-full overflow-hidden rounded-base border-2 border-ink bg-surface">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={hoveredProjectData?.slug || 'empty'}
@@ -161,82 +107,61 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
                         fill
                         sizes="220px"
                         className="object-cover"
-                        isDark={isDark}
                       />
                     </motion.div>
                   </AnimatePresence>
-                </motion.div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Project info - always visible */}
-          <div className="w-full mb-2 lg:mb-3">
-            <p className={`text-xs mb-0.5 lg:mb-1 ${isDark ? 'text-accent-300/70' : 'text-accent-700/70'}`}>
-              {activeProjectLabel}
-            </p>
-            <p className={`font-medium truncate text-xs lg:text-sm ${isDark ? 'text-white' : 'text-dark-900'}`}>
-              {hoveredProject === 'prev' && prevProject 
-                ? prevProject.title 
-                : hoveredProject === 'next' && nextProject 
-                  ? nextProject.title 
+          <div className="mb-3 w-full">
+            <p className="mb-1 font-mono text-[10px] uppercase tracking-wide text-violet">{activeProjectLabel}</p>
+            <p className="truncate font-body text-sm font-bold">
+              {hoveredProject === 'prev' && prevProject
+                ? prevProject.title
+                : hoveredProject === 'next' && nextProject
+                  ? nextProject.title
                   : defaultProject?.title}
             </p>
           </div>
 
-          {/* Navigation arrows */}
-          <div className="flex items-center gap-1.5 lg:gap-2 w-full justify-end">
+          <div className="flex w-full items-center justify-end gap-2">
             {prevProject ? (
               <Link href={`/project/${prevProject.slug}`}>
                 <button
-                  className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border transition-all duration-200 ${
-                    isDark 
-                      ? 'bg-dark-900/50 border-accent-500/30 text-accent-300 hover:text-white hover:border-accent-400 hover:bg-accent-500/20' 
-                      : 'bg-white border-slate-200 text-slate-700 hover:text-accent-700 hover:border-accent-400 hover:bg-accent-50 shadow-sm'
-                  }`}
+                  className="rounded-base border-2 border-ink bg-card p-3 transition-all hover:translate-x-[-2px] hover:translate-y-[2px] hover:bg-lime"
                   aria-label="Previous project"
                   onMouseEnter={() => setHoveredProject('prev')}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
+                  <ChevronLeft className="h-5 w-5" />
                 </button>
               </Link>
             ) : (
-              <div className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border cursor-not-allowed ${
-                isDark 
-                  ? 'bg-dark-900/30 border-gray-800/30 text-gray-600' 
-                  : 'bg-slate-100 border-slate-200 text-slate-400'
-                }`}>
-                <ChevronLeft className="w-4 h-4 lg:w-5 lg:h-5 pointer-events-none cursor-not-allowed" />
+              <div className="rounded-base border-2 border-ink/20 bg-surface p-3 opacity-50">
+                <ChevronLeft className="h-5 w-5" />
               </div>
             )}
 
             {nextProject ? (
               <Link href={`/project/${nextProject.slug}`}>
                 <button
-                  className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border transition-all duration-200 ${
-                    isDark 
-                      ? 'bg-dark-900/50 border-accent-500/30 text-accent-300 hover:text-white hover:border-accent-400 hover:bg-accent-500/20' 
-                      : 'bg-white border-slate-200 text-slate-700 hover:text-accent-700 hover:border-accent-400 hover:bg-accent-50 shadow-sm'
-                  }`}
+                  className="rounded-base border-2 border-ink bg-card p-3 transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-lime"
                   aria-label="Next project"
                   onMouseEnter={() => setHoveredProject('next')}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
+                  <ChevronRight className="h-5 w-5" />
                 </button>
               </Link>
             ) : (
-              <div className={`p-2 lg:p-3 rounded-lg lg:rounded-xl border cursor-not-allowed ${
-                isDark 
-                  ? 'bg-dark-900/30 border-gray-800/30 text-gray-600' 
-                  : 'bg-slate-100 border-slate-200 text-slate-400'
-                }`}>
-                <ChevronRight className="w-4 h-4 lg:w-5 lg:h-5 pointer-events-none cursor-not-allowed" />
+              <div className="rounded-base border-2 border-ink/20 bg-surface p-3 opacity-50">
+                <ChevronRight className="h-5 w-5" />
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       </motion.div>
     </>
   );

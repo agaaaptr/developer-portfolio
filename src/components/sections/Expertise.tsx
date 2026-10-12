@@ -1,10 +1,9 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Monitor, Terminal, Bot } from 'lucide-react';
 import expertiseData from '@/data/expertise.json';
-import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 const iconMap: Record<string, React.ElementType> = {
   monitor: Monitor,
@@ -12,283 +11,50 @@ const iconMap: Record<string, React.ElementType> = {
   bot: Bot,
 };
 
-interface ExpertiseCardProps {
-  expertise: {
-    id: number;
-    icon: string;
-    title: string;
-    subtitle: string;
-    description: string;
-    technologies: string[];
-  };
-  index: number;
+interface ExpertiseItem {
+  id: number;
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  technologies: string[];
 }
 
-const ExpertiseCard: React.FC<ExpertiseCardProps> = ({ expertise, index }) => {
+const ExpertiseCard: React.FC<{ expertise: ExpertiseItem; index: number }> = ({
+  expertise,
+  index,
+}) => {
   const Icon = iconMap[expertise.icon] || Monitor;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ 
-        duration: 0.6, 
-        delay: 0.3 + index * 0.2,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      className="group rounded-base border-2 border-ink bg-card p-6 shadow-neo transition-[translate,box-shadow] hover:-translate-y-1 hover:shadow-neo-lg md:p-8"
     >
-      <motion.div
-        className="relative h-full p-6 md:p-8 rounded-2xl bg-dark-400/50 border border-gray-700/50 backdrop-blur-sm group cursor-pointer overflow-hidden"
-        whileHover={{ 
-          y: -8,
-          borderColor: 'rgba(168, 85, 247, 0.4)',
-        }}
-        transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 via-transparent to-navy-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Icon */}
-          <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-gray-700/50 bg-dark-300/50 transition-colors group-hover:border-accent-500/30">
-            <Icon className="w-7 h-7 text-accent-400" />
-          </div>
-
-          {/* Title & Subtitle */}
-          <h3 className="mb-2 text-xl font-bold text-white md:text-2xl">
-            {expertise.title}
-          </h3>
-          <p className="mb-4 text-sm font-mono text-accent-400">
-            {expertise.subtitle}
-          </p>
-
-          {/* Description */}
-          <p className="mb-6 text-sm leading-relaxed text-gray-400 md:text-base">
-            {expertise.description}
-          </p>
-
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2">
-            {expertise.technologies.map((tech, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 text-xs font-mono text-gray-400 bg-dark-300/50 border border-gray-700/50 rounded-full"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Decorative corner */}
-        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-accent-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-tr-2xl" />
-      </motion.div>
-    </motion.div>
-  );
-};
-
-const subtleTitleTextStyle = { color: 'rgba(138, 146, 160, 0.52)' };
-const subtleHeadingTextStyle = { color: 'rgba(132, 140, 154, 0.48)' };
-const subtleBodyTextStyle = { color: 'rgba(126, 134, 148, 0.44)' };
-const subtleBodyMutedTextStyle = { color: 'rgba(122, 130, 144, 0.40)' };
-const subtlePipeTextStyle = { color: 'rgba(110, 118, 132, 0.36)' };
-const subtlePipeMutedTextStyle = { color: 'rgba(104, 112, 126, 0.32)' };
-const subtleAttributeTextStyle = { color: 'rgba(132, 163, 201, 0.62)' };
-const subtleStringTextStyle = { color: 'rgba(143, 176, 141, 0.54)' };
-const subtlePunctuationTextStyle = { color: 'rgba(154, 162, 176, 0.50)' };
-
-const snippetLines: Array<{ id: string; depth: number; content: React.ReactNode }> = [
-  {
-    id: 'html-open',
-    depth: 0,
-    content: (
-      <>
-        <span className="text-[#b5179e]/55">&lt;html</span>{' '}
-        <span style={subtleAttributeTextStyle}>lang</span>
-        <span style={subtlePunctuationTextStyle}>=</span>
-        <span style={subtleStringTextStyle}>&quot;en&quot;</span>
-        <span className="text-[#b5179e]/55">&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'head-open',
-    depth: 1,
-    content: (
-      <>
-        <span className="text-[#b5179e]/50">&lt;head&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'meta',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;meta</span>{' '}
-        <span style={subtleAttributeTextStyle}>name</span>
-        <span style={subtlePunctuationTextStyle}>=</span>
-        <span style={subtleStringTextStyle}>&quot;viewport&quot;</span>{' '}
-        <span style={subtleAttributeTextStyle}>content</span>
-        <span style={subtlePunctuationTextStyle}>=</span>
-        <span style={subtleStringTextStyle}>&quot;width=device-width, initial-scale=1.0&quot;</span>
-        <span className="text-[#b5179e]/45">&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'title',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;title&gt;</span>
-        <span style={subtleTitleTextStyle}>What I do</span>
-        <span className="text-[#b5179e]/45">&lt;/title&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'head-close',
-    depth: 1,
-    content: (
-      <>
-        <span className="text-[#b5179e]/50">&lt;/head&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'body-open',
-    depth: 1,
-    content: (
-      <>
-        <span className="text-[#b5179e]/50">&lt;body&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'h1',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;h1&gt;</span>
-        <span style={subtleHeadingTextStyle}>Frontend to backend, end to end</span>
-        <span className="text-[#b5179e]/45">&lt;/h1&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'p',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;p&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'p-line-frontend',
-    depth: 3,
-    content: (
-      <>
-        <span style={subtlePipeTextStyle}>|</span>{' '}
-        <span style={subtleBodyTextStyle}>Building responsive interfaces with React, Next.js, and Angular.</span>
-      </>
-    ),
-  },
-  {
-    id: 'p-line-backend',
-    depth: 3,
-    content: (
-      <>
-        <span style={subtlePipeTextStyle}>|</span>{' '}
-        <span style={subtleBodyTextStyle}>Shipping scalable APIs with Go, Gin, and MySQL.</span>
-      </>
-    ),
-  },
-  {
-    id: 'p-close',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;/p&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'span',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;span&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'span-line',
-    depth: 3,
-    content: (
-      <>
-        <span style={subtlePipeMutedTextStyle}>|</span>{' '}
-        <span style={subtleBodyMutedTextStyle}>Working AI-assisted with Claude Code and OpenCode across the stack.</span>
-      </>
-    ),
-  },
-  {
-    id: 'span-close',
-    depth: 2,
-    content: (
-      <>
-        <span className="text-[#b5179e]/45">&lt;/span&gt;</span>
-      </>
-    ),
-  },
-  {
-    id: 'body-close',
-    depth: 1,
-    content: <span className="text-[#b5179e]/50">&lt;/body&gt;</span>,
-  },
-  {
-    id: 'html-close',
-    depth: 0,
-    content: <span className="text-[#b5179e]/55">&lt;/html&gt;</span>,
-  },
-];
-
-const renderSnippetIndentedContent = (depth: number, content: React.ReactNode): React.ReactNode => {
-  let node = <>{content}</>;
-
-  for (let index = 0; index < depth; index += 1) {
-    node = (
-      <div className="ml-3 pl-3 sm:ml-4 sm:pl-4">
-        {node}
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-base border-2 border-ink bg-lime shadow-neo transition-all group-hover:translate-x-[3px] group-hover:translate-y-[3px] group-hover:shadow-none">
+        <Icon className="h-7 w-7" />
       </div>
-    );
-  }
 
-  return node;
-};
+      <h3 className="font-display text-2xl uppercase leading-none">{expertise.title}</h3>
+      <p className="mt-2 font-mono text-xs uppercase tracking-wide text-violet">
+        {expertise.subtitle}
+      </p>
+      <p className="mt-4 font-body text-sm leading-relaxed text-ink/70">
+        {expertise.description}
+      </p>
 
-const HtmlSnippetDecoration: React.FC = () => {
-  return (
-    <motion.div
-      className="pointer-events-none relative w-full max-w-4xl"
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.8, duration: 0.7 }}
-    >
-      <div className="absolute inset-x-24 top-2 h-20 bg-[radial-gradient(circle,rgba(168,85,247,0.12),transparent_74%)] blur-3xl" />
-      <div className="relative overflow-hidden px-4 pt-7 opacity-[0.82] sm:px-8 sm:pt-9 md:px-12">
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent" />
-
-        <div className="space-y-0.5 font-mono text-[10px] leading-[1.22] tracking-[0.03em] sm:text-[11px] sm:leading-[1.28] md:text-[12px] md:leading-[1.34]">
-          {snippetLines.map((line) => (
-            <div key={line.id} className="max-w-3xl whitespace-pre-wrap">
-              {renderSnippetIndentedContent(line.depth, line.content)}
-            </div>
-          ))}
-        </div>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {expertise.technologies.map((tech) => (
+          <span
+            key={tech}
+            className="rounded-base border-2 border-ink bg-surface px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide"
+          >
+            {tech}
+          </span>
+        ))}
       </div>
     </motion.div>
   );
@@ -298,53 +64,32 @@ export const ExpertiseSection: React.FC = () => {
   return (
     <section
       id="expertise"
-      className="relative overflow-hidden bg-dark-900 py-8 [content-visibility:auto] [contain-intrinsic-size:960px] md:py-12"
+      className="relative bg-surface py-16 md:py-24"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px)',
+        backgroundSize: '16px 16px',
+      }}
     >
-      <SectionGridBackground />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">02 — What I do</p>
+          <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
+            My{' '}
+            <span className="inline-block border-2 border-ink bg-lime px-2 shadow-neo">
+              Expertise
+            </span>
+          </h2>
+          <p className="max-w-2xl font-body text-base text-ink/70">
+            Frontend, backend, and AI-assisted work: Angular interfaces to Go APIs.
+          </p>
+        </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="mb-12 text-center sm:mb-14 lg:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.h2
-            className="mb-4 text-2xl font-bold text-white sm:text-3xl md:text-4xl lg:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            My <span className="text-accent-400">Expertise</span>
-          </motion.h2>
-          <motion.p
-            className="mx-auto max-w-2xl text-sm text-gray-400 sm:text-base md:text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Specialized in building modern, scalable applications across multiple platforms
-          </motion.p>
-        </motion.div>
-
-        {/* Expertise Cards Grid */}
-        <div className="relative z-20 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {expertiseData.expertise.map((item, index) => (
             <ExpertiseCard key={item.id} expertise={item} index={index} />
           ))}
         </div>
-
-        <div className="relative z-10 hidden justify-center px-4 lg:-mt-14 lg:flex xl:-mt-16">
-          <HtmlSnippetDecoration />
-        </div>
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none" />
     </section>
   );
 };

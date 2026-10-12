@@ -4,7 +4,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { Footer } from '@/components/layout/Footer';
 
-// Dynamic imports for sections to avoid hydration issues with framer-motion
+// Dynamic imports for sections to avoid hydration issues with motion
 const HeroSection = dynamic(
   () => import('@/components/sections/Hero').then((mod) => mod.HeroSection),
   { ssr: false }
@@ -28,7 +28,7 @@ const ContactSection = dynamic(
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="min-h-screen bg-surface text-ink">
       <main>
         <HeroSection />
         <ExpertiseSection />

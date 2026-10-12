@@ -5,7 +5,7 @@
             "icon": "monitor",
             "title": "Frontend Development",
             "subtitle": "React, Next.js, Angular",
-            "description": "Building responsive user interfaces with React, Next.js, and Angular. Focused on component architecture, TypeScript, and semantic HTML/CSS that hold up in production.",
+            "description": "React, Next.js, and Angular interfaces. Component architecture, TypeScript, and semantic HTML.",
             "technologies": ["React", "Next.js", "Angular", "TypeScript", "HTML5", "CSS3"]
         },
         {
@@ -13,7 +13,7 @@
             "icon": "terminal",
             "title": "Backend Development",
             "subtitle": "Go, Gin, MySQL",
-            "description": "Building RESTful APIs with Go and Gin, backed by MySQL. Focused on query optimization and data integrity.",
+            "description": "REST APIs in Go and Gin on MySQL. Composite indexes and N+1 elimination over raw query speed.",
             "technologies": ["Go", "Gin", "MySQL", "REST API", "SQL"]
         },
         {
@@ -21,7 +21,7 @@
             "icon": "bot",
             "title": "AI Integration",
             "subtitle": "Claude Code, OpenCode",
-            "description": "Integrating agentic AI tools into the daily engineering workflow: planning, implementation, and review with Claude Code and OpenCode.",
+            "description": "Planning, building, and reviewing code with Claude Code and OpenCode, plus a 57-release OSS agent framework.",
             "technologies": ["Claude Code", "OpenCode", "MCP", "AI-assisted development"]
         }
     ]

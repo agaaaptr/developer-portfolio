@@ -4,16 +4,17 @@ This file provides context for the Gemini CLI to understand and work with this p
 
 ## Project Overview
 
-This is a personal developer portfolio website built with Next.js, TypeScript, and Tailwind CSS. It includes sections for home, expertise, work, experience, and contact.
+Personal developer portfolio website built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS 4. Neobrutalism design, light-only. Design spec: `design.md`.
 
 ## Tech Stack
 
-- **Framework:** Next.js
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS, PostCSS
+- **Framework:** Next.js 16
+- **Language:** TypeScript 6
+- **Styling:** Tailwind CSS 4 (CSS-first), PostCSS
+- **Animation:** motion (framer-motion successor), lenis (smooth scroll)
 - **Package Manager:** npm
-- **Dependencies:** framer-motion, lucide-react
-- **Development Dependencies:** @types/node, @types/react, @types/react-dom, autoprefixer, eslint, eslint-config-next
+- **Dependencies:** motion, lenis, lucide-react, next, react, react-dom
+- **Dev Dependencies:** @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, eslint, eslint-config-next, postcss, tailwindcss, typescript
 
 ## Important Commands
 
@@ -22,19 +23,15 @@ This is a personal developer portfolio website built with Next.js, TypeScript, a
 - **Build for production:** `npm run build`
 - **Start production server:** `npm run start`
 - **Run linter:** `npm run lint`
-- **Export static site:** `npm run export`
+- **Render CV:** `npm run cv:render` / `npm run portfolio:render`
 - **Deploy to Vercel:** `npm run deploy`
 
 ## Project Structure
 
-- `src/app/`: Main application pages, layout, and API routes.
-- `src/components/`: Reusable React components, organized into `layout`, `sections`, and `ui`.
-- `src/data/`: JSON files containing portfolio data (experience, expertise, personal, projects, skills).
-- `src/lib/`: Utility functions or libraries.
-- `src/app/globals.css`: Global styles.
-- `public/`: Static assets like images, robots.txt, and sitemap.xml.
-- `next.config.js`: Next.js configuration.
-- `tailwind.config.js`: Tailwind CSS configuration.
-- `postcss.config.js`: PostCSS configuration.
-- `eslint.config.mjs`: ESLint configuration.
-- `tsconfig.json`: TypeScript configuration.
+- `src/app/`: pages, layout, API routes (home, /project/all, /project/[slug], /api/cv/[lang]).
+- `src/components/`: React components, organized into `layout`, `sections`, `projects`, and `ui`.
+- `src/data/`: JSON files (personal, experience, expertise, projects).
+- `src/lib/hooks/`: useMediaQuery.
+- `src/app/globals.css`: global styles and design tokens (`@theme`).
+- `public/`: static assets.
+- `next.config.js`, `postcss.config.js`, `eslint.config.mjs`, `tsconfig.json`.

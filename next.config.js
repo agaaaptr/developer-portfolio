@@ -13,6 +13,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  turbopack: {
+    root: __dirname,
+  },
 }
 
 module.exports = nextConfig

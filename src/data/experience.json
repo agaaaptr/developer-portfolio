@@ -38,7 +38,7 @@
             "achievements": [
                 "Developed the admin and student frontends of TembusIn, a 4-track exam-prep LMS (SNBT, TKA, CPNS, PPPK), in React, Vite, TypeScript, and Tailwind CSS",
                 "Translated Figma specs into responsive interfaces and integrated REST APIs with typed clients and skeleton loading states",
-                "Optimized animation performance and deployed the production build to a VPS"
+                "Tuned the animations and deployed the production build to a VPS"
             ],
             "technologies": [
                 "React",

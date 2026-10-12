@@ -29,7 +29,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-*.log # General log files
+# General log files
+*.log
 
 # env files (should generally be ignored in production)
 .env*
@@ -46,8 +47,10 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE and editor files
-.vscode/ # VS Code specific files
-.idea/ # IntelliJ/WebStorm specific files
+# VS Code specific files
+.vscode/
+# IntelliJ/WebStorm specific files
+.idea/
 
 # Agents
 .agents/

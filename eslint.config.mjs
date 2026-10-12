@@ -1,21 +1,19 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
   {
     rules: {
+      // CV download links in Contact use <a> to /api/cv/* on purpose.
       "@next/next/no-html-link-for-pages": "off",
+      // React 19 rule flags useMediaQuery's sync setState in effect.
+      "react-hooks/set-state-in-effect": "off",
     },
   },
-];
+  globalIgnores([".next/**", "next-env.d.ts"]),
+]);
 
 export default eslintConfig;

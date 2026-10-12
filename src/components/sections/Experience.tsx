@@ -1,11 +1,9 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { MapPin, Globe, ExternalLink } from 'lucide-react';
 import experienceData from '@/data/experience.json';
 import { Accordion } from '@/components/ui/Accordion';
-import { SectionGridBackground } from '@/components/ui/SectionGridBackground';
 
 interface ExperienceItem {
   id: number;
@@ -21,51 +19,48 @@ interface ExperienceItem {
 
 const ExperienceContent: React.FC<{ experience: ExperienceItem }> = ({ experience }) => {
   return (
-    <div className="space-y-3 sm:space-y-4">
-      {/* Location & Website */}
-      <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-400">
-          <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          <span>{experience.location}</span>
-        </div>
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center gap-4 font-mono text-xs uppercase tracking-wide text-ink/60">
+        <span className="flex items-center gap-1.5">
+          <MapPin className="h-4 w-4 text-violet" />
+          {experience.location}
+        </span>
         {experience.website && (
           <a
             href={experience.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 sm:gap-2 text-accent-400 hover:text-accent-300 transition-colors"
+            className="flex items-center gap-1.5 text-violet transition-colors hover:underline"
           >
-            <Globe className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            <span>Website</span>
-            <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+            <Globe className="h-4 w-4" />
+            Website
+            <ExternalLink className="h-3 w-3" />
           </a>
         )}
       </div>
 
-      {/* Description */}
-      <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-        {experience.description}
-      </p>
+      <p className="font-body text-sm leading-relaxed text-ink/75">{experience.description}</p>
 
-      {/* Achievements */}
       {experience.achievements && experience.achievements.length > 0 && (
-        <ul className="space-y-1.5 sm:space-y-2 mt-3 sm:mt-4">
+        <ul className="space-y-2">
           {experience.achievements.map((achievement, index) => (
-            <li key={index} className="flex items-start gap-2 sm:gap-3 text-gray-400 text-sm sm:text-base">
-              <span className="text-accent-400 mt-1 sm:mt-1.5 flex-shrink-0 text-xs sm:text-base">▹</span>
+            <li
+              key={index}
+              className="flex items-start gap-2 font-body text-sm leading-relaxed text-ink/70"
+            >
+              <span className="mt-0.5 flex-shrink-0 text-violet">▹</span>
               <span>{achievement}</span>
             </li>
           ))}
         </ul>
       )}
 
-      {/* Technologies */}
       {experience.technologies && experience.technologies.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 sm:pt-4 border-t border-gray-800/50">
+        <div className="flex flex-wrap gap-2 border-t-2 border-ink/10 pt-4">
           {experience.technologies.map((tech, index) => (
             <span
               key={index}
-              className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-mono text-gray-400 bg-dark-300/50 border border-gray-700/50 rounded-full"
+              className="rounded-base border-2 border-ink bg-surface px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide"
             >
               {tech}
             </span>
@@ -87,48 +82,28 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section
       id="experience"
-      className="relative overflow-hidden bg-dark-900 py-8 [content-visibility:auto] [contain-intrinsic-size:900px] md:py-12"
+      className="relative bg-surface py-16 md:py-24"
+      style={{
+        backgroundImage: 'radial-gradient(rgba(0,0,0,0.05) 1.5px, transparent 1.5px)',
+        backgroundSize: '22px 22px',
+      }}
     >
-      <SectionGridBackground />
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-4">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">04 — Career</p>
+          <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
+            My{' '}
+            <span className="inline-block border-2 border-ink bg-violet px-2 text-white shadow-neo">
+              Experience
+            </span>
+          </h2>
+          <p className="font-body text-base text-ink/70">
+            Three roles: university systems, a freelance LMS, and WordPress agencies.
+          </p>
+        </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-10 sm:mb-12 md:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.h2 
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            My <span className="text-accent-400">Experience</span>
-          </motion.h2>
-          <motion.p 
-            className="max-w-2xl mx-auto text-gray-400 text-sm sm:text-base md:text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Professional journey through various roles and companies
-          </motion.p>
-        </motion.div>
-
-        {/* Accordion - starts with all collapsed */}
-        <Accordion 
-          items={accordionItems} 
-          defaultOpenId={null}
-        />
+        <Accordion items={accordionItems} defaultOpenId={null} />
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none" />
     </section>
   );
 };

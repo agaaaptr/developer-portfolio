@@ -44,7 +44,7 @@
     ],
     "featured": false,
     "shortDescription": "Learning Management System for test preparation courses",
-    "description": "A comprehensive Learning Management System providing courses for various test preparations including SNBT, TKA, CPNS, and PPPK. Developed the frontend for both admin and student interfaces, implementing responsive layouts following Figma design specifications. Integrated RESTful APIs with the backend to display real-time data from the database. Optimized animation performance and data flow to keep the UI responsive, then deployed the frontend to a VPS.",
+    "description": "An LMS for test prep: SNBT, TKA, CPNS, and PPPK. Built the admin and student frontends in React, Vite, TypeScript, and Tailwind, following Figma specs. Wired up the REST APIs and deployed to a VPS.",
     "tech": [
       "React",
       "Vite",
@@ -72,7 +72,7 @@
     ],
     "featured": false,
     "shortDescription": "Premium cruise services with multi-language support",
-    "description": "A website for premium cruise service offerings. Responsibilities included implementing multi-language translation pages for international visitors and integrating with the cruise booking system for end-to-end reservation flows.",
+    "description": "A cruise service site with multi-language pages. Added the WPML translations and wired the booking reservation flow.",
     "tech": [
       "WordPress",
       "Elementor",
@@ -98,7 +98,7 @@
     ],
     "featured": false,
     "shortDescription": "Automotive repair and modification services",
-    "description": "A service website for automotive repair and modification. Responsibilities included designing and developing service pages using Elementor, creating responsive layouts, and optimizing content for search engine visibility to attract local customers.",
+    "description": "A site for an automotive repair and modification shop. Built the service pages in Elementor and wrote the SEO copy.",
     "tech": [
       "WordPress",
       "Elementor",
@@ -126,7 +126,7 @@
     ],
     "featured": false,
     "shortDescription": "Premium car care and detailing services",
-    "description": "A service website for premium car care including shampooing and detailing. Responsibilities included developing service showcase pages, designing layout with Elementor, and writing compelling service descriptions to effectively communicate value propositions to potential customers.",
+    "description": "A website for a premium car care and detailing service. Built the service pages in Elementor and wrote the service copy.",
     "tech": [
       "WordPress",
       "Elementor",
@@ -153,7 +153,7 @@
     ],
     "featured": false,
     "shortDescription": "Motorcycle rental services in Vietnam",
-    "description": "A website for motorcycle rental services in Vietnam's tourism market. Responsibilities included designing responsive layouts using Elementor and optimizing the user experience for mobile-first design to accommodate the on-the-go booking needs of travelers.",
+    "description": "A motorcycle rental site for Vietnam's tourism market. Built mobile-first layouts in Elementor for on-the-go booking.",
     "tech": [
       "WordPress",
       "Elementor",
@@ -179,7 +179,7 @@
     ],
     "featured": false,
     "shortDescription": "Surf camp and yoga retreat experiences in Bali",
-    "description": "A website for surf camp and yoga retreat services in Bali. Responsibilities included designing visually appealing layouts, implementing SEO best practices to increase search visibility, and optimizing content to attract international tourists seeking unique wellness experiences.",
+    "description": "A site for a surf camp and yoga retreat in Bali. Designed the layouts, ran the on-page SEO, and wrote the content.",
     "tech": [
       "WordPress",
       "Elementor",
@@ -206,8 +206,8 @@
       "UI/UX Design"
     ],
     "featured": true,
-    "shortDescription": "Professional software development service provider",
-    "description": "A comprehensive platform for software development services, helping clients transform their business requirements into tailored digital solutions with a user-centered design approach. The platform showcases service offerings and facilitates client engagement for custom software projects.",
+    "shortDescription": "Software development service provider",
+    "description": "A platform for software development services. Designed the service pages and the client engagement flow in Figma.",
     "tech": [
       "Figma",
       "Prototyping",
@@ -235,7 +235,7 @@
     ],
     "featured": true,
     "shortDescription": "Health tracking application with calorie counter and informational feed",
-    "description": "A comprehensive health tracking application developed in collaboration during university. Features include a daily calorie tracker to monitor nutritional intake, a curated timeline feed with health and fitness information, and progress tracking to help users achieve their diet goals effectively.",
+    "description": "A health tracking app built during university. Daily calorie tracker, a health and fitness feed, and progress tracking toward diet goals.",
     "tech": [
       "Android",
       "Kotlin",

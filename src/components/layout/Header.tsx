@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Menu, X } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useScrollDirection } from '@/lib/hooks/useScrollDirection';
-import { useTheme } from '@/components/layout/ThemeProvider';
+import personalData from '@/data/personal.json';
 
 const navItems = [
   { id: 'home', label: 'home', num: '01' },
@@ -16,28 +15,36 @@ const navItems = [
 ];
 
 export const Header: React.FC = () => {
-  const { isAtTop } = useScrollDirection({ threshold: 50 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
-
-  // Check if we're on a project page
   const isProjectPage = pathname?.startsWith('/project');
-  const isDark = theme === 'dark';
-  const showStickyHeader = !isAtTop;
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (isProjectPage) return;
+
+    const onScroll = () => {
+      const probe = window.scrollY + window.innerHeight * 0.35;
+      let current = 'home';
+      for (const item of navItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.offsetTop <= probe) {
+          current = item.id;
+        }
+      }
+      setActiveSection(current);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isProjectPage]);
 
   const navigateToSection = (sectionId: string) => {
     if (isProjectPage) {
-      // Navigate to home page with section hash
       router.push(`/#${sectionId}`);
     } else {
-      // Scroll to section on current page
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -46,276 +53,89 @@ export const Header: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
-  if (!mounted) {
-    return null;
-  }
-
-  // On project pages, always show the sticky compact header (scroll style)
-  if (isProjectPage) {
-    return (
-      <>
-        {/* Sticky Compact Header for Project Pages - Scroll Style */}
-        <motion.header
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-dark-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800/30"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative flex h-14 items-center justify-between">
-              <div className="flex w-10 items-center justify-start sm:w-11">
-                <motion.button
-                  className="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="Toggle navigation"
-                >
-                  {mobileMenuOpen ? (
-                    <X className="w-6 h-6" />
-                  ) : (
-                    <Menu className="w-6 h-6" />
-                  )}
-                </motion.button>
-              </div>
-
-              <nav className="pointer-events-none absolute inset-x-0 hidden lg:flex items-center justify-center space-x-6 xl:space-x-8">
-                {navItems.map((item) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => navigateToSection(item.id)}
-                    className="pointer-events-auto relative text-gray-700 dark:text-gray-300 hover:text-accent-400 dark:hover:text-accent-400 transition-colors font-mono text-sm tracking-wide group"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-                  >
-                    <sup className="text-[10px] text-gray-500 dark:text-gray-500 group-hover:text-accent-400 transition-colors mr-0.5">{item.num}</sup>
-                    <span className="text-accent-400/70">{'//'}</span> {item.label}
-                  </motion.button>
-                ))}
-              </nav>
-
-              <div className="flex w-10 items-center justify-end sm:w-11">
-                <motion.button
-                  className="p-2 text-gray-700 dark:text-gray-300 hover:text-accent-400 dark:hover:text-accent-400 xl:hidden"
-                  onClick={toggleTheme}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="Toggle theme"
-                >
-                  {isDark ? (
-                    <Sun className="w-5 h-5" />
-                  ) : (
-                    <Moon className="w-5 h-5" />
-                  )}
-                </motion.button>
-              </div>
-            </div>
-          </div>
-        </motion.header>
-
-        {/* Mobile Menu Overlay for Project Pages */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 lg:hidden"
-            >
-              {/* Backdrop */}
-              <motion.div
-                className="absolute inset-0 bg-white/95 dark:bg-dark-900/95 backdrop-blur-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setMobileMenuOpen(false)}
-              />
-              
-              {/* Menu Content */}
-              <motion.nav
-                className="relative flex flex-col items-center justify-center h-full space-y-6 sm:space-y-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ delay: 0.1 }}
-              >
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => navigateToSection(item.id)}
-                    className="text-xl sm:text-2xl font-mono text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ delay: 0.05 * index }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <sup className="text-xs text-gray-500 dark:text-gray-500 mr-1">{item.num}</sup>
-                    <span className="text-accent-400">{'//'}</span> {item.label}
-                  </motion.button>
-                ))}
-              </motion.nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </>
-    );
-  }
-
-  // Default header for main page
   return (
     <>
-      {/* Main Header - visible at top */}
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: isAtTop ? 0 : -100 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-        className="fixed top-0 left-0 right-0 z-50 bg-transparent"
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <motion.button
-              onClick={() => navigateToSection('home')}
-              className="flex items-center space-x-1 group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-            >
-              <span className="text-xl md:text-2xl font-bold text-white tracking-tight">
-                AgaPutra
-              </span>
-              <motion.span
-                className="text-accent-400 text-xl md:text-2xl font-bold"
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                ._
-              </motion.span>
-            </motion.button>
+        <nav className="flex w-full max-w-3xl items-center justify-between gap-3 rounded-full border-2 border-ink bg-card px-4 py-2 shadow-neo">
+          <button
+            onClick={() => navigateToSection('home')}
+            className="flex items-center gap-1 font-display text-sm uppercase tracking-wide"
+          >
+            AgaPutra<span className="text-violet">._</span>
+          </button>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-              {navItems.map((item) => (
-                <motion.button
+          <div className="hidden items-center gap-4 lg:flex">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id && !isProjectPage;
+              return (
+                <button
                   key={item.id}
                   onClick={() => navigateToSection(item.id)}
-                  className="relative text-gray-300 hover:text-accent-400 transition-colors font-mono text-sm tracking-wide group"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
+                  className={`relative flex items-baseline gap-1 rounded-full px-2.5 py-1 font-mono text-xs uppercase tracking-wide transition-all ${
+                    isActive ? 'bg-ink text-card' : 'text-ink/60 hover:text-ink'
+                  }`}
                 >
-                  <sup className="text-[10px] text-gray-500 group-hover:text-accent-400 transition-colors mr-0.5">{item.num}</sup>
-                  <span className="text-accent-400/70">{'//'}</span> {item.label}
-                </motion.button>
-              ))}
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="lg:hidden p-2 text-gray-300 hover:text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              whileTap={{ scale: 0.9 }}
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </motion.button>
+                  <sup className={`text-[9px] ${isActive ? 'text-lime' : 'text-ink/40'}`}>{item.num}</sup>
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
-        </div>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={`mailto:${personalData.email}`}
+              className="hidden rounded-full border-2 border-ink bg-lime px-4 py-1.5 font-display text-xs uppercase tracking-wide text-ink shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none sm:block"
+            >
+              Hire me
+            </a>
+            <button
+              className="rounded-full border-2 border-ink p-2 lg:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </nav>
       </motion.header>
 
-      {/* Sticky Compact Header - visible when scrolling up */}
-      <AnimatePresence>
-        {showStickyHeader && !isAtTop && (
-          <motion.header
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-md border-b border-gray-800/30"
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-center h-14">
-                {/* Centered Navigation - no logo */}
-                <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => navigateToSection(item.id)}
-                      className="relative text-gray-300 hover:text-accent-400 transition-colors font-mono text-sm tracking-wide group"
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-                    >
-                      <sup className="text-[10px] text-gray-500 group-hover:text-accent-400 transition-colors mr-0.5">{item.num}</sup>
-                      <span className="text-accent-400/70">{'//'}</span> {item.label}
-                    </motion.button>
-                  ))}
-                </nav>
-
-                {/* Mobile Menu Button */}
-                <motion.button
-                  className="lg:hidden p-2 text-gray-300 hover:text-white"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {mobileMenuOpen ? (
-                    <X className="w-6 h-6" />
-                  ) : (
-                    <Menu className="w-6 h-6" />
-                  )}
-                </motion.button>
-              </div>
-            </div>
-          </motion.header>
-        )}
-      </AnimatePresence>
-
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            {/* Backdrop */}
-            <motion.div
-              className="absolute inset-0 bg-dark-900/95 backdrop-blur-lg"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+            <div
+              className="absolute inset-0 bg-surface/95"
               onClick={() => setMobileMenuOpen(false)}
             />
-
-            {/* Menu Content */}
-            <motion.nav
-              className="relative flex flex-col items-center justify-center h-full space-y-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ delay: 0.1 }}
-            >
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => navigateToSection(item.id)}
-                  className="text-2xl font-mono text-gray-300 hover:text-white transition-colors"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ delay: 0.05 * index }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <sup className="text-xs text-gray-500 mr-1">{item.num}</sup>
-                  <span className="text-accent-400">{'//'}</span> {item.label}
-                </motion.button>
-              ))}
+            <motion.nav className="relative flex h-full flex-col items-center justify-center gap-6">
+              {navItems.map((item, i) => {
+                const isActive = activeSection === item.id && !isProjectPage;
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => navigateToSection(item.id)}
+                    className={`flex items-baseline gap-2 rounded-full px-4 py-1 font-display text-3xl uppercase ${
+                      isActive ? 'bg-ink text-card' : ''
+                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * i }}
+                  >
+                    <sup className={`font-mono text-xs ${isActive ? 'text-lime' : 'text-violet'}`}>{item.num}</sup>
+                    {item.label}
+                  </motion.button>
+                );
+              })}
             </motion.nav>
           </motion.div>
         )}

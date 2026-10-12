@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import projectsData from '@/data/projects.json';
 import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
-import { ThemeSlider } from '@/components/projects/ThemeSlider';
 
 export default function AllProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
@@ -18,9 +17,9 @@ export default function AllProjectsPage() {
 
   const filterOptions = useMemo(() => {
     const allCount = indexedProjects.length;
-    const webCount = indexedProjects.filter(p => p.category === 'web').length;
-    const mobileCount = indexedProjects.filter(p => p.category === 'mobile').length;
-    const aiCount = indexedProjects.filter(p => p.category === 'ai').length;
+    const webCount = indexedProjects.filter((p) => p.category === 'web').length;
+    const mobileCount = indexedProjects.filter((p) => p.category === 'mobile').length;
+    const aiCount = indexedProjects.filter((p) => p.category === 'ai').length;
 
     return [
       { id: 'all' as ProjectCategory, label: 'All', count: allCount },
@@ -34,7 +33,7 @@ export default function AllProjectsPage() {
     if (activeFilter === 'all') {
       return indexedProjects;
     }
-    return indexedProjects.filter(p => p.category === activeFilter);
+    return indexedProjects.filter((p) => p.category === activeFilter);
   }, [activeFilter, indexedProjects]);
 
   useLayoutEffect(() => {
@@ -65,10 +64,7 @@ export default function AllProjectsPage() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
     },
   };
 
@@ -77,35 +73,32 @@ export default function AllProjectsPage() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-      },
+      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
     },
   };
 
   return (
-    <main className="min-h-screen bg-dark-900 pt-14 sm:pt-16">
-      {/* Theme Slider */}
-      <ThemeSlider />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Header */}
-          <motion.div variants={itemVariants} className="mb-8 sm:mb-10 md:mb-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4">
-              All <span className="text-accent-400">Projects</span>
+    <main
+      className="min-h-screen bg-surface pt-20 text-ink sm:pt-24"
+      style={{
+        backgroundImage:
+          'linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px)',
+        backgroundSize: '44px 44px',
+      }}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 md:py-12 lg:px-8">
+        <motion.div variants={containerVariants} initial="hidden" animate="visible">
+          <motion.div variants={itemVariants} className="mb-10 flex flex-col gap-4">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">Portfolio</p>
+            <h1 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
+              All{' '}
+              <span className="inline-block border-2 border-ink bg-lime px-2 shadow-neo">Projects</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl font-mono">
-              Browse through my complete portfolio of projects
+            <p className="max-w-2xl font-body text-base text-ink/70">
+              Every project I&apos;ve shipped.
             </p>
           </motion.div>
 
-          {/* Filter */}
           <motion.div variants={itemVariants}>
             <ProjectFilter
               options={filterOptions}
@@ -114,29 +107,19 @@ export default function AllProjectsPage() {
             />
           </motion.div>
 
-          {/* Projects Grid */}
           <motion.div variants={itemVariants}>
             <motion.div
               className="overflow-hidden"
               initial={false}
               animate={gridHeight === null ? undefined : { height: gridHeight }}
-              transition={{
-                height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] },
-              }}
+              transition={{ height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] } }}
             >
-              <div ref={gridContentRef}>
+              <div ref={gridContentRef} className="px-1 pb-4">
                 <ProjectGrid projects={filteredProjects} filterKey={activeFilter} />
 
-                {/* Empty state */}
                 {filteredProjects.length === 0 && (
-                  <motion.div
-                    className="text-center py-12 sm:py-16"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <p className="text-gray-500 text-base sm:text-lg">
-                      No projects found in this category.
-                    </p>
+                  <motion.div className="py-16 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <p className="font-body text-lg text-ink/50">No projects found in this category.</p>
                   </motion.div>
                 )}
               </div>
