@@ -9,6 +9,7 @@
     "lint": "eslint src",
     "cv:render": "bash cv/render.sh",
     "portfolio:render": "python3 cv/render-portfolio.py",
+    "future-resume:render": "bash cv/render-future-resume.sh",
     "deploy": "npx vercel --prod"
   },
   "dependencies": {
