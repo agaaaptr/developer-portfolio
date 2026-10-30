@@ -115,34 +115,6 @@ export const HeroSection: React.FC = () => {
           backgroundSize: '10px 10px',
         }}
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-16 top-32 hidden h-8 w-8 -rotate-12 rounded-base border-2 border-ink bg-violet sm:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-8 top-28 hidden h-14 w-14 rotate-12 rounded-base border-2 border-ink bg-violet shadow-neo-lg sm:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-52 left-8 hidden h-12 w-12 -rotate-6 rounded-base border-2 border-ink bg-lime shadow-neo md:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-12 bottom-64 hidden h-9 w-9 rotate-6 rounded-full border-2 border-ink bg-lime shadow-neo md:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-16 top-40 hidden -rotate-12 font-display text-3xl text-violet md:block"
-      >
-        ★
-      </div>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-10 top-52 hidden rotate-6 font-display text-2xl text-lime md:block"
-      >
-        ✳
-      </div>
 
       <svg
         aria-hidden="true"
