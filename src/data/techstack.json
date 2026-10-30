@@ -1,0 +1,14 @@
+{
+  "rows": [
+    {
+      "direction": "left",
+      "duration": 36,
+      "items": ["Angular", "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Vite", "HTML5", "CSS3"]
+    },
+    {
+      "direction": "right",
+      "duration": 40,
+      "items": ["Go", "REST APIs", "Claude Code", "OpenCode", "GitHub", "Git", "Linux", "Docker"]
+    }
+  ]
+}
