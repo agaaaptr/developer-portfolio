@@ -6,17 +6,10 @@ import { createPortal } from 'react-dom';
 import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { TechStackSection } from '@/components/sections/TechStack';
+import { IdCard } from '@/components/ui/IdCard';
 
-const marqueeItems = ['Angular', 'React', 'TypeScript', 'Go', 'REST APIs', 'Claude Code', '57 npm releases'];
-
-const skillCards = [
-  { label: 'Angular', sub: 'University systems', rotate: '-rotate-3' },
-  { label: 'React', sub: 'Exam-prep LMS', rotate: 'rotate-2' },
-  { label: 'TypeScript', sub: 'Types everywhere', rotate: '-rotate-1' },
-  { label: 'Go', sub: 'REST + MySQL', rotate: 'rotate-3' },
-  { label: 'Claude Code', sub: 'Daily driver', rotate: '-rotate-2' },
-  { label: 'OpenCode', sub: '57 npm releases', rotate: 'rotate-1' },
-];
+const marqueeItems = ['● Open to work', personalData.title, personalData.location];
 
 const cvLinks = [
   { href: '/api/cv/english', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)' },
@@ -174,28 +167,9 @@ export const HeroSection: React.FC = () => {
         className="pointer-events-none absolute -right-16 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
       />
 
-      {/* Rotating circular text badge */}
-      <div className="pointer-events-none absolute right-8 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
-        <motion.div
-          className="h-40 w-40"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 14, ease: 'linear', repeat: Infinity }}
-        >
-          <svg viewBox="0 0 100 100" className="h-full w-full">
-            <defs>
-              <path id="heroCirclePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none" />
-            </defs>
-            <text className="fill-ink font-mono text-[6.5px] font-bold uppercase tracking-[0.18em]">
-              <textPath href="#heroCirclePath">Full-stack · Angular · React · Go · TypeScript · OpenCode ·</textPath>
-            </text>
-            <circle cx="50" cy="50" r="20" className="fill-violet stroke-ink" strokeWidth="2" />
-            <text x="50" y="55" textAnchor="middle" className="fill-white font-display text-[12px]">✦</text>
-          </svg>
-        </motion.div>
-      </div>
-
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col gap-7 lg:gap-9">
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
+          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col gap-7 lg:gap-9">
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border-2 border-ink bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-neo">
               {personalData.title}
@@ -246,23 +220,18 @@ export const HeroSection: React.FC = () => {
             </button>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-            {skillCards.map((card) => (
-              <div
-                key={card.label}
-                className={`${card.rotate} rounded-base border-2 border-ink bg-card px-5 py-4 shadow-neo transition-all hover:rotate-0 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none`}
-              >
-                <p className="font-display text-xl uppercase leading-none">{card.label}</p>
-                <p className="mt-1 font-mono text-[11px] uppercase tracking-wide text-ink/60">{card.sub}</p>
-              </div>
-            ))}
-          </motion.div>
+          <TechStackSection />
 
           <motion.div variants={itemVariants} className="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-ink/60">
             <MapPin className="h-4 w-4 text-violet" />
             <span>{personalData.location}</span>
           </motion.div>
         </motion.div>
+
+        <div className="mx-auto w-full max-w-[280px] lg:mx-0 lg:max-w-[300px]">
+          <IdCard />
+        </div>
+        </div>
       </div>
 
       {typeof window !== 'undefined' &&
