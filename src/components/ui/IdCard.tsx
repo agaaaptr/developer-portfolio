@@ -190,10 +190,12 @@ export const IdCard = () => {
       curveSegments: 24,
     });
 
-    const frontMat = new THREE.MeshBasicMaterial({ map: drawFront() });
-    const backMat = new THREE.MeshBasicMaterial({ map: drawBack() });
+    const frontTex = drawFront();
+    const backTex = drawBack();
+    const capMat = new THREE.MeshBasicMaterial({ map: frontTex });
     const sideMat = new THREE.MeshBasicMaterial({ color: '#000000' });
-    const card = new THREE.Mesh(geometry, [frontMat, backMat, sideMat]);
+    // ExtrudeGeometry emits 2 material groups: 0 = both caps, 1 = side walls.
+    const card = new THREE.Mesh(geometry, [capMat, sideMat]);
 
     const group = new THREE.Group();
     group.add(card);
@@ -234,6 +236,7 @@ export const IdCard = () => {
     let flipTo = 0;
     let flipT = 1;
     let flipping = false;
+    let mapSwapped = false;
 
     const el = renderer.domElement;
     const onDown = (e: PointerEvent) => {
@@ -268,6 +271,7 @@ export const IdCard = () => {
         flipValue = target;
         flipT = 0;
         flipping = true;
+        mapSwapped = false;
       }
     };
     el.addEventListener('pointerdown', onDown);
@@ -289,6 +293,12 @@ export const IdCard = () => {
       }
       if (flipping) {
         flipT += dt / 0.5;
+        if (!mapSwapped && flipT >= 0.5) {
+          // swap cap texture at the edge-on midpoint so the flip reveals the real back
+          capMat.map = flipValue === 0 ? frontTex : backTex;
+          capMat.needsUpdate = true;
+          mapSwapped = true;
+        }
         if (flipT >= 1) {
           flipT = 1;
           flipping = false;
@@ -310,10 +320,9 @@ export const IdCard = () => {
       el.removeEventListener('pointerup', onUp);
       el.removeEventListener('pointercancel', onUp);
       geometry.dispose();
-      frontMat.map?.dispose();
-      frontMat.dispose();
-      backMat.map?.dispose();
-      backMat.dispose();
+      frontTex.dispose();
+      backTex.dispose();
+      capMat.dispose();
       sideMat.dispose();
       ring.geometry.dispose();
       (ring.material as THREE.Material).dispose();

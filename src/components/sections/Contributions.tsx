@@ -76,7 +76,12 @@ export const ContributionsSection = () => {
       })
       .then((json) => {
         if (cancelled) return;
-        setContribs(Array.isArray(json.contributions) ? json.contributions : []);
+        const list = json && Array.isArray(json.contributions) ? json.contributions : [];
+        if (list.length === 0) {
+          setStatus('error');
+          return;
+        }
+        setContribs(list);
         setStatus('ok');
       })
       .catch(() => {
