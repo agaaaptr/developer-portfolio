@@ -109,7 +109,7 @@ export const HeroSection: React.FC = () => {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-8 top-1/4 h-32 w-32 opacity-50"
+        className="pointer-events-none absolute left-2 top-1/4 h-32 w-32 opacity-50"
         style={{
           backgroundImage: 'radial-gradient(rgba(0,0,0,0.45) 1.5px, transparent 1.5px)',
           backgroundSize: '10px 10px',
@@ -126,14 +126,14 @@ export const HeroSection: React.FC = () => {
       </svg>
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute right-16 top-48 hidden h-8 w-8 text-ink/30 lg:block"
+        className="pointer-events-none absolute right-16 top-24 hidden h-8 w-8 text-ink/30 lg:block"
         viewBox="0 0 24 24"
       >
         <path d="M12 2 V22 M2 12 H22" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/4 top-40 hidden h-5 w-5 text-ink/40 md:block"
+        className="pointer-events-none absolute left-16 top-24 hidden h-5 w-5 text-ink/40 md:block"
         viewBox="0 0 24 24"
       >
         <path d="M12 4 V20 M4 12 H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -169,7 +169,7 @@ export const HeroSection: React.FC = () => {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-16 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
+        className="pointer-events-none absolute -right-32 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
