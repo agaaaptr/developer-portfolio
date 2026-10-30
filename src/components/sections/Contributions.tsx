@@ -28,8 +28,7 @@ function buildWeeks(contribs: Contribution[]) {
   const byDate = new Map(contribs.map((c) => [c.date, c]));
   const end = new Date();
   const start = new Date();
-  start.setMonth(start.getMonth() - 12); // 12 months ago
-  start.setDate(1); // first day of that month
+  start.setDate(start.getDate() - 365);
   start.setDate(start.getDate() - start.getDay()); // back to Sunday
 
   const weeks: (Contribution | null)[][] = [];
@@ -132,15 +131,22 @@ export const GitHubActivity = () => {
       )}
 
       {status === 'ok' && (
-        <div ref={wrapRef} className="relative rounded-base border-2 border-ink bg-card p-5 shadow-neo">
+        <motion.div
+          ref={wrapRef}
+          className="relative rounded-base border-2 border-ink bg-card p-5 shadow-neo"
+          initial={{ scale: 0.94, opacity: 0, y: 14 }}
+          whileInView={{ scale: 1, opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: 'spring', stiffness: 140, damping: 18 }}
+        >
           <div
             className="grid"
-            style={{ gridTemplateColumns: `${WEEKDAY_W}px repeat(53, minmax(0, 1fr))`, gap: GAP }}
+            style={{ gridTemplateColumns: `${WEEKDAY_W}px repeat(${weeks.length}, minmax(0, 1fr))`, gap: GAP }}
           >
             <div aria-hidden="true" style={{ gridRow: 1, gridColumn: 1 }} />
 
             {monthLabels.map((m, i) => {
-              const span = (monthLabels[i + 1]?.index ?? 53) - m.index;
+              const span = (monthLabels[i + 1]?.index ?? weeks.length) - m.index;
               return (
                 <span
                   key={m.index}
@@ -225,7 +231,7 @@ export const GitHubActivity = () => {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );
