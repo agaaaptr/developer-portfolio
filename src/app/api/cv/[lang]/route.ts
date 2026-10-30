@@ -4,12 +4,12 @@ export const runtime = 'nodejs';
 
 const CV_FILES = {
   english: {
-    path: '/documents/Gagah-Putra-Anugrah-Software-Engineer-EN.pdf',
-    filename: 'Gagah-Putra-Anugrah-Software-Engineer-EN.pdf',
+    path: '/documents/Gagah-Putra-Anugrah-CV-EN.pdf',
+    filename: 'Gagah-Putra-Anugrah-CV-EN.pdf',
   },
   indonesian: {
-    path: '/documents/Gagah-Putra-Anugrah-Software-Engineer-ID.pdf',
-    filename: 'Gagah-Putra-Anugrah-Software-Engineer-ID.pdf',
+    path: '/documents/Gagah-Putra-Anugrah-CV-ID.pdf',
+    filename: 'Gagah-Putra-Anugrah-CV-ID.pdf',
   },
 };
 

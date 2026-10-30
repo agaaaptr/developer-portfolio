@@ -73,7 +73,7 @@ export const ExpertiseSection: React.FC = () => {
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-12 flex flex-col gap-4">
+        <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} className="mb-12 flex flex-col gap-4">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">02 — What I do</p>
           <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
             My{' '}

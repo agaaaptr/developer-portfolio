@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { useInView } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
 
@@ -65,6 +66,8 @@ export const GitHubActivity = () => {
   const [contribs, setContribs] = useState<Contribution[]>([]);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState<{ text: string; x: number; y: number } | null>(null);
+  const [displayTotal, setDisplayTotal] = useState(0);
+  const inView = useInView(wrapRef, { once: true, amount: 0.3 });
 
   useEffect(() => {
     let cancelled = false;
@@ -93,6 +96,20 @@ export const GitHubActivity = () => {
 
   const { weeks, monthLabels, total } = buildWeeks(contribs);
   const githubUrl = `https://github.com/${personalData.socials.github}`;
+
+  useEffect(() => {
+    if (!inView || total === 0) return;
+    const start = performance.now();
+    const duration = 1200;
+    let raf = 0;
+    const step = (now: number) => {
+      const p = Math.min(1, (now - start) / duration);
+      setDisplayTotal(Math.round(total * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, total]);
 
   return (
     <div className="mt-14">
@@ -164,7 +181,6 @@ export const GitHubActivity = () => {
                       key={wi}
                       className="border border-ink/20 transition-transform hover:scale-125"
                       style={style}
-                      title={`${c.count} contributions on ${c.date}`}
                       aria-label={`${c.count} contributions on ${c.date}`}
                       onMouseEnter={(e) => {
                         const cellRect = e.currentTarget.getBoundingClientRect();
@@ -188,7 +204,7 @@ export const GitHubActivity = () => {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <p className="font-mono text-xs text-ink/60">{total} contributions in the last 12 months</p>
+            <p className="font-mono text-xs text-ink/60">{displayTotal} contributions in the last 12 months</p>
             <div className="flex items-center gap-1 font-mono text-[10px] text-ink/40">
               Less
               {LEVEL_COLORS.map((c) => (
@@ -201,9 +217,13 @@ export const GitHubActivity = () => {
           {hover && (
             <div
               className="pointer-events-none absolute z-20 -translate-x-1/2 whitespace-nowrap rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
-              style={{ left: hover.x, top: hover.y - 32 }}
+              style={{ left: hover.x, top: hover.y - 36 }}
             >
               {hover.text}
+              <span
+                aria-hidden="true"
+                className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-[3px] rotate-45 border-b-2 border-r-2 border-ink bg-ink"
+              />
             </div>
           )}
         </div>

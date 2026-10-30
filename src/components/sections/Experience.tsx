@@ -92,7 +92,7 @@ export const ExperienceSection: React.FC = () => {
       }}
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
           <motion.div variants={itemVariants} className="mb-12 flex flex-col gap-4">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">04 — Career</p>
             <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">

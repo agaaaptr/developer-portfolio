@@ -84,7 +84,7 @@ export const ContactSection: React.FC = () => {
             className="space-y-8"
             initial={{ opacity: 0, x: -30, filter: 'blur(10px)' }}
             whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <div className="space-y-4">
@@ -137,7 +137,7 @@ export const ContactSection: React.FC = () => {
             className="space-y-5 rounded-base border-2 border-ink bg-card p-6 shadow-neo md:p-8"
             initial={{ opacity: 0, x: 30, filter: 'blur(10px)' }}
             whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <div>
