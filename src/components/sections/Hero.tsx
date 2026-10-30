@@ -169,7 +169,7 @@ export const HeroSection: React.FC = () => {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
+        className="pointer-events-none absolute -right-16 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
