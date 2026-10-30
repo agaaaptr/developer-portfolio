@@ -160,7 +160,7 @@ export const HeroSection: React.FC = () => {
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
-          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col gap-7 lg:gap-9">
+          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex min-w-0 flex-col gap-7 lg:gap-9">
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border-2 border-ink bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-neo">
               {personalData.title}
@@ -219,7 +219,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        <div className="mx-auto w-full max-w-[280px] lg:mx-0 lg:max-w-[300px]">
+        <div className="mx-auto w-full max-w-[280px] min-w-0 lg:mx-0 lg:max-w-[300px]">
           <IdCard />
         </div>
         </div>

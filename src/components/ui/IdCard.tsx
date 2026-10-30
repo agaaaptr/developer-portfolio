@@ -155,7 +155,7 @@ export const IdCard = () => {
     const setSize = () => {
       const w = mount.clientWidth || 280;
       const h = mount.clientHeight || 400;
-      renderer.setSize(w, h, false);
+      renderer.setSize(w, h);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
     };
