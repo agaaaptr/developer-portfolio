@@ -130,7 +130,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ prevProjec
             {prevProject ? (
               <Link href={`/project/${prevProject.slug}`}>
                 <button
-                  className="rounded-base border-2 border-ink bg-card p-3 transition-all hover:translate-x-[-2px] hover:translate-y-[2px] hover:bg-lime"
+                  className="rounded-base border-2 border-ink bg-card p-3 transition-all hover:bg-lime active:translate-x-[-2px] active:translate-y-[2px]"
                   aria-label="Previous project"
                   onMouseEnter={() => setHoveredProject('prev')}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -147,7 +147,7 @@ export const ProjectNavigation: React.FC<ProjectNavigationProps> = ({ prevProjec
             {nextProject ? (
               <Link href={`/project/${nextProject.slug}`}>
                 <button
-                  className="rounded-base border-2 border-ink bg-card p-3 transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-lime"
+                  className="rounded-base border-2 border-ink bg-card p-3 transition-all hover:bg-lime active:translate-x-[2px] active:translate-y-[2px]"
                   aria-label="Next project"
                   onMouseEnter={() => setHoveredProject('next')}
                   onMouseLeave={() => setHoveredProject(null)}

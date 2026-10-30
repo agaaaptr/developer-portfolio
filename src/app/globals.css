@@ -37,21 +37,8 @@
   color: #000000;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #f0f0f0;
-}
-::-webkit-scrollbar-thumb {
-  background: #000000;
-  border: 2px solid #f0f0f0;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #7f3aed;
-}
+/* ponytail: native overlay scrollbar only — custom ::-webkit-scrollbar styles
+   force classic (always-visible) mode in WebKit/Blink; do not re-add. */
 
 /* Interactive cursor */
 button,
