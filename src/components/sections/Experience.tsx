@@ -1,9 +1,11 @@
 "use client";
 
 import React from 'react';
+import { motion } from 'motion/react';
 import { MapPin, Globe, ExternalLink } from 'lucide-react';
 import experienceData from '@/data/experience.json';
 import { Accordion } from '@/components/ui/Accordion';
+import { itemVariants } from '@/lib/motion';
 
 interface ExperienceItem {
   id: number;
@@ -89,20 +91,22 @@ export const ExperienceSection: React.FC = () => {
       }}
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col gap-4">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">04 — Career</p>
-          <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
-            My{' '}
-            <span className="inline-block border-2 border-ink bg-violet px-2 text-white shadow-neo">
-              Experience
-            </span>
-          </h2>
-          <p className="font-body text-base text-ink/70">
-            Three roles: university systems, a freelance LMS, and WordPress agencies.
-          </p>
-        </div>
+        <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <div className="mb-12 flex flex-col gap-4">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">04 — Career</p>
+            <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
+              My{' '}
+              <span className="inline-block border-2 border-ink bg-violet px-2 text-white shadow-neo">
+                Experience
+              </span>
+            </h2>
+            <p className="font-body text-base text-ink/70">
+              Three roles: university systems, a freelance LMS, and WordPress agencies.
+            </p>
+          </div>
 
-        <Accordion items={accordionItems} defaultOpenId={null} />
+          <Accordion items={accordionItems} defaultOpenId={null} />
+        </motion.div>
       </div>
     </section>
   );

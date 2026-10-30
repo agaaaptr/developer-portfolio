@@ -8,6 +8,7 @@ import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { TechStackSection } from '@/components/sections/TechStack';
 import { IdCard } from '@/components/ui/IdCard';
+import { containerVariants, itemVariants } from '@/lib/motion';
 
 const marqueeItems = ['● Open to work', personalData.title, personalData.location];
 
@@ -16,16 +17,6 @@ const cvLinks = [
   { href: '/api/cv/indonesian', icon: Languages, title: 'Indonesian CV', sub: 'CV dalam Bahasa Indonesia (PDF)' },
   { href: '/documents/Gagah-Putra-Anugrah-Portfolio.pdf', icon: FileText, title: 'Project Portfolio', sub: 'Project portfolio document (PDF)', download: true },
 ];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const } },
-};
 
 export const HeroSection: React.FC = () => {
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);

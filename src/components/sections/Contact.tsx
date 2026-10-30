@@ -82,8 +82,8 @@ export const ContactSection: React.FC = () => {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <motion.div
             className="space-y-8"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -30, filter: 'blur(10px)' }}
+            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
@@ -135,8 +135,8 @@ export const ContactSection: React.FC = () => {
           <motion.form
             onSubmit={handleSubmit}
             className="space-y-5 rounded-base border-2 border-ink bg-card p-6 shadow-neo md:p-8"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 30, filter: 'blur(10px)' }}
+            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >

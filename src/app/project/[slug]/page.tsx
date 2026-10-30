@@ -8,6 +8,7 @@ import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import rawProjectsData from '@/data/projects.json';
 import { ProjectNavigation } from '@/components/projects/ProjectNavigation';
 import { ImageWithFallback } from '@/components/ui/ImageWithFallback';
+import { containerVariants, itemVariants } from '@/lib/motion';
 
 interface Project {
   id: number;
@@ -53,23 +54,6 @@ export default function ProjectDetailPage() {
     web: 'Web Development',
     mobile: 'Mobile Development',
     ai: 'AI Development',
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
-    },
   };
 
   const primaryButton =
