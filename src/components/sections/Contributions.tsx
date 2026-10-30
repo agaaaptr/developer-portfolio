@@ -59,7 +59,14 @@ function buildWeeks(contribs: Contribution[]) {
     weekIndex++;
   }
 
-  return { weeks, monthLabels, total };
+  // Only label months that have at least 3 week columns in the grid — a partial
+  // month at the window edge (1-2 columns) would render a cramped, overlapping label.
+  const visibleLabels = monthLabels.filter((m, i) => {
+    const next = monthLabels[i + 1]?.index ?? weeks.length;
+    return next - m.index >= 3;
+  });
+
+  return { weeks, monthLabels: visibleLabels, total };
 }
 
 export const GitHubActivity = () => {
