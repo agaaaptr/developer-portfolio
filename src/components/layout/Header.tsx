@@ -67,7 +67,7 @@ export const Header: React.FC = () => {
             onClick={() => navigateToSection('home')}
             className="flex items-center gap-1 font-display text-sm uppercase tracking-wide"
           >
-            AgaPutra<span className="text-violet">._</span>
+            AP<span className="text-violet animate-blink">_</span>
           </button>
 
           <div className="hidden items-center gap-4 lg:flex">
