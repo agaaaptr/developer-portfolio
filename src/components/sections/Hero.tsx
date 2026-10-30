@@ -116,6 +116,67 @@ export const HeroSection: React.FC = () => {
         }}
       />
 
+      {/* constellation network */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/3 top-24 hidden h-28 w-28 text-ink/30 lg:block"
+        viewBox="0 0 120 120"
+        fill="none"
+      >
+        <g stroke="currentColor" strokeWidth="1.5">
+          <path d="M20 30 L60 20 L100 40 L80 80 L40 70 Z" />
+          <path d="M60 20 L80 80" />
+        </g>
+        <g fill="currentColor">
+          <circle cx="20" cy="30" r="3" />
+          <circle cx="60" cy="20" r="3" />
+          <circle cx="100" cy="40" r="3" />
+          <circle cx="80" cy="80" r="3" />
+          <circle cx="40" cy="70" r="3" />
+        </g>
+      </svg>
+
+      {/* dotted diagonal line */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute right-24 top-1/3 hidden h-40 w-40 text-ink/40 lg:block"
+        viewBox="0 0 200 200"
+      >
+        <path
+          d="M10 190 L190 10"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeDasharray="0.1 14"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      {/* scattered dot cluster */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute right-1/4 top-32 hidden h-20 w-20 text-ink/30 lg:block"
+        viewBox="0 0 80 80"
+      >
+        <g fill="currentColor">
+          <circle cx="15" cy="20" r="2" />
+          <circle cx="35" cy="10" r="3" />
+          <circle cx="60" cy="25" r="2" />
+          <circle cx="25" cy="50" r="3" />
+          <circle cx="50" cy="60" r="2" />
+          <circle cx="70" cy="45" r="3" />
+          <circle cx="10" cy="70" r="2" />
+        </g>
+      </svg>
+
+      {/* plus marks */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-24 left-40 hidden h-6 w-6 text-ink/40 lg:block"
+        viewBox="0 0 24 24"
+      >
+        <path d="M12 3 V21 M3 12 H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute bottom-72 left-10 hidden w-40 text-ink/30 lg:block"
