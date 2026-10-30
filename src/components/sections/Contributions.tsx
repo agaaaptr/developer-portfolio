@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
 
@@ -64,7 +64,6 @@ export const GitHubActivity = () => {
   const [status, setStatus] = useState<'loading' | 'error' | 'ok'>('loading');
   const [contribs, setContribs] = useState<Contribution[]>([]);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [cell, setCell] = useState(12);
   const [hover, setHover] = useState<{ text: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
@@ -92,24 +91,7 @@ export const GitHubActivity = () => {
     };
   }, []);
 
-  // responsive cell size so the whole grid always fits the card width
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const compute = () => {
-      const cs = getComputedStyle(el);
-      const w = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-      const size = Math.max(6, Math.min(14, Math.floor((w - WEEKDAY_W - 52 * GAP) / 53)));
-      setCell(size);
-    };
-    compute();
-    const ro = new ResizeObserver(compute);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [status]);
-
   const { weeks, monthLabels, total } = buildWeeks(contribs);
-  const step = cell + GAP;
   const githubUrl = `https://github.com/${personalData.socials.github}`;
 
   return (
@@ -142,39 +124,46 @@ export const GitHubActivity = () => {
 
       {status === 'ok' && (
         <div ref={wrapRef} className="relative rounded-base border-2 border-ink bg-card p-5 shadow-neo">
-          <div className="relative h-4" style={{ marginLeft: WEEKDAY_W }}>
-            {monthLabels.map((m) => (
-              <span
-                key={m.index}
-                className="absolute font-mono text-[10px] leading-4 text-ink/40"
-                style={{ left: m.index * step }}
-              >
-                {m.label}
-              </span>
-            ))}
-          </div>
+          <div
+            className="grid"
+            style={{ gridTemplateColumns: `${WEEKDAY_W}px repeat(53, minmax(0, 1fr))`, gap: GAP }}
+          >
+            <div aria-hidden="true" style={{ gridRow: 1, gridColumn: 1 }} />
 
-          <div className="flex" style={{ gap: GAP }}>
-            <div className="flex flex-col" style={{ gap: GAP, width: WEEKDAY_W - GAP }}>
-              {WEEKDAYS.map((label, i) => (
+            {monthLabels.map((m, i) => {
+              const span = (monthLabels[i + 1]?.index ?? 53) - m.index;
+              return (
+                <span
+                  key={m.index}
+                  className="overflow-hidden whitespace-nowrap font-mono text-[10px] leading-3 text-ink/40"
+                  style={{ gridRow: 1, gridColumn: `${m.index + 2} / span ${span}` }}
+                >
+                  {m.label}
+                </span>
+              );
+            })}
+
+            {WEEKDAYS.map((label, dayIdx) => (
+              <Fragment key={dayIdx}>
                 <div
-                  key={i}
-                  className="font-mono text-[10px] leading-[12px] text-ink/40"
-                  style={{ height: cell }}
+                  className="font-mono text-[10px] leading-3 text-ink/40"
+                  style={{ gridRow: dayIdx + 2, gridColumn: 1 }}
                 >
                   {label}
                 </div>
-              ))}
-            </div>
-
-            {weeks.map((week, wi) => (
-              <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
-                {week.map((c, di) =>
-                  c ? (
+                {weeks.map((week, wi) => {
+                  const c = week[dayIdx];
+                  const style: React.CSSProperties = {
+                    gridRow: dayIdx + 2,
+                    gridColumn: wi + 2,
+                    aspectRatio: '1',
+                    background: c ? (LEVEL_COLORS[c.level] ?? LEVEL_COLORS[0]) : LEVEL_COLORS[0],
+                  };
+                  return c ? (
                     <div
-                      key={di}
+                      key={wi}
                       className="border border-ink/20 transition-transform hover:scale-125"
-                      style={{ width: cell, height: cell, background: LEVEL_COLORS[c.level] ?? LEVEL_COLORS[0] }}
+                      style={style}
                       title={`${c.count} contributions on ${c.date}`}
                       aria-label={`${c.count} contributions on ${c.date}`}
                       onMouseEnter={(e) => {
@@ -191,15 +180,10 @@ export const GitHubActivity = () => {
                       onMouseLeave={() => setHover(null)}
                     />
                   ) : (
-                    <div
-                      key={di}
-                      aria-hidden="true"
-                      className="border border-ink/10"
-                      style={{ width: cell, height: cell, background: LEVEL_COLORS[0] }}
-                    />
-                  ),
-                )}
-              </div>
+                    <div key={wi} aria-hidden="true" className="border border-ink/10" style={style} />
+                  );
+                })}
+              </Fragment>
             ))}
           </div>
 
@@ -213,15 +197,15 @@ export const GitHubActivity = () => {
               More
             </div>
           </div>
-        </div>
-      )}
 
-      {hover && (
-        <div
-          className="pointer-events-none absolute z-20 -translate-x-1/2 whitespace-nowrap rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
-          style={{ left: hover.x, top: hover.y - 32 }}
-        >
-          {hover.text}
+          {hover && (
+            <div
+              className="pointer-events-none absolute z-20 -translate-x-1/2 whitespace-nowrap rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
+              style={{ left: hover.x, top: hover.y - 32 }}
+            >
+              {hover.text}
+            </div>
+          )}
         </div>
       )}
     </div>
