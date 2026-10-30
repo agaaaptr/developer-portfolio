@@ -8,7 +8,7 @@ import projectsData from '@/data/projects.json';
 import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { itemVariants } from '@/lib/motion';
+import { containerVariants, itemVariants } from '@/lib/motion';
 
 export const WorkSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
@@ -100,8 +100,8 @@ export const WorkSection: React.FC = () => {
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="mb-10 flex flex-col gap-4">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <motion.div variants={itemVariants} className="mb-10 flex flex-col gap-4">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">03 — Selected Work</p>
           <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
             My{' '}
@@ -119,17 +119,20 @@ export const WorkSection: React.FC = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
-        <ProjectFilter
-          options={filterOptions}
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
+        <motion.div variants={itemVariants}>
+          <ProjectFilter
+            options={filterOptions}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+          />
+        </motion.div>
 
-        <motion.div
-          className="overflow-hidden"
-          initial={false}
+        <motion.div variants={itemVariants}>
+          <motion.div
+            className="overflow-hidden"
+            initial={false}
           animate={gridHeight === null ? undefined : { height: gridHeight }}
           transition={{ height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] } }}
         >
@@ -157,6 +160,7 @@ export const WorkSection: React.FC = () => {
               </motion.div>
             )}
           </div>
+          </motion.div>
         </motion.div>
         </motion.div>
       </div>

@@ -97,7 +97,8 @@ export const GitHubActivity = () => {
     const el = wrapRef.current;
     if (!el) return;
     const compute = () => {
-      const w = el.clientWidth;
+      const cs = getComputedStyle(el);
+      const w = el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
       const size = Math.max(6, Math.min(14, Math.floor((w - WEEKDAY_W - 52 * GAP) / 53)));
       setCell(size);
     };
@@ -105,7 +106,7 @@ export const GitHubActivity = () => {
     const ro = new ResizeObserver(compute);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [status]);
 
   const { weeks, monthLabels, total } = buildWeeks(contribs);
   const step = cell + GAP;
@@ -140,7 +141,7 @@ export const GitHubActivity = () => {
       )}
 
       {status === 'ok' && (
-        <div ref={wrapRef} className="rounded-base border-2 border-ink bg-card p-5 shadow-neo">
+        <div ref={wrapRef} className="relative rounded-base border-2 border-ink bg-card p-5 shadow-neo">
           <div className="relative h-4" style={{ marginLeft: WEEKDAY_W }}>
             {monthLabels.map((m) => (
               <span
@@ -176,7 +177,17 @@ export const GitHubActivity = () => {
                       style={{ width: cell, height: cell, background: LEVEL_COLORS[c.level] ?? LEVEL_COLORS[0] }}
                       title={`${c.count} contributions on ${c.date}`}
                       aria-label={`${c.count} contributions on ${c.date}`}
-                      onMouseEnter={(e) => setHover({ text: `${c.count} contributions on ${c.date}`, x: e.clientX, y: e.clientY })}
+                      onMouseEnter={(e) => {
+                        const cellRect = e.currentTarget.getBoundingClientRect();
+                        const cardRect = wrapRef.current?.getBoundingClientRect();
+                        if (cardRect) {
+                          setHover({
+                            text: `${c.count} contributions on ${c.date}`,
+                            x: cellRect.left - cardRect.left + cellRect.width / 2,
+                            y: cellRect.top - cardRect.top,
+                          });
+                        }
+                      }}
                       onMouseLeave={() => setHover(null)}
                     />
                   ) : (
@@ -207,8 +218,8 @@ export const GitHubActivity = () => {
 
       {hover && (
         <div
-          className="pointer-events-none fixed z-50 rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
-          style={{ left: hover.x + 12, top: hover.y + 12 }}
+          className="pointer-events-none absolute z-20 -translate-x-1/2 whitespace-nowrap rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
+          style={{ left: hover.x, top: hover.y - 32 }}
         >
           {hover.text}
         </div>

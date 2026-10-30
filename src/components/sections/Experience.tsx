@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { MapPin, Globe, ExternalLink } from 'lucide-react';
 import experienceData from '@/data/experience.json';
 import { Accordion } from '@/components/ui/Accordion';
-import { itemVariants } from '@/lib/motion';
+import { containerVariants, itemVariants } from '@/lib/motion';
 import { GitHubActivity } from '@/components/sections/Contributions';
 
 interface ExperienceItem {
@@ -92,8 +92,8 @@ export const ExperienceSection: React.FC = () => {
       }}
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="mb-12 flex flex-col gap-4">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <motion.div variants={itemVariants} className="mb-12 flex flex-col gap-4">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">04 — Career</p>
             <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
               My{' '}
@@ -104,11 +104,15 @@ export const ExperienceSection: React.FC = () => {
             <p className="font-body text-base text-ink/70">
               Three roles: university systems, a freelance LMS, and WordPress agencies.
             </p>
-          </div>
+          </motion.div>
 
-          <Accordion items={accordionItems} defaultOpenId={null} />
+          <motion.div variants={itemVariants}>
+            <Accordion items={accordionItems} defaultOpenId={null} />
+          </motion.div>
 
-          <GitHubActivity />
+          <motion.div variants={itemVariants}>
+            <GitHubActivity />
+          </motion.div>
         </motion.div>
       </div>
     </section>

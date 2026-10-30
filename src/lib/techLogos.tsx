@@ -13,6 +13,8 @@ import {
   siGit,
   siLinux,
   siDocker,
+  siClaude,
+  siOpencode,
 } from 'simple-icons';
 
 interface Logo {
@@ -35,6 +37,8 @@ const LOGOS: Record<string, Logo> = {
   Git: { path: siGit.path, hex: siGit.hex },
   Linux: { path: siLinux.path, hex: siLinux.hex },
   Docker: { path: siDocker.path, hex: siDocker.hex },
+  'Claude Code': { path: siClaude.path, hex: siClaude.hex },
+  OpenCode: { path: siOpencode.path, hex: siOpencode.hex },
 };
 
 export function TechLogo({

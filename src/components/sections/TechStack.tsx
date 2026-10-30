@@ -43,7 +43,8 @@ export const TechStackSection = () => {
 
       {/* fandeck */}
       <motion.div variants={itemVariants} className="mb-10">
-        <div className="overflow-x-auto pb-4">
+        <p className="mb-6 text-center font-mono text-xs uppercase tracking-[0.3em] text-violet">Tech Stack</p>
+        <div className="overflow-x-auto pt-4 pb-10">
           <div className="flex [justify-content:safe_center]">
             {featured.map((tech, i) => (
               <div
@@ -93,9 +94,9 @@ export const TechStackSection = () => {
                       {row.items.map((name) => (
                         <div
                           key={name}
-                          className="mx-2 inline-flex items-center gap-2 rounded-base border-2 border-ink bg-card px-4 py-2.5 shadow-neo"
+                          className="mr-4 inline-flex items-center gap-2 rounded-base border-2 border-ink bg-card px-4 py-2.5 shadow-neo"
                         >
-                          <TechLogo name={name} className="h-5 w-5 text-ink" />
+                          <TechLogo name={name} colored className="h-5 w-5" />
                           <span className="font-mono text-sm font-bold">{name}</span>
                         </div>
                       ))}

@@ -40,11 +40,13 @@ interface ProjectCardProps {
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 28, filter: 'blur(10px)' },
   visible: (index: number) => ({
     opacity: 1,
     y: 0,
+    filter: 'blur(0px)',
     transition: { duration: 0.44, delay: 0.06 + index * 0.045, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    transitionEnd: { filter: 'none' },
   }),
   exit: { opacity: 0, y: 16, transition: { duration: 0.24, ease: [0.4, 0, 0.2, 1] as const } },
 };

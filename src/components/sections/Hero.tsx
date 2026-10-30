@@ -6,11 +6,16 @@ import { createPortal } from 'react-dom';
 import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { IdCard } from '@/components/ui/IdCard';
 import { containerVariants, itemVariants } from '@/lib/motion';
 
-const marqueeParagraph =
-  'Full-stack Software Engineer building university-wide systems in Angular, TypeScript, and Go — works AI-assisted with Claude Code and OpenCode — maintains an open-source AI agent framework with 57 releases on npm — experienced across web, mobile, and REST API development — based in Sleman, Yogyakarta, Indonesia.';
+const marqueeItems = [
+  'Boring technology wins',
+  'Clean code over clever code',
+  'Yogyakarta · GMT+7',
+  'Exploring AI agent workflows',
+  'Ship small, iterate fast',
+  'Maintainable systems that outlive the sprint',
+];
 
 const cvLinks = [
   { href: '/api/cv/english', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)' },
@@ -159,7 +164,6 @@ export const HeroSection: React.FC = () => {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
           <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex min-w-0 flex-col gap-7 lg:gap-9">
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border-2 border-ink bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-neo">
@@ -216,11 +220,6 @@ export const HeroSection: React.FC = () => {
             <span>{personalData.location}</span>
           </motion.div>
         </motion.div>
-
-        <div className="mx-auto w-full max-w-[280px] min-w-0 lg:mx-0 lg:max-w-[300px]">
-          <IdCard />
-        </div>
-        </div>
       </div>
 
       {typeof window !== 'undefined' &&
@@ -272,14 +271,18 @@ export const HeroSection: React.FC = () => {
       >
         <style>{`
           @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
-          .hero-marquee-track { animation: heroMarquee 24s linear infinite; }
+          .hero-marquee-track { animation: heroMarquee 60s linear infinite; }
         `}</style>
         <div className="hero-marquee-track flex w-max whitespace-nowrap">
           {[0, 1, 2, 3].map((copy) => (
-            <span key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center font-mono text-xs font-medium text-ink">
-              <span className="px-6">{marqueeParagraph}</span>
-              <span aria-hidden="true" className="pr-6">✦</span>
-            </span>
+            <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
+              {marqueeItems.map((item) => (
+                <span key={item} className="flex items-center font-mono text-xs font-medium text-ink">
+                  <span className="px-6">{item}</span>
+                  <span aria-hidden="true" className="pr-6">✦</span>
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>
