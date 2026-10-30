@@ -11,7 +11,8 @@ const navItems = [
   { id: 'expertise', label: 'expertise', num: '02' },
   { id: 'work', label: 'work', num: '03' },
   { id: 'experience', label: 'experience', num: '04' },
-  { id: 'contact', label: 'contact', num: '05' },
+  { id: 'contributions', label: 'contributions', num: '05' },
+  { id: 'contact', label: 'contact', num: '06' },
 ];
 
 export const Header: React.FC = () => {
