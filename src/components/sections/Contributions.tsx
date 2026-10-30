@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { useInView } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
 
@@ -28,8 +28,9 @@ function buildWeeks(contribs: Contribution[]) {
   const byDate = new Map(contribs.map((c) => [c.date, c]));
   const end = new Date();
   const start = new Date();
-  start.setDate(start.getDate() - 365);
-  start.setDate(start.getDate() - start.getDay());
+  start.setMonth(start.getMonth() - 12); // 12 months ago
+  start.setDate(1); // first day of that month
+  start.setDate(start.getDate() - start.getDay()); // back to Sunday
 
   const weeks: (Contribution | null)[][] = [];
   const monthLabels: { index: number; label: string }[] = [];
@@ -41,6 +42,7 @@ function buildWeeks(contribs: Contribution[]) {
   while (cursor <= end) {
     const week: (Contribution | null)[] = [];
     for (let d = 0; d < 7; d++) {
+      if (cursor > end) break; // stop at today, never include future days
       const key = toKey(cursor);
       const cell = byDate.get(key) ?? null;
       week.push(cell);
@@ -66,8 +68,6 @@ export const GitHubActivity = () => {
   const [contribs, setContribs] = useState<Contribution[]>([]);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState<{ text: string; x: number; y: number } | null>(null);
-  const [displayTotal, setDisplayTotal] = useState(0);
-  const inView = useInView(wrapRef, { once: true, amount: 0.3 });
 
   useEffect(() => {
     let cancelled = false;
@@ -97,22 +97,14 @@ export const GitHubActivity = () => {
   const { weeks, monthLabels, total } = buildWeeks(contribs);
   const githubUrl = `https://github.com/${personalData.socials.github}`;
 
-  useEffect(() => {
-    if (!inView || total === 0) return;
-    const start = performance.now();
-    const duration = 1200;
-    let raf = 0;
-    const step = (now: number) => {
-      const p = Math.min(1, (now - start) / duration);
-      setDisplayTotal(Math.round(total * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, total]);
-
   return (
-    <div className="mt-14">
+    <motion.div
+      className="mt-14"
+      initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">Open Source</p>
@@ -152,7 +144,7 @@ export const GitHubActivity = () => {
               return (
                 <span
                   key={m.index}
-                  className="overflow-hidden whitespace-nowrap font-mono text-[10px] leading-3 text-ink/40"
+                  className="whitespace-nowrap font-mono text-[10px] leading-3 text-ink/40"
                   style={{ gridRow: 1, gridColumn: `${m.index + 2} / span ${span}` }}
                 >
                   {m.label}
@@ -204,7 +196,7 @@ export const GitHubActivity = () => {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <p className="font-mono text-xs text-ink/60">{displayTotal} contributions in the last 12 months</p>
+            <p className="font-mono text-xs text-ink/60">{total} contributions in the last year</p>
             <div className="flex items-center gap-1 font-mono text-[10px] text-ink/40">
               Less
               {LEVEL_COLORS.map((c) => (
@@ -214,20 +206,27 @@ export const GitHubActivity = () => {
             </div>
           </div>
 
-          {hover && (
-            <div
-              className="pointer-events-none absolute z-20 -translate-x-1/2 whitespace-nowrap rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
-              style={{ left: hover.x, top: hover.y - 36 }}
-            >
-              {hover.text}
-              <span
-                aria-hidden="true"
-                className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-[3px] rotate-45 border-b-2 border-r-2 border-ink bg-ink"
-              />
-            </div>
-          )}
+          <AnimatePresence>
+            {hover && (
+              <motion.div
+                key="tooltip"
+                initial={{ opacity: 0, scale: 0.85, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.85, y: 8 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="pointer-events-none absolute z-20 -translate-x-1/2 whitespace-nowrap rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
+                style={{ left: hover.x, top: hover.y - 40 }}
+              >
+                {hover.text}
+                <span
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-full h-3 w-3 -translate-x-1/2 -translate-y-1.5 rotate-45 border-b-[3px] border-r-[3px] border-ink bg-ink"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };

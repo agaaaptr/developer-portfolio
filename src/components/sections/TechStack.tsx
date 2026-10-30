@@ -43,7 +43,10 @@ export const TechStackSection = () => {
 
       {/* fandeck */}
       <div className="mb-10">
-        <motion.p variants={itemVariants} className="mb-6 text-center font-mono text-xs uppercase tracking-[0.3em] text-violet">Tech Stack</motion.p>
+        <div className="mb-6 text-center">
+          <motion.p variants={itemVariants} className="font-mono text-xs uppercase tracking-[0.3em] text-violet">What I Use</motion.p>
+          <motion.h3 variants={itemVariants} className="mt-2 font-display text-2xl uppercase leading-none">Tech Stack</motion.h3>
+        </div>
         <div className="overflow-x-auto pt-4 pb-10">
           <div className="flex [justify-content:safe_center]">
             {featured.map((tech, i) => (

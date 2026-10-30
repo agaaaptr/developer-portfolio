@@ -265,14 +265,13 @@ export const HeroSection: React.FC = () => {
 
       {/* Marquee strip */}
       <div
-        className={`hero-marquee-strip fixed inset-x-0 bottom-0 z-20 overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
+        className={`fixed inset-x-0 bottom-0 z-20 overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
           isMarqueeVisible ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <style>{`
           @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
           .hero-marquee-track { animation: heroMarquee 60s linear infinite; }
-          .hero-marquee-strip { -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
         `}</style>
         <div className="hero-marquee-track flex w-max whitespace-nowrap">
           {[0, 1, 2, 3].map((copy) => (

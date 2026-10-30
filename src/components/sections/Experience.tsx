@@ -110,9 +110,7 @@ export const ExperienceSection: React.FC = () => {
             <Accordion items={accordionItems} defaultOpenId={null} />
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <GitHubActivity />
-          </motion.div>
+          <GitHubActivity />
         </motion.div>
       </div>
     </section>
