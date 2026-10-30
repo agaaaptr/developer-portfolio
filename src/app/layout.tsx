@@ -4,7 +4,6 @@ import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { ScrollToTopButton } from '@/components/ui/ScrollToTopButton';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
-import { FaviconBlink } from '@/components/layout/FaviconBlink';
 import personalData from '@/data/personal.json';
 
 const displayFont = Archivo_Black({
@@ -51,7 +50,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <ScrollToTopButton />
         </SmoothScroll>
-        <FaviconBlink />
       </body>
     </html>
   );
