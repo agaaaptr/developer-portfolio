@@ -15,6 +15,7 @@ import {
   siDocker,
   siClaude,
   siOpencode,
+  siPostman,
 } from 'simple-icons';
 
 interface Logo {
@@ -39,6 +40,7 @@ const LOGOS: Record<string, Logo> = {
   Docker: { path: siDocker.path, hex: siDocker.hex },
   'Claude Code': { path: siClaude.path, hex: siClaude.hex },
   OpenCode: { path: siOpencode.path, hex: siOpencode.hex },
+  Postman: { path: siPostman.path, hex: siPostman.hex },
 };
 
 export function TechLogo({
