@@ -21,10 +21,6 @@ const ExperienceSection = dynamic(
   () => import('@/components/sections/Experience').then((mod) => mod.ExperienceSection),
   { ssr: false }
 );
-const ContributionsSection = dynamic(
-  () => import('@/components/sections/Contributions').then((mod) => mod.ContributionsSection),
-  { ssr: false }
-);
 const ContactSection = dynamic(
   () => import('@/components/sections/Contact').then((mod) => mod.ContactSection),
   { ssr: false }
@@ -38,7 +34,6 @@ export default function Home() {
         <ExpertiseSection />
         <WorkSection />
         <ExperienceSection />
-        <ContributionsSection />
         <ContactSection />
       </main>
 

@@ -1,4 +1,14 @@
 {
+  "featured": [
+    { "name": "Angular", "role": "Frontend" },
+    { "name": "TypeScript", "role": "Types" },
+    { "name": "React", "role": "UI library" },
+    { "name": "Next.js", "role": "App Router" },
+    { "name": "Go", "role": "Backend" },
+    { "name": "Tailwind CSS", "role": "Styling" },
+    { "name": "Node.js", "role": "Runtime" },
+    { "name": "Docker", "role": "Containers" }
+  ],
   "rows": [
     {
       "direction": "left",

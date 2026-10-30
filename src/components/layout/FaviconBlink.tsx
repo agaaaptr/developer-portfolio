@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 
-// Draws the "AP_." icon (lime rounded square, black "AP", optional underscore bar)
-// at the given pixel size and returns a PNG data URL. Matches the static favicon art.
-function drawIcon(size: number, withUnderscore: boolean): string {
+// Draws the "AP._" icon (lime rounded square, merged "AP" monogram, "._" suffix
+// where the dot blinks like a terminal cursor). Returns a PNG data URL.
+function drawIcon(size: number, withDot: boolean): string {
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
@@ -18,25 +18,50 @@ function drawIcon(size: number, withUnderscore: boolean): string {
   ctx.lineWidth = 6 * s;
   const inset = 6 * s;
   const side = size - inset * 2;
+  ctx.beginPath();
   if (typeof ctx.roundRect === 'function') {
-    ctx.beginPath();
     ctx.roundRect(inset, inset, side, side, 22 * s);
   } else {
-    ctx.beginPath();
     ctx.rect(inset, inset, side, side);
   }
   ctx.fill();
   ctx.stroke();
 
   ctx.fillStyle = '#000000';
-  ctx.font = `900 ${92 * s}px Arial, Helvetica, sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'alphabetic';
-  ctx.fillText('AP', size / 2, 122 * s);
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
 
-  if (withUnderscore) {
-    ctx.fillRect(54 * s, 134 * s, 72 * s, 10 * s);
+  // merged "AP" monogram (P overlaps A's right stroke)
+  const apFont = `900 ${66 * s}px Arial, Helvetica, sans-serif`;
+  ctx.font = apFont;
+  const aW = ctx.measureText('A').width;
+  const pW = ctx.measureText('P').width;
+  const overlap = aW * 0.22;
+  const apW = aW + pW - overlap;
+
+  // suffix "._" (dot toggles, underscore static)
+  const sufFont = `900 ${44 * s}px Arial, Helvetica, sans-serif`;
+  ctx.font = sufFont;
+  const dotW = ctx.measureText('.').width;
+  const usW = ctx.measureText('_').width;
+  const gap = 8 * s;
+  const suffixW = (withDot ? dotW + 2 * s : 0) + usW;
+
+  const totalW = apW + gap + suffixW;
+  let x = (size - totalW) / 2;
+  const y = size / 2;
+
+  ctx.font = apFont;
+  ctx.fillText('A', x, y);
+  ctx.fillText('P', x + aW - overlap, y);
+  x += apW + gap;
+
+  ctx.font = sufFont;
+  if (withDot) {
+    ctx.fillText('.', x, y);
+    x += dotW + 2 * s;
   }
+  ctx.fillText('_', x, y);
 
   return canvas.toDataURL('image/png');
 }

@@ -6,6 +6,7 @@ import { MapPin, Globe, ExternalLink } from 'lucide-react';
 import experienceData from '@/data/experience.json';
 import { Accordion } from '@/components/ui/Accordion';
 import { itemVariants } from '@/lib/motion';
+import { GitHubActivity } from '@/components/sections/Contributions';
 
 interface ExperienceItem {
   id: number;
@@ -106,6 +107,8 @@ export const ExperienceSection: React.FC = () => {
           </div>
 
           <Accordion items={accordionItems} defaultOpenId={null} />
+
+          <GitHubActivity />
         </motion.div>
       </div>
     </section>

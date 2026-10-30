@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Monitor, Terminal, Bot } from 'lucide-react';
 import expertiseData from '@/data/expertise.json';
+import { TechStackSection } from '@/components/sections/TechStack';
 
 const iconMap: Record<string, React.ElementType> = {
   monitor: Monitor,
@@ -89,6 +90,8 @@ export const ExpertiseSection: React.FC = () => {
             <ExpertiseCard key={item.id} expertise={item} index={index} />
           ))}
         </div>
+
+        <TechStackSection />
       </div>
     </section>
   );

@@ -88,7 +88,7 @@ export const ContactSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <div className="space-y-4">
-              <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">06 — Get in touch</p>
+              <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">05 — Get in touch</p>
               <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,5vw,4rem)]">
                 Let&apos;s build{' '}
                 <span className="inline-block border-2 border-ink bg-lime px-2 shadow-neo">

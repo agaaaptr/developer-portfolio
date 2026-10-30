@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import personalData from '@/data/personal.json';
-import { containerVariants, itemVariants } from '@/lib/motion';
 
 interface Contribution {
   date: string;
@@ -11,12 +10,10 @@ interface Contribution {
   level: number;
 }
 
-const LEVEL_COLORS = ['#f0f0f0', '#eaffa8', '#d8ff63', '#c6ff34', '#8fbf00'];
+const LEVEL_COLORS = ['#e2e2e2', '#d1f0a8', '#a8e063', '#6fbe2d', '#3f7d1a'];
 const WEEKDAYS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const CELL = 12;
 const GAP = 3;
-const STEP = CELL + GAP;
 const WEEKDAY_W = 28;
 
 function toKey(d: Date): string {
@@ -31,7 +28,7 @@ function buildWeeks(contribs: Contribution[]) {
   const end = new Date();
   const start = new Date();
   start.setDate(start.getDate() - 365);
-  start.setDate(start.getDate() - start.getDay()); // back to Sunday
+  start.setDate(start.getDate() - start.getDay());
 
   const weeks: (Contribution | null)[][] = [];
   const monthLabels: { index: number; label: string }[] = [];
@@ -63,9 +60,12 @@ function buildWeeks(contribs: Contribution[]) {
   return { weeks, monthLabels, total };
 }
 
-export const ContributionsSection = () => {
+export const GitHubActivity = () => {
   const [status, setStatus] = useState<'loading' | 'error' | 'ok'>('loading');
   const [contribs, setContribs] = useState<Contribution[]>([]);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [cell, setCell] = useState(12);
+  const [hover, setHover] = useState<{ text: string; x: number; y: number } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -92,133 +92,127 @@ export const ContributionsSection = () => {
     };
   }, []);
 
+  // responsive cell size so the whole grid always fits the card width
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const compute = () => {
+      const w = el.clientWidth;
+      const size = Math.max(6, Math.min(14, Math.floor((w - WEEKDAY_W - 52 * GAP) / 53)));
+      setCell(size);
+    };
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   const { weeks, monthLabels, total } = buildWeeks(contribs);
+  const step = cell + GAP;
+  const githubUrl = `https://github.com/${personalData.socials.github}`;
 
   return (
-    <section
-      id="contributions"
-      className="relative bg-surface py-16 md:py-24"
-      style={{
-        backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
-        backgroundSize: '28px 28px',
-      }}
-    >
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-col gap-10"
+    <div className="mt-14">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">Open Source</p>
+          <h3 className="font-display text-2xl uppercase leading-none">GitHub Contributions</h3>
+        </div>
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-card px-5 py-2.5 font-display text-xs uppercase tracking-wide shadow-neo transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"
         >
-          <motion.div variants={itemVariants} className="flex flex-col gap-4">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">05 — Open Source</p>
-            <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
-              GitHub{' '}
-              <span className="inline-block border-2 border-ink bg-lime px-2 shadow-neo">
-                Contributions
-              </span>
-            </h2>
-            <p className="font-body text-base text-ink/70">
-              A year of commits to client work, university systems, and open-source packages.
-            </p>
-          </motion.div>
-
-          {status === 'loading' && (
-            <motion.p variants={itemVariants} className="font-mono text-sm text-ink/50">
-              Loading contributions…
-            </motion.p>
-          )}
-
-          {status === 'error' && (
-            <motion.p variants={itemVariants} className="font-mono text-sm text-ink/60">
-              Couldn&apos;t load the contribution graph right now — it pulls from GitHub directly, so
-              try again in a moment.
-            </motion.p>
-          )}
-
-          {status === 'ok' && (
-            <motion.div
-              variants={itemVariants}
-              className="rounded-base border-2 border-ink bg-card p-6 shadow-neo"
-            >
-              <div className="overflow-x-auto pb-1">
-                <div style={{ minWidth: 'max-content' }}>
-                  <div className="relative h-4" style={{ marginLeft: WEEKDAY_W }}>
-                    {monthLabels.map((m) => (
-                      <span
-                        key={m.index}
-                        className="absolute font-mono text-[10px] leading-4 text-ink/40"
-                        style={{ left: m.index * STEP }}
-                      >
-                        {m.label}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex" style={{ gap: GAP }}>
-                    <div className="flex flex-col" style={{ gap: GAP, width: WEEKDAY_W - GAP }}>
-                      {WEEKDAYS.map((label, i) => (
-                        <div
-                          key={i}
-                          className="font-mono text-[10px] leading-[12px] text-ink/40"
-                          style={{ height: CELL }}
-                        >
-                          {label}
-                        </div>
-                      ))}
-                    </div>
-
-                    {weeks.map((week, wi) => (
-                      <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
-                        {week.map((cell, di) =>
-                          cell ? (
-                            <div
-                              key={di}
-                              className="border border-ink/20"
-                              style={{
-                                width: CELL,
-                                height: CELL,
-                                background: LEVEL_COLORS[cell.level] ?? LEVEL_COLORS[0],
-                              }}
-                              title={`${cell.count} contributions on ${cell.date}`}
-                              aria-label={`${cell.count} contributions on ${cell.date}`}
-                            />
-                          ) : (
-                            <div
-                              key={di}
-                              className="border border-ink/10"
-                              style={{ width: CELL, height: CELL, background: LEVEL_COLORS[0] }}
-                            />
-                          ),
-                        )}
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <p className="font-mono text-xs text-ink/60">
-                      {total} contributions in the last 12 months
-                    </p>
-                    <div className="flex items-center gap-1 font-mono text-[10px] text-ink/40">
-                      Less
-                      {LEVEL_COLORS.map((c) => (
-                        <span
-                          key={c}
-                          className="border border-ink/20"
-                          style={{ width: 10, height: 10, background: c }}
-                        />
-                      ))}
-                      More
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </motion.div>
+          View GitHub <ArrowUpRight className="h-4 w-4" />
+        </a>
       </div>
-    </section>
+
+      {status === 'loading' && (
+        <p className="font-mono text-sm text-ink/50">Loading contributions…</p>
+      )}
+
+      {status === 'error' && (
+        <p className="font-mono text-sm text-ink/60">
+          Couldn&apos;t load the contribution graph right now — it pulls from GitHub directly, so try
+          again in a moment.
+        </p>
+      )}
+
+      {status === 'ok' && (
+        <div ref={wrapRef} className="rounded-base border-2 border-ink bg-card p-5 shadow-neo">
+          <div className="relative h-4" style={{ marginLeft: WEEKDAY_W }}>
+            {monthLabels.map((m) => (
+              <span
+                key={m.index}
+                className="absolute font-mono text-[10px] leading-4 text-ink/40"
+                style={{ left: m.index * step }}
+              >
+                {m.label}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex" style={{ gap: GAP }}>
+            <div className="flex flex-col" style={{ gap: GAP, width: WEEKDAY_W - GAP }}>
+              {WEEKDAYS.map((label, i) => (
+                <div
+                  key={i}
+                  className="font-mono text-[10px] leading-[12px] text-ink/40"
+                  style={{ height: cell }}
+                >
+                  {label}
+                </div>
+              ))}
+            </div>
+
+            {weeks.map((week, wi) => (
+              <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
+                {week.map((c, di) =>
+                  c ? (
+                    <div
+                      key={di}
+                      className="border border-ink/20 transition-transform hover:scale-125"
+                      style={{ width: cell, height: cell, background: LEVEL_COLORS[c.level] ?? LEVEL_COLORS[0] }}
+                      title={`${c.count} contributions on ${c.date}`}
+                      aria-label={`${c.count} contributions on ${c.date}`}
+                      onMouseEnter={(e) => setHover({ text: `${c.count} contributions on ${c.date}`, x: e.clientX, y: e.clientY })}
+                      onMouseLeave={() => setHover(null)}
+                    />
+                  ) : (
+                    <div
+                      key={di}
+                      aria-hidden="true"
+                      className="border border-ink/10"
+                      style={{ width: cell, height: cell, background: LEVEL_COLORS[0] }}
+                    />
+                  ),
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <p className="font-mono text-xs text-ink/60">{total} contributions in the last 12 months</p>
+            <div className="flex items-center gap-1 font-mono text-[10px] text-ink/40">
+              Less
+              {LEVEL_COLORS.map((c) => (
+                <span key={c} className="border border-ink/20" style={{ width: 10, height: 10, background: c }} />
+              ))}
+              More
+            </div>
+          </div>
+        </div>
+      )}
+
+      {hover && (
+        <div
+          className="pointer-events-none fixed z-50 rounded-base border-2 border-ink bg-ink px-2.5 py-1 font-mono text-[11px] text-card shadow-neo"
+          style={{ left: hover.x + 12, top: hover.y + 12 }}
+        >
+          {hover.text}
+        </div>
+      )}
+    </div>
   );
 };

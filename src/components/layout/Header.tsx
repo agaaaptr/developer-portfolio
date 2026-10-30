@@ -11,8 +11,7 @@ const navItems = [
   { id: 'expertise', label: 'expertise', num: '02' },
   { id: 'work', label: 'work', num: '03' },
   { id: 'experience', label: 'experience', num: '04' },
-  { id: 'contributions', label: 'contributions', num: '05' },
-  { id: 'contact', label: 'contact', num: '06' },
+  { id: 'contact', label: 'contact', num: '05' },
 ];
 
 export const Header: React.FC = () => {
@@ -67,7 +66,7 @@ export const Header: React.FC = () => {
             onClick={() => navigateToSection('home')}
             className="flex items-center gap-1 font-display text-sm uppercase tracking-wide"
           >
-            AP<span className="text-violet animate-blink">_</span>
+            AgaPutra<span className="text-violet animate-blink">.</span><span className="text-violet">_</span>
           </button>
 
           <div className="hidden items-center gap-4 lg:flex">

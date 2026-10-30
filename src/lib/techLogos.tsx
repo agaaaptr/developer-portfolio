@@ -15,28 +15,41 @@ import {
   siDocker,
 } from 'simple-icons';
 
-const LOGOS: Record<string, { path: string }> = {
-  Angular: siAngular,
-  React: siReact,
-  'Next.js': siNextdotjs,
-  TypeScript: siTypescript,
-  'Tailwind CSS': siTailwindcss,
-  'Node.js': siNodedotjs,
-  Vite: siVite,
-  HTML5: siHtml5,
-  CSS3: siCss,
-  Go: siGo,
-  GitHub: siGithub,
-  Git: siGit,
-  Linux: siLinux,
-  Docker: siDocker,
+interface Logo {
+  path: string;
+  hex: string;
+}
+
+const LOGOS: Record<string, Logo> = {
+  Angular: { path: siAngular.path, hex: siAngular.hex },
+  React: { path: siReact.path, hex: siReact.hex },
+  'Next.js': { path: siNextdotjs.path, hex: siNextdotjs.hex },
+  TypeScript: { path: siTypescript.path, hex: siTypescript.hex },
+  'Tailwind CSS': { path: siTailwindcss.path, hex: siTailwindcss.hex },
+  'Node.js': { path: siNodedotjs.path, hex: siNodedotjs.hex },
+  Vite: { path: siVite.path, hex: siVite.hex },
+  HTML5: { path: siHtml5.path, hex: siHtml5.hex },
+  CSS3: { path: siCss.path, hex: siCss.hex },
+  Go: { path: siGo.path, hex: siGo.hex },
+  GitHub: { path: siGithub.path, hex: siGithub.hex },
+  Git: { path: siGit.path, hex: siGit.hex },
+  Linux: { path: siLinux.path, hex: siLinux.hex },
+  Docker: { path: siDocker.path, hex: siDocker.hex },
 };
 
-export function TechLogo({ name }: { name: string }) {
+export function TechLogo({
+  name,
+  colored = false,
+  className = 'h-5 w-5',
+}: {
+  name: string;
+  colored?: boolean;
+  className?: string;
+}) {
   const logo = LOGOS[name];
   if (logo) {
     return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" className={className} fill={colored ? `#${logo.hex}` : 'currentColor'} aria-hidden="true">
         <path d={logo.path} />
       </svg>
     );

@@ -6,14 +6,30 @@ import techstack from '@/data/techstack.json';
 import { TechLogo } from '@/lib/techLogos';
 import { containerVariants, itemVariants } from '@/lib/motion';
 
-const MARQUEE_CSS = `
+const FAN = [
+  { rotate: -10.5, y: 20 },
+  { rotate: -7.5, y: 10 },
+  { rotate: -4.5, y: 4 },
+  { rotate: -1.5, y: 0 },
+  { rotate: 1.5, y: 0 },
+  { rotate: 4.5, y: 4 },
+  { rotate: 7.5, y: 10 },
+  { rotate: 10.5, y: 20 },
+];
+
+const CSS = `
 @keyframes techMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .tech-marquee-track { animation: techMarquee var(--marquee-dur, 36s) linear infinite; animation-direction: var(--marquee-dir, normal); }
+.tech-marquee-group { position: relative; }
 .tech-marquee-group:hover .tech-marquee-track { animation-play-state: paused; }
+.tech-marquee-group::before, .tech-marquee-group::after { content: ''; position: absolute; top: 0; bottom: 0; width: 64px; z-index: 3; pointer-events: none; }
+.tech-marquee-group::before { left: 0; background: linear-gradient(90deg, #f0f0f0 12%, rgba(240, 240, 240, 0) 100%); }
+.tech-marquee-group::after { right: 0; background: linear-gradient(270deg, #f0f0f0 12%, rgba(240, 240, 240, 0) 100%); }
 `;
 
 export const TechStackSection = () => {
   const reduce = useReducedMotion() ?? false;
+  const featured = techstack.featured ?? [];
 
   return (
     <motion.div
@@ -21,10 +37,38 @@ export const TechStackSection = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="mt-10"
+      className="mt-14"
     >
-      <style>{MARQUEE_CSS}</style>
+      <style>{CSS}</style>
 
+      {/* fandeck */}
+      <motion.div variants={itemVariants} className="mb-10">
+        <div className="overflow-x-auto pb-4">
+          <div className="flex [justify-content:safe_center]">
+            {featured.map((tech, i) => (
+              <div
+                key={tech.name}
+                className="shrink-0"
+                style={{
+                  transform: `translateY(${FAN[i]?.y ?? 0}px) rotate(${FAN[i]?.rotate ?? 0}deg)`,
+                  zIndex: i + 1,
+                  marginLeft: i === 0 ? 0 : -16,
+                }}
+              >
+                <div className="flex h-[158px] w-[132px] flex-col items-center justify-center gap-2 rounded-base border-2 border-ink bg-card p-4 shadow-neo transition-all hover:-translate-y-2 hover:shadow-neo-lg">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-base border-2 border-ink bg-surface">
+                    <TechLogo name={tech.name} colored className="h-6 w-6" />
+                  </span>
+                  <span className="font-mono text-sm font-bold">{tech.name}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-wide text-ink/50">{tech.role}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* marquee rows */}
       <div className="space-y-4">
         {techstack.rows.map((row) => {
           const copies = reduce ? [0] : [0, 1];
@@ -46,18 +90,12 @@ export const TechStackSection = () => {
                 >
                   {copies.map((dup) => (
                     <div key={dup} className="flex" aria-hidden={dup === 1 || undefined}>
-                      {row.items.map((name, j) => (
+                      {row.items.map((name) => (
                         <div
-                          key={`${name}-${j}`}
+                          key={name}
                           className="mx-2 inline-flex items-center gap-2 rounded-base border-2 border-ink bg-card px-4 py-2.5 shadow-neo"
                         >
-                          <span
-                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-base border-2 border-ink ${
-                              j % 2 ? 'bg-violet text-white' : 'bg-lime text-ink'
-                            }`}
-                          >
-                            <TechLogo name={name} />
-                          </span>
+                          <TechLogo name={name} className="h-5 w-5 text-ink" />
                           <span className="font-mono text-sm font-bold">{name}</span>
                         </div>
                       ))}

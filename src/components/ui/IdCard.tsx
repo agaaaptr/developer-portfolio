@@ -10,55 +10,70 @@ function drawFront(): THREE.CanvasTexture {
   c.height = 768;
   const ctx = c.getContext('2d')!;
 
+  // card body + ink border
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, 512, 768);
-
-  // photo panel
-  ctx.fillStyle = '#c6ff34';
-  ctx.fillRect(24, 24, 464, 320);
   ctx.strokeStyle = '#000000';
   ctx.lineWidth = 8;
-  ctx.strokeRect(24, 24, 464, 320);
+  ctx.strokeRect(4, 4, 504, 760);
 
-  // white silhouette (head + shoulders)
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(256, 150, 52, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(256, 262, 115, 78, 0, Math.PI, 0);
-  ctx.fill();
-
-  // "AP" initials over the silhouette
+  // lime header strip
+  ctx.fillStyle = '#c6ff34';
+  ctx.fillRect(4, 4, 504, 64);
   ctx.fillStyle = '#000000';
-  ctx.font = '900 72px Arial, Helvetica, sans-serif';
-  ctx.textAlign = 'center';
+  ctx.font = '900 26px Arial, Helvetica, sans-serif';
+  ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
-  ctx.fillText('AP', 256, 180);
+  ctx.fillText(personalData.title.toUpperCase(), 28, 36);
 
-  // info
+  // photo frame
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(28, 92, 456, 380);
+  ctx.strokeStyle = '#000000';
+  ctx.lineWidth = 6;
+  ctx.strokeRect(28, 92, 456, 380);
+
+  // neutral silhouette
+  ctx.fillStyle = '#d4d4d4';
+  ctx.beginPath();
+  ctx.arc(256, 208, 62, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(256, 340, 138, 88, 0, Math.PI, 0);
+  ctx.fill();
+
+  // "AP" initials over silhouette
   ctx.fillStyle = '#000000';
-  ctx.font = '900 60px Arial, Helvetica, sans-serif';
-  ctx.fillText(personalData.professionalName, 256, 430);
+  ctx.font = '900 82px Arial, Helvetica, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('AP', 256, 238);
 
+  // name
   ctx.fillStyle = '#000000';
-  ctx.font = '28px "Courier New", monospace';
-  ctx.fillText(personalData.title, 256, 485);
+  ctx.font = '900 52px Arial, Helvetica, sans-serif';
+  ctx.fillText(personalData.professionalName, 256, 540);
 
+  // role
+  ctx.fillStyle = '#000000';
+  ctx.font = '24px "Courier New", monospace';
+  ctx.fillText(personalData.title, 256, 585);
+
+  // location
   ctx.fillStyle = 'rgba(0,0,0,0.55)';
-  ctx.font = '20px "Courier New", monospace';
-  ctx.fillText(personalData.location, 256, 525);
+  ctx.font = '18px "Courier New", monospace';
+  ctx.fillText(personalData.location, 256, 615);
 
   // status chip
   ctx.fillStyle = '#7f3aed';
-  const chipW = 200;
-  const chipH = 44;
-  ctx.fillRect(256 - chipW / 2, 570, chipW, chipH);
+  const chipW = 180;
+  const chipH = 40;
+  ctx.fillRect(256 - chipW / 2, 660, chipW, chipH);
   ctx.strokeStyle = '#000000';
-  ctx.strokeRect(256 - chipW / 2, 570, chipW, chipH);
+  ctx.lineWidth = 4;
+  ctx.strokeRect(256 - chipW / 2, 660, chipW, chipH);
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 20px Arial, Helvetica, sans-serif';
-  ctx.fillText('OPEN TO WORK', 256, 570 + chipH / 2);
+  ctx.font = 'bold 18px Arial, Helvetica, sans-serif';
+  ctx.fillText('OPEN TO WORK', 256, 680);
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -279,11 +294,12 @@ export const IdCard = () => {
     el.addEventListener('pointerup', onUp);
     el.addEventListener('pointercancel', onUp);
 
-    const clock = new THREE.Clock();
+    const timer = new THREE.Timer();
     let raf = 0;
     const loop = () => {
       raf = requestAnimationFrame(loop);
-      const dt = Math.min(clock.getDelta(), 0.05);
+      timer.update();
+      const dt = Math.min(timer.getDelta(), 0.05);
 
       if (!dragging) {
         rotY += velY;

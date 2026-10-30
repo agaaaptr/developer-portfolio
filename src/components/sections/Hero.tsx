@@ -6,11 +6,11 @@ import { createPortal } from 'react-dom';
 import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { TechStackSection } from '@/components/sections/TechStack';
 import { IdCard } from '@/components/ui/IdCard';
 import { containerVariants, itemVariants } from '@/lib/motion';
 
-const marqueeItems = ['● Open to work', personalData.title, personalData.location];
+const marqueeParagraph =
+  'Full-stack Software Engineer building university-wide systems in Angular, TypeScript, and Go — works AI-assisted with Claude Code and OpenCode — maintains an open-source AI agent framework with 57 releases on npm — experienced across web, mobile, and REST API development — based in Sleman, Yogyakarta, Indonesia.';
 
 const cvLinks = [
   { href: '/api/cv/english', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)' },
@@ -211,8 +211,6 @@ export const HeroSection: React.FC = () => {
             </button>
           </motion.div>
 
-          <TechStackSection />
-
           <motion.div variants={itemVariants} className="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-ink/60">
             <MapPin className="h-4 w-4 text-violet" />
             <span>{personalData.location}</span>
@@ -278,14 +276,10 @@ export const HeroSection: React.FC = () => {
         `}</style>
         <div className="hero-marquee-track flex w-max whitespace-nowrap">
           {[0, 1, 2, 3].map((copy) => (
-            <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
-              {marqueeItems.map((item) => (
-                <span key={item} className="flex items-center font-mono text-xs font-bold uppercase tracking-wider text-ink">
-                  <span className="px-6">{item}</span>
-                  <span aria-hidden="true" className="pr-6">✦</span>
-                </span>
-              ))}
-            </div>
+            <span key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center font-mono text-xs font-medium text-ink">
+              <span className="px-6">{marqueeParagraph}</span>
+              <span aria-hidden="true" className="pr-6">✦</span>
+            </span>
           ))}
         </div>
       </div>
