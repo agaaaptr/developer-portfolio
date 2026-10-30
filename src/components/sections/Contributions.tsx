@@ -11,7 +11,7 @@ interface Contribution {
   level: number;
 }
 
-const LEVEL_COLORS = ['#e2e2e2', '#d1f0a8', '#a8e063', '#6fbe2d', '#3f7d1a'];
+const LEVEL_COLORS = ['#e8e8e8', '#b8e986', '#8bd23a', '#5cb82c', '#2f6e12'];
 const WEEKDAYS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const GAP = 3;
