@@ -146,9 +146,10 @@ export const GitHubActivity = () => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ type: 'spring', stiffness: 140, damping: 18 }}
         >
+          <div className="overflow-x-auto pb-1">
           <div
             className="grid"
-            style={{ gridTemplateColumns: `${WEEKDAY_W}px repeat(${weeks.length}, minmax(0, 1fr))`, gap: GAP }}
+            style={{ gridTemplateColumns: `${WEEKDAY_W}px repeat(${weeks.length}, minmax(0, 1fr))`, gap: GAP, minWidth: 700 }}
           >
             <div aria-hidden="true" style={{ gridRow: 1, gridColumn: 1 }} />
 
@@ -206,6 +207,7 @@ export const GitHubActivity = () => {
                 })}
               </Fragment>
             ))}
+          </div>
           </div>
 
           <div className="mt-4 flex items-center justify-between">

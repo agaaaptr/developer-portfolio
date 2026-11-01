@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import type { CSSProperties } from 'react';
 import techstack from '@/data/techstack.json';
 import { TechLogo } from '@/lib/techLogos';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { containerVariants, itemVariants } from '@/lib/motion';
 
 const FAN = [
@@ -29,6 +30,7 @@ const CSS = `
 
 export const TechStackSection = () => {
   const reduce = useReducedMotion() ?? false;
+  const isCompact = useMediaQuery('(max-width: 1023px)');
   const featured = techstack.featured ?? [];
 
   return (
@@ -47,24 +49,24 @@ export const TechStackSection = () => {
           <motion.p variants={itemVariants} className="font-mono text-xs uppercase tracking-[0.3em] text-violet">What I Use</motion.p>
           <motion.h3 variants={itemVariants} className="mt-2 font-display text-2xl uppercase leading-none">Tech Stack</motion.h3>
         </div>
-        <div className="overflow-x-auto pt-4 pb-10">
-          <div className="flex [justify-content:safe_center]">
+        <div className="pt-4 pb-10">
+          <div className="flex flex-wrap justify-center gap-3 lg:flex-nowrap lg:gap-0 lg:[justify-content:safe_center]">
             {featured.map((tech, i) => (
               <motion.div
                 key={tech.name}
-                className="shrink-0"
-                style={{ zIndex: i + 1, marginLeft: i === 0 ? 0 : -16 }}
+                className="shrink-0 first:ml-0 lg:-ml-4"
+                style={{ zIndex: i + 1 }}
                 initial={{ opacity: 0, rotate: 0, y: 60 }}
-                whileInView={{ opacity: 1, rotate: FAN[i]?.rotate ?? 0, y: FAN[i]?.y ?? 0 }}
+                whileInView={{ opacity: 1, rotate: isCompact ? 0 : (FAN[i]?.rotate ?? 0), y: isCompact ? 0 : (FAN[i]?.y ?? 0) }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="flex h-[158px] w-[132px] flex-col items-center justify-center gap-2 rounded-base border-2 border-ink bg-card p-4 shadow-neo transition-all hover:-translate-y-2 hover:shadow-neo-lg">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-base border-2 border-ink bg-surface">
-                    <TechLogo name={tech.name} colored className="h-6 w-6" />
+                <div className="flex h-[120px] w-[104px] flex-col items-center justify-center gap-1.5 rounded-base border-2 border-ink bg-card p-3 shadow-neo transition-all hover:-translate-y-2 hover:shadow-neo-lg lg:h-[158px] lg:w-[132px] lg:gap-2 lg:p-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-base border-2 border-ink bg-surface lg:h-12 lg:w-12">
+                    <TechLogo name={tech.name} colored className="h-5 w-5 lg:h-6 lg:w-6" />
                   </span>
-                  <span className="font-mono text-sm font-bold">{tech.name}</span>
-                  <span className="font-mono text-[10px] uppercase tracking-wide text-ink/50">{tech.role}</span>
+                  <span className="font-mono text-xs font-bold lg:text-sm">{tech.name}</span>
+                  <span className="font-mono text-[9px] uppercase tracking-wide text-ink/50 lg:text-[10px]">{tech.role}</span>
                 </div>
               </motion.div>
             ))}
