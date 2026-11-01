@@ -1,13 +1,14 @@
 {
     "professionalName": "Aga Putra",
-    "fullName": "Gagah Putra Anugrah",
     "title": "Software Engineer",
+    "profileImage": "/images/profile-cutout.webp",
     "bio": "Full-stack software engineer building university-wide systems in Angular, TypeScript, and Go. Works AI-assisted with Claude Code and OpenCode, and maintains an open-source AI agent framework with 57 releases on npm.",
     "location": "Sleman, Yogyakarta, Indonesia",
     "email": "gagah.p.412@gmail.com",
     "socials": {
         "github": "agaaaptr",
         "linkedin": "agaaaptr",
-        "instagram": "agaaaptr"
+        "instagram": "agaaaptr",
+        "whatsapp": "6281293309095"
     }
 }

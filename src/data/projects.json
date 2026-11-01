@@ -7,7 +7,6 @@
     "subCategories": [
       "DevTools"
     ],
-    "featured": true,
     "shortDescription": "The discipline, context, and memory layer for any agentic CLI",
     "description": "An 11-package pnpm monorepo that serves as a host-agnostic orchestration layer for AI coding agents. Noir provides three core capabilities: a spec-driven development workflow (idea → spec → plan → implement → verify), a hybrid retrieval engine combining BM25 and vector kNN with Reciprocal Rank Fusion for working context, and cross-session memory with full governance including audit trail and governed deletion. Features an interactive Ink-based terminal dashboard, a persistent MCP server daemon, 27 built-in skills, and adapters for 5 AI coding hosts. Published as @noir-ai/cli on npm with native installers for macOS, Linux, and Windows. Entirely local-first and privacy-by-construction, with no data leaving the machine without explicit opt-in.",
     "tech": [
@@ -42,7 +41,6 @@
     "subCategories": [
       "Frontend Development"
     ],
-    "featured": false,
     "shortDescription": "Learning Management System for test preparation courses",
     "description": "An LMS for test prep: SNBT, TKA, CPNS, and PPPK. Built the admin and student frontends in React, Vite, TypeScript, and Tailwind, following Figma specs. Wired up the REST APIs and deployed to a VPS.",
     "tech": [
@@ -70,7 +68,6 @@
       "WordPress Development",
       "UI/UX Design"
     ],
-    "featured": false,
     "shortDescription": "Premium cruise services with multi-language support",
     "description": "A cruise service site with multi-language pages. Added the WPML translations and wired the booking reservation flow.",
     "tech": [
@@ -96,7 +93,6 @@
       "WordPress Development",
       "UI/UX Design"
     ],
-    "featured": false,
     "shortDescription": "Automotive repair and modification services",
     "description": "A site for an automotive repair and modification shop. Built the service pages in Elementor and wrote the SEO copy.",
     "tech": [
@@ -124,7 +120,6 @@
       "WordPress Development",
       "UI/UX Design"
     ],
-    "featured": false,
     "shortDescription": "Premium car care and detailing services",
     "description": "A website for a premium car care and detailing service. Built the service pages in Elementor and wrote the service copy.",
     "tech": [
@@ -151,7 +146,6 @@
       "WordPress Development",
       "UI/UX Design"
     ],
-    "featured": false,
     "shortDescription": "Motorcycle rental services in Vietnam",
     "description": "A motorcycle rental site for Vietnam's tourism market. Built mobile-first layouts in Elementor for on-the-go booking.",
     "tech": [
@@ -177,7 +171,6 @@
       "WordPress Development",
       "UI/UX Design"
     ],
-    "featured": false,
     "shortDescription": "Surf camp and yoga retreat experiences in Bali",
     "description": "A site for a surf camp and yoga retreat in Bali. Designed the layouts, ran the on-page SEO, and wrote the content.",
     "tech": [
@@ -205,7 +198,6 @@
     "subCategories": [
       "UI/UX Design"
     ],
-    "featured": true,
     "shortDescription": "Software development service provider",
     "description": "A platform for software development services. Designed the service pages and the client engagement flow in Figma.",
     "tech": [
@@ -233,7 +225,6 @@
     "subCategories": [
       "UI/UX Design"
     ],
-    "featured": true,
     "shortDescription": "Health tracking application with calorie counter and informational feed",
     "description": "A health tracking app built during university. Daily calorie tracker, a health and fitness feed, and progress tracking toward diet goals.",
     "tech": [

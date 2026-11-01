@@ -1,0 +1,24 @@
+{
+  "featured": [
+    { "name": "Angular", "role": "Frontend" },
+    { "name": "TypeScript", "role": "Types" },
+    { "name": "React", "role": "UI library" },
+    { "name": "Next.js", "role": "App Router" },
+    { "name": "Go", "role": "Backend" },
+    { "name": "Tailwind CSS", "role": "Styling" },
+    { "name": "Node.js", "role": "Runtime" },
+    { "name": "Docker", "role": "Containers" }
+  ],
+  "rows": [
+    {
+      "direction": "left",
+      "duration": 36,
+      "items": ["Angular", "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Vite", "HTML5", "CSS3"]
+    },
+    {
+      "direction": "right",
+      "duration": 40,
+      "items": ["Go", "Postman", "Claude Code", "OpenCode", "GitHub", "Git", "Linux", "Docker"]
+    }
+  ]
+}

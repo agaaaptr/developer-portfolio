@@ -1,35 +1,24 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import projectsData from '@/data/projects.json';
-import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
+import { ProjectFilter, ProjectCategory, getProjectFilterOptions } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { useMeasuredHeight } from '@/lib/hooks/useMeasuredHeight';
+import { containerVariants, itemVariants } from '@/lib/motion';
 
 export const WorkSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
-  const [gridHeight, setGridHeight] = useState<number | null>(null);
   const [showPreviewNote, setShowPreviewNote] = useState(false);
   const gridContentRef = useRef<HTMLDivElement>(null);
   const isMobile = useMediaQuery('(max-width: 639px)');
   const isTablet = useMediaQuery('(min-width: 640px) and (max-width: 1023px)');
 
-  const filterOptions = useMemo(() => {
-    const allCount = projectsData.length;
-    const webCount = projectsData.filter((p) => p.category === 'web').length;
-    const mobileCount = projectsData.filter((p) => p.category === 'mobile').length;
-    const aiCount = projectsData.filter((p) => p.category === 'ai').length;
-
-    return [
-      { id: 'all' as ProjectCategory, label: 'All', count: allCount },
-      { id: 'web' as ProjectCategory, label: 'Web Development', count: webCount },
-      { id: 'mobile' as ProjectCategory, label: 'Mobile Development', count: mobileCount },
-      { id: 'ai' as ProjectCategory, label: 'AI Development', count: aiCount },
-    ];
-  }, []);
+  const filterOptions = useMemo(() => getProjectFilterOptions(projectsData), []);
 
   const indexedProjects = useMemo(
     () => projectsData.map((project, index) => ({ ...project, originalIndex: index })),
@@ -49,6 +38,7 @@ export const WorkSection: React.FC = () => {
     [filteredProjects, visibleLimit]
   );
   const shouldShowPreviewNote = filteredProjects.length > visibleProjects.length;
+  const gridHeight = useMeasuredHeight(gridContentRef, [activeFilter, visibleProjects.length]);
 
   useEffect(() => {
     if (!shouldShowPreviewNote) {
@@ -66,30 +56,6 @@ export const WorkSection: React.FC = () => {
     };
   }, [activeFilter, shouldShowPreviewNote, visibleProjects.length]);
 
-  useLayoutEffect(() => {
-    const node = gridContentRef.current;
-
-    if (!node) {
-      return;
-    }
-
-    const updateHeight = () => {
-      setGridHeight(node.getBoundingClientRect().height);
-    };
-
-    updateHeight();
-
-    const observer = new ResizeObserver(() => {
-      updateHeight();
-    });
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [activeFilter, visibleProjects.length]);
-
   return (
     <section
       id="work"
@@ -99,7 +65,8 @@ export const WorkSection: React.FC = () => {
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-col gap-4">
+        <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+          <motion.div variants={itemVariants} className="mb-10 flex flex-col gap-4">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-violet">03 — Selected Work</p>
           <h2 className="font-display uppercase leading-[0.9] tracking-[-0.02em] text-[clamp(2.5rem,6vw,5rem)]">
             My{' '}
@@ -117,17 +84,20 @@ export const WorkSection: React.FC = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
-        <ProjectFilter
-          options={filterOptions}
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
+        <motion.div variants={itemVariants}>
+          <ProjectFilter
+            options={filterOptions}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+          />
+        </motion.div>
 
-        <motion.div
-          className="overflow-hidden"
-          initial={false}
+        <motion.div variants={itemVariants}>
+          <motion.div
+            className="overflow-hidden"
+            initial={false}
           animate={gridHeight === null ? undefined : { height: gridHeight }}
           transition={{ height: { duration: 0.56, ease: [0.22, 1, 0.36, 1] } }}
         >
@@ -155,6 +125,8 @@ export const WorkSection: React.FC = () => {
               </motion.div>
             )}
           </div>
+          </motion.div>
+        </motion.div>
         </motion.div>
       </div>
     </section>

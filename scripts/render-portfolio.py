@@ -9,7 +9,7 @@ no downloads.
 Project screenshots are downscaled to 1200px wide before embedding, which keeps
 the PDF near 1 MB instead of pulling in the multi-megabyte originals.
 
-Usage: python3 cv/render-portfolio.py   (or: npm run portfolio:render)
+Usage: python3 scripts/render-portfolio.py   (or: npm run portfolio:render)
 """
 
 import pathlib

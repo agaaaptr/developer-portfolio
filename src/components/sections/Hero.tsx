@@ -6,38 +6,29 @@ import { createPortal } from 'react-dom';
 import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'lucide-react';
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { containerVariants, itemVariants } from '@/lib/motion';
+import { HeroLanyard } from './HeroLanyard';
 
-const marqueeItems = ['Angular', 'React', 'TypeScript', 'Go', 'REST APIs', 'Claude Code', '57 npm releases'];
-
-const skillCards = [
-  { label: 'Angular', sub: 'University systems', rotate: '-rotate-3' },
-  { label: 'React', sub: 'Exam-prep LMS', rotate: 'rotate-2' },
-  { label: 'TypeScript', sub: 'Types everywhere', rotate: '-rotate-1' },
-  { label: 'Go', sub: 'REST + MySQL', rotate: 'rotate-3' },
-  { label: 'Claude Code', sub: 'Daily driver', rotate: '-rotate-2' },
-  { label: 'OpenCode', sub: '57 npm releases', rotate: 'rotate-1' },
+const marqueeItems = [
+  'Boring technology wins',
+  'Clean code over clever code',
+  'Yogyakarta · GMT+7',
+  'Exploring AI agent workflows',
+  'Ship small, iterate fast',
+  'Maintainable systems that outlive the sprint',
 ];
 
 const cvLinks = [
-  { href: '/api/cv/english', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)' },
-  { href: '/api/cv/indonesian', icon: Languages, title: 'Indonesian CV', sub: 'CV dalam Bahasa Indonesia (PDF)' },
+  { href: '/documents/Gagah-Putra-Anugrah-CV-EN.pdf', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)', download: true },
+  { href: '/documents/Gagah-Putra-Anugrah-CV-ID.pdf', icon: Languages, title: 'Indonesian CV', sub: 'CV dalam Bahasa Indonesia (PDF)', download: true },
   { href: '/documents/Gagah-Putra-Anugrah-Portfolio.pdf', icon: FileText, title: 'Project Portfolio', sub: 'Project portfolio document (PDF)', download: true },
 ];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const } },
-};
 
 export const HeroSection: React.FC = () => {
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const [isMarqueeVisible, setIsMarqueeVisible] = useState(true);
+  const [heroElement, setHeroElement] = useState<HTMLElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const isCompactLayout = useMediaQuery('(max-width: 1023px)');
@@ -107,8 +98,14 @@ export const HeroSection: React.FC = () => {
     }
   };
 
+  const lanyard = (
+    <div key="lanyard" className="order-1 -mt-8 lg:order-2 lg:mt-0">
+      <HeroLanyard heroElement={heroElement} />
+    </div>
+  );
+
   return (
-    <section id="home" className="relative flex min-h-screen overflow-hidden bg-surface text-ink">
+    <section ref={setHeroElement} id="home" className="relative isolate flex min-h-screen overflow-hidden bg-surface text-ink">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -120,40 +117,42 @@ export const HeroSection: React.FC = () => {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-8 top-1/4 h-32 w-32 opacity-50"
+        className="pointer-events-none absolute left-2 top-1/4 h-32 w-32 opacity-50"
         style={{
           backgroundImage: 'radial-gradient(rgba(0,0,0,0.45) 1.5px, transparent 1.5px)',
           backgroundSize: '10px 10px',
         }}
       />
-      <div
+
+      {/* plus + cross marks */}
+      <svg
         aria-hidden="true"
-        className="pointer-events-none absolute left-16 top-32 hidden h-8 w-8 -rotate-12 rounded-base border-2 border-ink bg-violet sm:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-8 top-28 hidden h-14 w-14 rotate-12 rounded-base border-2 border-ink bg-violet shadow-neo-lg sm:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-52 left-8 hidden h-12 w-12 -rotate-6 rounded-base border-2 border-ink bg-lime shadow-neo md:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-12 bottom-64 hidden h-9 w-9 rotate-6 rounded-full border-2 border-ink bg-lime shadow-neo md:block"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-16 top-40 hidden -rotate-12 font-display text-3xl text-violet md:block"
+        className="pointer-events-none absolute right-16 top-24 hidden h-8 w-8 text-ink/30 lg:block"
+        viewBox="0 0 24 24"
       >
-        ★
-      </div>
-      <div
+        <path d="M12 2 V22 M2 12 H22" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+      </svg>
+      <svg
         aria-hidden="true"
-        className="pointer-events-none absolute left-10 top-52 hidden rotate-6 font-display text-2xl text-lime md:block"
+        className="pointer-events-none absolute left-16 top-24 hidden h-5 w-5 text-ink/40 md:block"
+        viewBox="0 0 24 24"
       >
-        ✳
-      </div>
+        <path d="M12 4 V20 M4 12 H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute right-8 top-80 hidden h-7 w-7 text-ink/30 lg:block"
+        viewBox="0 0 24 24"
+      >
+        <path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute left-16 bottom-40 hidden h-5 w-5 text-ink/40 md:block"
+        viewBox="0 0 24 24"
+      >
+        <path d="M12 4 V20 M4 12 H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
 
       <svg
         aria-hidden="true"
@@ -174,28 +173,10 @@ export const HeroSection: React.FC = () => {
         className="pointer-events-none absolute -right-16 top-10 hidden h-60 w-60 rounded-full border-2 border-dashed border-ink/15 lg:block"
       />
 
-      {/* Rotating circular text badge */}
-      <div className="pointer-events-none absolute right-8 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
-        <motion.div
-          className="h-40 w-40"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 14, ease: 'linear', repeat: Infinity }}
-        >
-          <svg viewBox="0 0 100 100" className="h-full w-full">
-            <defs>
-              <path id="heroCirclePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" fill="none" />
-            </defs>
-            <text className="fill-ink font-mono text-[6.5px] font-bold uppercase tracking-[0.18em]">
-              <textPath href="#heroCirclePath">Full-stack · Angular · React · Go · TypeScript · OpenCode ·</textPath>
-            </text>
-            <circle cx="50" cy="50" r="20" className="fill-violet stroke-ink" strokeWidth="2" />
-            <text x="50" y="55" textAnchor="middle" className="fill-white font-display text-[12px]">✦</text>
-          </svg>
-        </motion.div>
-      </div>
-
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col gap-7 lg:gap-9">
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          {lanyard}
+          <motion.div key="content" variants={containerVariants} initial="hidden" animate="visible" className="order-2 flex min-w-0 flex-col gap-7 lg:order-1 lg:gap-9">
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border-2 border-ink bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-neo">
               {personalData.title}
@@ -206,7 +187,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h1 className="font-display uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(4rem,15vw,11.5rem)]">
+            <h1 className="font-display uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(4rem,15vw,11.5rem)] lg:text-[clamp(4.5rem,9vw,8.5rem)]">
               <span className="block">{firstName}</span>
               {lastName && (
                 <span className="mt-1 inline-block border-4 border-ink bg-lime px-[0.1em] pb-[0.06em] shadow-neo-lg">
@@ -246,23 +227,12 @@ export const HeroSection: React.FC = () => {
             </button>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-            {skillCards.map((card) => (
-              <div
-                key={card.label}
-                className={`${card.rotate} rounded-base border-2 border-ink bg-card px-5 py-4 shadow-neo transition-all hover:rotate-0 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none`}
-              >
-                <p className="font-display text-xl uppercase leading-none">{card.label}</p>
-                <p className="mt-1 font-mono text-[11px] uppercase tracking-wide text-ink/60">{card.sub}</p>
-              </div>
-            ))}
-          </motion.div>
-
           <motion.div variants={itemVariants} className="flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-ink/60">
             <MapPin className="h-4 w-4 text-violet" />
             <span>{personalData.location}</span>
           </motion.div>
         </motion.div>
+        </div>
       </div>
 
       {typeof window !== 'undefined' &&
@@ -306,29 +276,34 @@ export const HeroSection: React.FC = () => {
           document.body
         )}
 
-      {/* Marquee strip */}
-      <div
-        className={`fixed inset-x-0 bottom-0 z-20 overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
-          isMarqueeVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <style>{`
-          @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
-          .hero-marquee-track { animation: heroMarquee 24s linear infinite; }
-        `}</style>
-        <div className="hero-marquee-track flex w-max whitespace-nowrap">
-          {[0, 1, 2, 3].map((copy) => (
-            <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
-              {marqueeItems.map((item) => (
-                <span key={item} className="flex items-center font-mono text-xs font-bold uppercase tracking-wider text-ink">
-                  <span className="px-6">{item}</span>
-                  <span aria-hidden="true" className="pr-6">✦</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Marquee strip: portaled to <body> so its z-index escapes the hero's
+          `isolate` stacking context. z-30 paints above the whole hero (including
+          the z-[90] lanyard overlay) and below the navbar (z-50). */}
+      {typeof window !== 'undefined' && createPortal(
+        <div
+          className={`fixed inset-x-0 bottom-0 z-30 transform-gpu overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
+            isMarqueeVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <style>{`
+            @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+            .hero-marquee-track { animation: heroMarquee 60s linear infinite; }
+          `}</style>
+          <div className="hero-marquee-track flex w-max whitespace-nowrap">
+            {[0, 1, 2, 3].map((copy) => (
+              <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
+                {marqueeItems.map((item) => (
+                  <span key={item} className="flex items-center font-mono text-xs font-medium text-ink">
+                    <span className="px-6">{item}</span>
+                    <span aria-hidden="true" className="pr-6">✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>,
+        document.body,
+      )}
     </section>
   );
 };

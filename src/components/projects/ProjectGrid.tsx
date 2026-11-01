@@ -14,7 +14,6 @@ interface Project {
   image: string;
   github?: string;
   demo?: string;
-  featured?: boolean;
   originalIndex: number;
 }
 

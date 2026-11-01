@@ -1,6 +1,6 @@
 #!/bin/bash
 # Regenerate both CV PDFs from their YAML sources using RenderCV.
-# Usage: bash cv/render.sh   (or: npm run cv:render)
+# Usage: bash scripts/render.sh   (or: npm run cv:render)
 set -e
 cd "$(dirname "$0")/.."
 
@@ -9,8 +9,8 @@ render_one() {
   local yaml="cv/Gagah-Putra-Anugrah-Software-Engineer-${lang}.yaml"
   local out="/tmp/rcv-${lang}"
   rendercv render "$yaml" --output-folder "$out" >/dev/null
-  cp "$out/Gagah_Putra_Anugrah_CV.pdf" "public/documents/Gagah-Putra-Anugrah-Software-Engineer-${lang}.pdf"
-  echo "✓ ${lang}: public/documents/Gagah-Putra-Anugrah-Software-Engineer-${lang}.pdf"
+  cp "$out/Gagah_Putra_Anugrah_CV.pdf" "public/documents/Gagah-Putra-Anugrah-CV-${lang}.pdf"
+  echo "✓ ${lang}: public/documents/Gagah-Putra-Anugrah-CV-${lang}.pdf"
 }
 
 render_one "EN"

@@ -1,33 +1,22 @@
 'use client';
 
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import projectsData from '@/data/projects.json';
-import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
+import { ProjectFilter, ProjectCategory, getProjectFilterOptions } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
+import { useMeasuredHeight } from '@/lib/hooks/useMeasuredHeight';
+import { containerVariants, itemVariants } from '@/lib/motion';
 
 export default function AllProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
-  const [gridHeight, setGridHeight] = useState<number | null>(null);
   const gridContentRef = useRef<HTMLDivElement>(null);
   const indexedProjects = useMemo(
     () => projectsData.map((project, index) => ({ ...project, originalIndex: index })),
     []
   );
 
-  const filterOptions = useMemo(() => {
-    const allCount = indexedProjects.length;
-    const webCount = indexedProjects.filter((p) => p.category === 'web').length;
-    const mobileCount = indexedProjects.filter((p) => p.category === 'mobile').length;
-    const aiCount = indexedProjects.filter((p) => p.category === 'ai').length;
-
-    return [
-      { id: 'all' as ProjectCategory, label: 'All', count: allCount },
-      { id: 'web' as ProjectCategory, label: 'Web Development', count: webCount },
-      { id: 'mobile' as ProjectCategory, label: 'Mobile Development', count: mobileCount },
-      { id: 'ai' as ProjectCategory, label: 'AI Development', count: aiCount },
-    ];
-  }, [indexedProjects]);
+  const filterOptions = useMemo(() => getProjectFilterOptions(indexedProjects), [indexedProjects]);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'all') {
@@ -36,46 +25,7 @@ export default function AllProjectsPage() {
     return indexedProjects.filter((p) => p.category === activeFilter);
   }, [activeFilter, indexedProjects]);
 
-  useLayoutEffect(() => {
-    const node = gridContentRef.current;
-
-    if (!node) {
-      return;
-    }
-
-    const updateHeight = () => {
-      setGridHeight(node.getBoundingClientRect().height);
-    };
-
-    updateHeight();
-
-    const observer = new ResizeObserver(() => {
-      updateHeight();
-    });
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [activeFilter, filteredProjects.length]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
-    },
-  };
+  const gridHeight = useMeasuredHeight(gridContentRef, [activeFilter, filteredProjects.length]);
 
   return (
     <main

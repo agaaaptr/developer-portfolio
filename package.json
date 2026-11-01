@@ -7,27 +7,36 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "cv:render": "bash cv/render.sh",
-    "portfolio:render": "python3 cv/render-portfolio.py",
-    "future-resume:render": "bash cv/render-future-resume.sh",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "cv:render": "bash scripts/render.sh",
+    "portfolio:render": "python3 scripts/render-portfolio.py",
+    "future-resume:render": "bash scripts/render-future-resume.sh",
+    "qr:generate": "bash scripts/generate-qr.sh",
     "deploy": "npx vercel --prod"
   },
   "dependencies": {
+    "@dimforge/rapier3d-compat": "0.12.0",
     "lenis": "^1.3.26",
     "lucide-react": "^1.55.0",
     "motion": "^14.1.0",
     "next": "^16.4.0",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "simple-icons": "^16.36.0",
+    "three": "^0.186.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^25.9.9",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.0",
-    "postcss": "^8.5.29",
+    "jsqr": "^1.4.0",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3"
   }

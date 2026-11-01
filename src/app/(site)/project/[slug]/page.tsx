@@ -7,7 +7,9 @@ import Link from 'next/link';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import rawProjectsData from '@/data/projects.json';
 import { ProjectNavigation } from '@/components/projects/ProjectNavigation';
+import { PROJECT_CATEGORY_LABELS } from '@/components/projects/ProjectFilter';
 import { ImageWithFallback } from '@/components/ui/ImageWithFallback';
+import { containerVariants, itemVariants } from '@/lib/motion';
 
 interface Project {
   id: number;
@@ -15,7 +17,6 @@ interface Project {
   title: string;
   category: string;
   subCategories?: string[];
-  featured?: boolean;
   description: string;
   shortDescription?: string;
   tech: string[];
@@ -48,29 +49,6 @@ export default function ProjectDetailPage() {
   }
 
   const additionalImages = (project.images ?? []).filter((img) => img !== project.image);
-
-  const categoryLabels: Record<string, string> = {
-    web: 'Web Development',
-    mobile: 'Mobile Development',
-    ai: 'AI Development',
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
-    },
-  };
 
   const primaryButton =
     'inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink bg-lime px-6 py-3 font-display text-sm uppercase tracking-wide text-ink shadow-neo transition-all hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none';
@@ -106,7 +84,7 @@ export default function ProjectDetailPage() {
 
           <motion.div variants={itemVariants} className="mb-4 flex flex-wrap gap-2">
             <span className="rounded-full border-2 border-ink bg-lime px-4 py-1.5 font-mono text-xs uppercase tracking-wide text-ink transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo">
-              {categoryLabels[project.category] || project.category}
+              {PROJECT_CATEGORY_LABELS[project.category] || project.category}
             </span>
             {project.subCategories?.map((subCat, index) => (
               <span

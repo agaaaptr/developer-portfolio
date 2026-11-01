@@ -1,6 +1,6 @@
 #!/bin/bash
 # Regenerate both Future Resume PDFs from their HTML templates using headless Chrome.
-# Usage: bash cv/render-future-resume.sh   (or: npm run future-resume:render)
+# Usage: bash scripts/render-future-resume.sh   (or: npm run future-resume:render)
 # Output goes to $HOME/Downloads unless FUTURE_RESUME_OUTDIR is set.
 set -euo pipefail
 cd "$(dirname "$0")/.."
