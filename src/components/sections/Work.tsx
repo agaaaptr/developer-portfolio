@@ -1,36 +1,24 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import projectsData from '@/data/projects.json';
-import { ProjectFilter, ProjectCategory } from '@/components/projects/ProjectFilter';
+import { ProjectFilter, ProjectCategory, getProjectFilterOptions } from '@/components/projects/ProjectFilter';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { useMeasuredHeight } from '@/lib/hooks/useMeasuredHeight';
 import { containerVariants, itemVariants } from '@/lib/motion';
 
 export const WorkSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>('all');
-  const [gridHeight, setGridHeight] = useState<number | null>(null);
   const [showPreviewNote, setShowPreviewNote] = useState(false);
   const gridContentRef = useRef<HTMLDivElement>(null);
   const isMobile = useMediaQuery('(max-width: 639px)');
   const isTablet = useMediaQuery('(min-width: 640px) and (max-width: 1023px)');
 
-  const filterOptions = useMemo(() => {
-    const allCount = projectsData.length;
-    const webCount = projectsData.filter((p) => p.category === 'web').length;
-    const mobileCount = projectsData.filter((p) => p.category === 'mobile').length;
-    const aiCount = projectsData.filter((p) => p.category === 'ai').length;
-
-    return [
-      { id: 'all' as ProjectCategory, label: 'All', count: allCount },
-      { id: 'web' as ProjectCategory, label: 'Web Development', count: webCount },
-      { id: 'mobile' as ProjectCategory, label: 'Mobile Development', count: mobileCount },
-      { id: 'ai' as ProjectCategory, label: 'AI Development', count: aiCount },
-    ];
-  }, []);
+  const filterOptions = useMemo(() => getProjectFilterOptions(projectsData), []);
 
   const indexedProjects = useMemo(
     () => projectsData.map((project, index) => ({ ...project, originalIndex: index })),
@@ -50,6 +38,7 @@ export const WorkSection: React.FC = () => {
     [filteredProjects, visibleLimit]
   );
   const shouldShowPreviewNote = filteredProjects.length > visibleProjects.length;
+  const gridHeight = useMeasuredHeight(gridContentRef, [activeFilter, visibleProjects.length]);
 
   useEffect(() => {
     if (!shouldShowPreviewNote) {
@@ -66,30 +55,6 @@ export const WorkSection: React.FC = () => {
       window.clearTimeout(timer);
     };
   }, [activeFilter, shouldShowPreviewNote, visibleProjects.length]);
-
-  useLayoutEffect(() => {
-    const node = gridContentRef.current;
-
-    if (!node) {
-      return;
-    }
-
-    const updateHeight = () => {
-      setGridHeight(node.getBoundingClientRect().height);
-    };
-
-    updateHeight();
-
-    const observer = new ResizeObserver(() => {
-      updateHeight();
-    });
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [activeFilter, visibleProjects.length]);
 
   return (
     <section

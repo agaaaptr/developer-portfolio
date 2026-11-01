@@ -7,9 +7,7 @@ import { ImageOff } from 'lucide-react';
 interface ImageWithFallbackProps {
   src: string;
   alt: string;
-  fill?: boolean;
-  width?: number;
-  height?: number;
+  fill: boolean;
   sizes?: string;
   className?: string;
   priority?: boolean;
@@ -18,9 +16,7 @@ interface ImageWithFallbackProps {
 export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   src,
   alt,
-  fill = false,
-  width,
-  height,
+  fill,
   sizes,
   className = '',
   priority = false,
@@ -49,8 +45,6 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
         src={src}
         alt={alt}
         fill={fill}
-        width={!fill ? width : undefined}
-        height={!fill ? height : undefined}
         sizes={sizes}
         className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
         priority={priority}

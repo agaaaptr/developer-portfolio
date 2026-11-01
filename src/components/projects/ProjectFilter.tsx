@@ -4,10 +4,26 @@ import React from 'react';
 
 export type ProjectCategory = 'all' | 'web' | 'mobile' | 'ai';
 
-interface FilterOption {
+export interface FilterOption {
   id: ProjectCategory;
   label: string;
   count: number;
+}
+
+export const PROJECT_CATEGORY_LABELS: Record<string, string> = {
+  web: 'Web Development',
+  mobile: 'Mobile Development',
+  ai: 'AI Development',
+};
+
+export function getProjectFilterOptions(projects: { category: string }[]): FilterOption[] {
+  const count = (category: ProjectCategory) => projects.filter((p) => p.category === category).length;
+  return [
+    { id: 'all', label: 'All', count: projects.length },
+    { id: 'web', label: PROJECT_CATEGORY_LABELS.web, count: count('web') },
+    { id: 'mobile', label: PROJECT_CATEGORY_LABELS.mobile, count: count('mobile') },
+    { id: 'ai', label: PROJECT_CATEGORY_LABELS.ai, count: count('ai') },
+  ];
 }
 
 interface ProjectFilterProps {
