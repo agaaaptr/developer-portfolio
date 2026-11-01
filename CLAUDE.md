@@ -5,10 +5,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ```bash
-npm run dev      # Start development server (localhost:3000)
-npm run build    # Create production build
-npm run start    # Start production server
-npm run lint     # Run ESLint on src/ directory
+npm run dev          # Start development server (localhost:3000)
+npm run build        # Create production build
+npm run start        # Start production server
+npm run lint         # Run ESLint on src/ directory
+npm test             # Lanyard unit tests (node:test)
+npm run test:e2e     # Playwright viewport and interaction tests
+npm run qr:generate  # Regenerate public/images/qr-links.{svg,png}
+npm run cv:render    # Rebuild CV PDFs from YAML (scripts/render.sh)
+npm run portfolio:render     # Rebuild the portfolio PDF (scripts/render-portfolio.py)
+npm run future-resume:render # Rebuild the Future Resume PDFs (scripts/render-future-resume.sh)
 ```
 
 ## Architecture
@@ -19,17 +25,20 @@ Single-page portfolio website built with Next.js 16 (App Router), React 19, Type
 
 - **Single-page application**: All sections rendered on one page with smooth scrolling (Lenis).
 - **Dynamic imports**: Sections are dynamically imported with `ssr: false` to avoid hydration issues with `motion` animations.
-- **Layout**: Wraps children in `SmoothScroll` (Lenis) and renders `Header` and `ScrollToTopButton` directly.
+- **Layout**: `src/app/layout.tsx` is minimal (fonts + global CSS). The site chrome lives in `src/app/(site)/layout.tsx` (`SmoothScroll`, `Header`, `ScrollToTopButton`); `src/app/links/` is an isolated QR hub without that chrome.
 
 ### Key Directories
 
-- `src/app/` - App Router (layout.tsx, page.tsx, globals.css, /project/all, /project/[slug], /api/cv/[lang])
-- `src/components/sections/` - Hero, Expertise, Work, Experience, Contact
+- `src/app/` - App Router: `(site)/` home and project routes with site chrome, `links/` isolated QR hub, `globals.css`
+- `src/components/sections/` - Hero (incl. HeroLanyard), Expertise, TechStack, Contributions, Work, Experience, Contact
 - `src/components/layout/` - Header, Footer, SmoothScroll
 - `src/components/projects/` - ProjectCard, ProjectFilter, ProjectGrid, ProjectNavigation
 - `src/components/ui/` - Accordion, ImageWithFallback, ScrollToTopButton
+- `src/lib/lanyard-*.ts` - Three.js + Rapier lanyard (scene, physics, strap, geometry, textures, choreography)
 - `src/lib/hooks/` - useMediaQuery
-- `src/data/` - JSON data files for content (personal, experience, expertise, projects)
+- `src/data/` - JSON data files for content (personal, experience, expertise, projects, techstack)
+- `scripts/` - asset generation and document rendering (QR, CV, portfolio)
+- `tests/` - unit tests; `tests/e2e/` - Playwright specs
 
 ### Content Management
 
@@ -37,7 +46,7 @@ Content is managed through JSON files in `src/data/`. To update portfolio inform
 
 ### Animation System
 
-Uses `motion` (imported from `motion/react`) with per-component animation variants defined inline in each section and page (for example `containerVariants` and `itemVariants` in `src/components/sections/Hero.tsx` and the project pages). There is no shared variants module.
+Uses `motion` (imported from `motion/react`). Shared variants live in `src/lib/motion.ts` (`containerVariants`, `itemVariants`); sections and pages may also define variants inline.
 
 Hover and press states use plain CSS transitions (snap), not spring animation.
 

@@ -13,8 +13,8 @@ Personal developer portfolio website built with Next.js 16 (App Router), React 1
 - **Styling:** Tailwind CSS 4 (CSS-first), PostCSS
 - **Animation:** motion (framer-motion successor), lenis (smooth scroll)
 - **Package Manager:** npm
-- **Dependencies:** motion, lenis, lucide-react, next, react, react-dom
-- **Dev Dependencies:** @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, eslint, eslint-config-next, postcss, tailwindcss, typescript
+- **Dependencies:** @dimforge/rapier3d-compat, lenis, lucide-react, motion, next, react, react-dom, simple-icons, three
+- **Dev Dependencies:** @playwright/test, @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, @types/three, eslint, eslint-config-next, jsqr, sharp, tailwindcss, typescript
 
 ## Important Commands
 
@@ -28,9 +28,9 @@ Personal developer portfolio website built with Next.js 16 (App Router), React 1
 
 ## Project Structure
 
-- `src/app/`: pages, layout, API routes (home, /project/all, /project/[slug], /api/cv/[lang]).
+- `src/app/`: App Router — `(site)/` (home, /project/all, /project/[slug]) and the isolated `links/` QR hub.
 - `src/components/`: React components, organized into `layout`, `sections`, `projects`, and `ui`.
-- `src/data/`: JSON files (personal, experience, expertise, projects).
+- `src/data/`: JSON files (personal, experience, expertise, projects, techstack).
 - `src/lib/hooks/`: useMediaQuery.
 - `src/app/globals.css`: global styles and design tokens (`@theme`).
 - `public/`: static assets.
