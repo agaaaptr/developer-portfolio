@@ -7,6 +7,7 @@ import { ArrowUpRight, ChevronDown, FileText, Globe, Languages, MapPin } from 'l
 import personalData from '@/data/personal.json';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { containerVariants, itemVariants } from '@/lib/motion';
+import { HeroLanyard } from './HeroLanyard';
 
 const marqueeItems = [
   'Boring technology wins',
@@ -18,8 +19,8 @@ const marqueeItems = [
 ];
 
 const cvLinks = [
-  { href: '/api/cv/english', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)' },
-  { href: '/api/cv/indonesian', icon: Languages, title: 'Indonesian CV', sub: 'CV dalam Bahasa Indonesia (PDF)' },
+  { href: '/documents/Gagah-Putra-Anugrah-CV-EN.pdf', icon: Globe, title: 'English CV', sub: 'Software engineer CV in English (PDF)', download: true },
+  { href: '/documents/Gagah-Putra-Anugrah-CV-ID.pdf', icon: Languages, title: 'Indonesian CV', sub: 'CV dalam Bahasa Indonesia (PDF)', download: true },
   { href: '/documents/Gagah-Putra-Anugrah-Portfolio.pdf', icon: FileText, title: 'Project Portfolio', sub: 'Project portfolio document (PDF)', download: true },
 ];
 
@@ -27,6 +28,7 @@ export const HeroSection: React.FC = () => {
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const [isMarqueeVisible, setIsMarqueeVisible] = useState(true);
+  const [heroElement, setHeroElement] = useState<HTMLElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
   const isCompactLayout = useMediaQuery('(max-width: 1023px)');
@@ -96,8 +98,14 @@ export const HeroSection: React.FC = () => {
     }
   };
 
+  const lanyard = (
+    <div key="lanyard" className="order-1 -mt-8 lg:order-2 lg:mt-0">
+      <HeroLanyard heroElement={heroElement} />
+    </div>
+  );
+
   return (
-    <section id="home" className="relative flex min-h-screen overflow-hidden bg-surface text-ink">
+    <section ref={setHeroElement} id="home" className="relative isolate flex min-h-screen overflow-hidden bg-surface text-ink">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -119,13 +127,6 @@ export const HeroSection: React.FC = () => {
       {/* plus + cross marks */}
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-24 left-40 hidden h-6 w-6 text-ink/40 lg:block"
-        viewBox="0 0 24 24"
-      >
-        <path d="M12 3 V21 M3 12 H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-      <svg
-        aria-hidden="true"
         className="pointer-events-none absolute right-16 top-24 hidden h-8 w-8 text-ink/30 lg:block"
         viewBox="0 0 24 24"
       >
@@ -140,7 +141,7 @@ export const HeroSection: React.FC = () => {
       </svg>
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute right-1/3 bottom-32 hidden h-7 w-7 text-ink/30 lg:block"
+        className="pointer-events-none absolute right-8 top-80 hidden h-7 w-7 text-ink/30 lg:block"
         viewBox="0 0 24 24"
       >
         <path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -173,7 +174,9 @@ export const HeroSection: React.FC = () => {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-28 pt-28 sm:px-8 sm:pt-32 lg:px-12">
-          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex min-w-0 flex-col gap-7 lg:gap-9">
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          {lanyard}
+          <motion.div key="content" variants={containerVariants} initial="hidden" animate="visible" className="order-2 flex min-w-0 flex-col gap-7 lg:order-1 lg:gap-9">
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border-2 border-ink bg-card px-3 py-1 font-mono text-[11px] uppercase tracking-wider transition-all hover:-translate-y-0.5 hover:shadow-neo">
               {personalData.title}
@@ -184,7 +187,7 @@ export const HeroSection: React.FC = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h1 className="font-display uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(4rem,15vw,11.5rem)]">
+            <h1 className="font-display uppercase leading-[0.85] tracking-[-0.04em] text-[clamp(4rem,15vw,11.5rem)] lg:text-[clamp(4.5rem,9vw,8.5rem)]">
               <span className="block">{firstName}</span>
               {lastName && (
                 <span className="mt-1 inline-block border-4 border-ink bg-lime px-[0.1em] pb-[0.06em] shadow-neo-lg">
@@ -229,6 +232,7 @@ export const HeroSection: React.FC = () => {
             <span>{personalData.location}</span>
           </motion.div>
         </motion.div>
+        </div>
       </div>
 
       {typeof window !== 'undefined' &&
@@ -272,29 +276,34 @@ export const HeroSection: React.FC = () => {
           document.body
         )}
 
-      {/* Marquee strip */}
-      <div
-        className={`fixed inset-x-0 bottom-0 z-20 overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
-          isMarqueeVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <style>{`
-          @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
-          .hero-marquee-track { animation: heroMarquee 60s linear infinite; }
-        `}</style>
-        <div className="hero-marquee-track flex w-max whitespace-nowrap">
-          {[0, 1, 2, 3].map((copy) => (
-            <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
-              {marqueeItems.map((item) => (
-                <span key={item} className="flex items-center font-mono text-xs font-medium text-ink">
-                  <span className="px-6">{item}</span>
-                  <span aria-hidden="true" className="pr-6">✦</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Marquee strip: portaled to <body> so its z-index escapes the hero's
+          `isolate` stacking context. z-30 paints above the whole hero (including
+          the z-[90] lanyard overlay) and below the navbar (z-50). */}
+      {typeof window !== 'undefined' && createPortal(
+        <div
+          className={`fixed inset-x-0 bottom-0 z-30 transform-gpu overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
+            isMarqueeVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <style>{`
+            @keyframes heroMarquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+            .hero-marquee-track { animation: heroMarquee 60s linear infinite; }
+          `}</style>
+          <div className="hero-marquee-track flex w-max whitespace-nowrap">
+            {[0, 1, 2, 3].map((copy) => (
+              <div key={copy} aria-hidden={copy > 0} className="flex shrink-0 items-center">
+                {marqueeItems.map((item) => (
+                  <span key={item} className="flex items-center font-mono text-xs font-medium text-ink">
+                    <span className="px-6">{item}</span>
+                    <span aria-hidden="true" className="pr-6">✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>,
+        document.body,
+      )}
     </section>
   );
 };

@@ -7,7 +7,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     rules: {
-      // CV download links in Contact use <a> to /api/cv/* on purpose.
+      // HeroLanyard links to the internal /links page with a plain <a> on purpose.
       "@next/next/no-html-link-for-pages": "off",
       // React 19 rule flags useMediaQuery's sync setState in effect.
       "react-hooks/set-state-in-effect": "off",

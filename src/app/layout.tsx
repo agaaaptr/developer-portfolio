@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import { Archivo_Black, Space_Grotesk, JetBrains_Mono, Caveat } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/components/layout/Header';
-import { ScrollToTopButton } from '@/components/ui/ScrollToTopButton';
-import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import personalData from '@/data/personal.json';
 
 const displayFont = Archivo_Black({
@@ -44,13 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-scroll-behavior="smooth"
       className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} ${handFont.variable}`}
     >
-      <body>
-        <SmoothScroll>
-          <Header />
-          {children}
-          <ScrollToTopButton />
-        </SmoothScroll>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
