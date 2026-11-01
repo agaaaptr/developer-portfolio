@@ -51,6 +51,10 @@ export function HeroLanyard({ heroElement }: { heroElement: HTMLElement | null }
 
     const initialize = async () => {
       try {
+        // Let the hero entrance (blur-in, ~0.9s with stagger) finish before the
+        // scene build (sticker-wall textures + PMREM + physics) occupies the
+        // main thread. Without this the ~2s texture pass freezes the entrance.
+        await new Promise<void>((resolve) => setTimeout(resolve, 900));
         const scene = await createLanyardScene(canvas, {
           name: personalData.professionalName,
           title: personalData.title,

@@ -59,7 +59,7 @@ export const Header: React.FC = () => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed inset-x-0 top-4 flex justify-center px-4 ${mobileMenuOpen ? 'z-[110]' : 'z-50'}`}
+        className="fixed inset-x-0 top-4 z-[110] flex justify-center px-4"
       >
         <nav className="flex w-full max-w-3xl items-center justify-between gap-3 rounded-full border-2 border-ink bg-card px-4 py-2 shadow-neo">
           <button
