@@ -1,14 +1,14 @@
 "use client";
 
-import React from 'react';
 import dynamic from 'next/dynamic';
 import { Footer } from '@/components/layout/Footer';
+import { HeroSection } from '@/components/sections/Hero';
 
-// Dynamic imports for sections to avoid hydration issues with motion
-const HeroSection = dynamic(
-  () => import('@/components/sections/Hero').then((mod) => mod.HeroSection),
-  { ssr: false }
-);
+// The hero is above the fold, so it renders in the initial HTML instead of a
+// client-only chunk. Deferring it made the smaller below-fold sections paint
+// first and then shift down when the large hero chunk (three.js + Rapier)
+// finally loaded. The remaining sections sit below the fold, so keeping them
+// ssr:false avoids their bundle weight without a visible flash.
 const ExpertiseSection = dynamic(
   () => import('@/components/sections/Expertise').then((mod) => mod.ExpertiseSection),
   { ssr: false }

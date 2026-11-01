@@ -28,6 +28,7 @@ export const HeroSection: React.FC = () => {
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const [isMarqueeVisible, setIsMarqueeVisible] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const [heroElement, setHeroElement] = useState<HTMLElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
@@ -81,6 +82,10 @@ export const HeroSection: React.FC = () => {
       window.removeEventListener('scroll', updateDropdownPosition, true);
     };
   }, [isCvDropdownOpen]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -278,8 +283,9 @@ export const HeroSection: React.FC = () => {
 
       {/* Marquee strip: portaled to <body> so its z-index escapes the hero's
           `isolate` stacking context. z-30 paints above the whole hero (including
-          the z-[90] lanyard overlay) and below the navbar (z-50). */}
-      {typeof window !== 'undefined' && createPortal(
+          the z-[90] lanyard overlay) and below the navbar (z-[110]). Rendered only
+          after mount so the portal stays out of the SSR HTML (no hydration mismatch). */}
+      {mounted && createPortal(
         <div
           className={`fixed inset-x-0 bottom-0 z-30 transform-gpu overflow-hidden border-t-2 border-ink bg-lime py-2 transition-opacity duration-300 ${
             isMarqueeVisible ? 'opacity-100' : 'opacity-0'
