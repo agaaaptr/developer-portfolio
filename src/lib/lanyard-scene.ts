@@ -59,6 +59,13 @@ function createTextureCanvas(width: number, height: number) {
   return { canvas, context };
 }
 
+// Yields to the event loop so the browser can paint between the heavy scene
+// build stages (texture drawing, PMREM bake, first render) instead of stacking
+// them into one main-thread stall that freezes the entrance and marquee.
+function yieldToMain() {
+  return new Promise<void>((resolve) => setTimeout(resolve, 0));
+}
+
 export function getInitials(name: string) {
   return name.trim().split(/\s+/).slice(0, 2).map((part) => Array.from(part)[0]).join('').toUpperCase();
 }
@@ -453,9 +460,11 @@ export async function createLanyardScene(
   await rapier.init();
   if (options.signal?.aborted) throw new DOMException('Lanyard initialization cancelled', 'AbortError');
   const badgeArtwork = makeBadgeTexture(three, content);
+  await yieldToMain();
   const backArtwork = makeBackBadgeTexture(three, content);
   const strapTexture = makeStrapTexture(three, content.name);
-  const renderer = new three.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
+  await yieldToMain();
+  const renderer = new three.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
   // Skip the synchronous shader-log check; it blocks the main thread during the
   // first render and nothing in this app consumes the log.
   renderer.debug.checkShaderErrors = false;
@@ -513,6 +522,7 @@ export async function createLanyardScene(
     return { geometry, material };
   });
   let pmrem: InstanceType<ThreeModule['PMREMGenerator']> | null = null;
+  await yieldToMain();
   try {
     pmrem = new three.PMREMGenerator(renderer);
     const environmentTarget = track(pmrem.fromScene(environment, 0.04));
@@ -857,7 +867,10 @@ export async function createLanyardScene(
     camera.updateProjectionMatrix();
     camera.updateMatrixWorld();
     const pixelRatio = getLanyardPixelRatio(window.devicePixelRatio || 1, width, height);
-    const textureScale = Math.min(getBadgeTextureScale(pixelRatio), renderer.capabilities.maxTextureSize / ART_HEIGHT);
+    // Cap the badge texture at its base 960x1500: the card projects to under
+    // 800 device px, so 1x already has ~1.8x headroom, and a 2x texture would
+    // quadruple the first-frame upload and force a full sticker-wall redraw.
+    const textureScale = Math.min(getBadgeTextureScale(pixelRatio), renderer.capabilities.maxTextureSize / ART_HEIGHT, 1);
     if (badgeArtwork.setScale(textureScale)) {
       frontMaterial.map = badgeArtwork.texture;
       frontMaterial.needsUpdate = true;
@@ -1030,9 +1043,10 @@ export async function createLanyardScene(
     physics.startEntrance();
     physics.setAmbientEnabled(true);
   }
-  // Pre-compile the scene's shaders asynchronously so the first visible frame
-  // doesn't block the main thread compiling the physical material.
-  await renderer.compileAsync(scene, camera);
+  // resize() also performs the first render while the canvas is still hidden
+  // (status is not 'ready' yet), so shader linking, uniform reflection and the
+  // texture/geometry uploads happen behind the opacity-0 canvas instead of on
+  // the first visible frame.
   resize();
   start();
   void document.fonts.ready.then(() => {
