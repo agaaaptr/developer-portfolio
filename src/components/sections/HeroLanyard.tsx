@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { motion } from 'motion/react';
 import Image from 'next/image';
 import personalData from '@/data/personal.json';
 import type { LanyardFace } from '@/lib/lanyard-choreography';
 import { createLanyardScene, getInitials, type LanyardScene } from '@/lib/lanyard-scene';
+import { itemVariants } from '@/lib/motion';
 
 const initials = getInitials(personalData.professionalName);
 
@@ -51,10 +53,6 @@ export function HeroLanyard({ heroElement }: { heroElement: HTMLElement | null }
 
     const initialize = async () => {
       try {
-        // Let the hero entrance (blur-in, ~0.9s with stagger) finish before the
-        // scene build (sticker-wall textures + PMREM + physics) occupies the
-        // main thread. Without this the ~2s texture pass freezes the entrance.
-        await new Promise<void>((resolve) => setTimeout(resolve, 900));
         const scene = await createLanyardScene(canvas, {
           name: personalData.professionalName,
           title: personalData.title,
@@ -291,13 +289,18 @@ export function HeroLanyard({ heroElement }: { heroElement: HTMLElement | null }
           <p className="font-body text-sm text-ink/70">3D preview unavailable. Tap the static badge to flip it.</p>
         ) : reducedMotion ? (
           <p className="font-body text-sm text-ink/70">Motion reduced. Tap the badge to see the QR.</p>
-        ) : (
-          <p className="font-mono text-xs font-bold uppercase tracking-wide text-ink">
+        ) : status === 'ready' ? (
+          <motion.p
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+            className="font-mono text-xs font-bold uppercase tracking-wide text-ink"
+          >
             <span className="bg-[linear-gradient(180deg,transparent_45%,#c6ff34_45%)] px-[3px] pb-[3px]">
               Drag to swing · tap for QR and pause
             </span>
-          </p>
-        )}
+          </motion.p>
+        ) : null}
         {hasPhotoError && (
           <p className="font-body text-sm text-ink/70" role="status">Profile photo unavailable. Showing initials.</p>
         )}

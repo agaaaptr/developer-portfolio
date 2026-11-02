@@ -104,9 +104,9 @@ export const HeroSection: React.FC = () => {
   };
 
   const lanyard = (
-    <motion.div key="lanyard" variants={itemVariants} initial="hidden" animate="visible" className="order-1 -mt-8 lg:order-2 lg:mt-0">
+    <div key="lanyard" className="order-1 -mt-8 lg:order-2 lg:mt-0">
       <HeroLanyard heroElement={heroElement} />
-    </motion.div>
+    </div>
   );
 
   return (

@@ -31,6 +31,7 @@ function renderLanyard(status, face = 'front') {
     if (name === 'next/image') return image;
     if (name === '@/data/personal.json') return personal;
     if (name === '@/lib/lanyard-scene') return { createLanyardScene: () => {}, getInitials: (name) => name };
+    if (name === '@/lib/motion') return { itemVariants: { hidden: {}, visible: {} } };
     return require(name);
   };
   runInNewContext(compiled, { exports: module.exports, module, require: resolve, console });
