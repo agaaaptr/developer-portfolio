@@ -456,6 +456,9 @@ export async function createLanyardScene(
   const backArtwork = makeBackBadgeTexture(three, content);
   const strapTexture = makeStrapTexture(three, content.name);
   const renderer = new three.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
+  // Skip the synchronous shader-log check; it blocks the main thread during the
+  // first render and nothing in this app consumes the log.
+  renderer.debug.checkShaderErrors = false;
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = three.SRGBColorSpace;
   // PBR Neutral keeps the white badge white (no grey/hue shift) and compresses only
@@ -1027,6 +1030,9 @@ export async function createLanyardScene(
     physics.startEntrance();
     physics.setAmbientEnabled(true);
   }
+  // Pre-compile the scene's shaders asynchronously so the first visible frame
+  // doesn't block the main thread compiling the physical material.
+  await renderer.compileAsync(scene, camera);
   resize();
   start();
   void document.fonts.ready.then(() => {
