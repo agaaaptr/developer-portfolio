@@ -24,13 +24,48 @@
     "role": "Developer",
     "github": "https://github.com/agaaaptr/noir",
     "npm": "https://npmjs.com/package/@noir-ai/cli",
-    "image": "/images/project-noir-1.png",
+    "image": "/images/project-noir-1.webp",
     "images": [
-      "/images/project-noir-1.png",
-      "/images/project-noir-2.png",
-      "/images/project-noir-3.png",
-      "/images/project-noir-4.png",
-      "/images/project-noir-5.png"
+      "/images/project-noir-1.webp",
+      "/images/project-noir-2.webp",
+      "/images/project-noir-3.webp",
+      "/images/project-noir-4.webp",
+      "/images/project-noir-5.webp"
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "coopledger",
+    "title": "CoopLedger",
+    "category": "web",
+    "subCategories": [
+      "Full-Stack Development",
+      "Fintech"
+    ],
+    "shortDescription": "Savings-and-loan cooperative system with role-based workflows",
+    "description": "CoopLedger is a savings-and-loan cooperative (koperasi) management system with role-based access for admins, tellers, and members. It covers member registration, pokok/wajib/sukarela savings, a full loan lifecycle with installment schedules, and a SHU surplus report. The Angular 20 SPA runs against a Spring Boot 3.5 REST API with PostgreSQL, Flyway migrations, and stateless JWT authentication.",
+    "tech": [
+      "Angular",
+      "TypeScript",
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Data JPA",
+      "PostgreSQL",
+      "Flyway",
+      "JWT",
+      "Docker"
+    ],
+    "role": "Full-Stack Development",
+    "github": "https://github.com/agaaaptr/coopledger",
+    "image": "/images/project-coopledger-1.webp",
+    "images": [
+      "/images/project-coopledger-1.webp",
+      "/images/project-coopledger-2.webp",
+      "/images/project-coopledger-3.webp",
+      "/images/project-coopledger-4.webp",
+      "/images/project-coopledger-5.webp",
+      "/images/project-coopledger-6.webp"
     ]
   },
   {
