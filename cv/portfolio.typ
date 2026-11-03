@@ -20,7 +20,7 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 1.4cm, top: 1.05cm, bottom: 0.9cm),
+  margin: (x: 1.4cm, top: 0.7cm, bottom: 0.9cm),
   footer: context [
     #set text(font: body-font, size: 7.2pt, fill: muted, hyphenate: false)
     #v(-0.28cm)
@@ -36,12 +36,12 @@
 )
 
 #set text(font: body-font, size: 9.5pt, fill: ink, hyphenate: false)
-#set par(justify: false, leading: 0.6em)
+#set par(justify: false, leading: 0.52em)
 
 // ---- building blocks -------------------------------------------------------
 
 #let section-head(title, note: none) = {
-  v(0.55em)
+  v(0.4em)
   block(width: 100%, breakable: false)[
     #text(font: head-font, weight: "bold", size: 13.2pt, fill: accent)[#title]
     #if note != none [
@@ -51,7 +51,7 @@
     #v(2.4pt)
     #line(length: 100%, stroke: 0.8pt + accent)
   ]
-  v(0.32em)
+  v(0.26em)
 }
 
 #let chip(t) = box(
@@ -94,7 +94,7 @@
     #v(3pt)
     #if image != none [
       #grid(
-        columns: (1fr, 5.7cm),
+        columns: (1fr, 5.2cm),
         column-gutter: 0.5cm,
         align: (left + top, left + top),
         body,
@@ -108,7 +108,7 @@
       #text(font: body-font, size: 8.2pt)[#links]
     ]
   ]
-  v(0.45em)
+  v(0.2em)
 }
 
 // ---- header ----------------------------------------------------------------
@@ -150,7 +150,7 @@
 
 // ---- selected projects -----------------------------------------------------
 
-#section-head("Selected Projects", note: "four builds in depth, then five client sites")
+#section-head("Selected Projects", note: "five builds in depth, then five client sites")
 
 #project(
   "Noir",
@@ -174,6 +174,26 @@
   #v(2.5pt)
   It runs local-first and privacy-by-construction, with native installers for macOS, Linux, and
   Windows, and 57 npm releases to date.
+]
+
+#project(
+  "CoopLedger",
+  "Full-Stack Developer · Personal project",
+  ("Angular", "TypeScript", "Java", "Spring Boot", "PostgreSQL", "Flyway", "JWT"),
+  image: "images/coopledger.png",
+  caption: "CoopLedger member dashboard",
+  links: [#url("github.com/agaaaptr/coopledger")],
+)[
+  A savings-and-loan cooperative system: member registration, pokok/wajib/sukarela savings, a
+  loan lifecycle with installment schedules, and SHU surplus distribution. Built as a deliberate
+  monolith — one Spring Boot 3.5 API and one Angular 20 SPA.
+
+  #v(2.5pt)
+  #bullets((
+    [JWT auth with 3-role RBAC (admin, teller, member) enforced on the server],
+    [Flat-rate koperasi interest in BigDecimal, with installments reconciled to principal + interest],
+    [Flyway-managed PostgreSQL schema; Docker Compose and nginx same-origin proxy for local runs],
+  ))
 ]
 
 #project(

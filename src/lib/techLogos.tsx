@@ -16,7 +16,15 @@ import {
   siClaude,
   siOpencode,
   siPostman,
+  siOpenjdk,
+  siSpringboot,
+  siPostgresql,
+  siSpringsecurity,
+  siFlyway,
+  siJsonwebtokens,
+  siMysql,
 } from 'simple-icons';
+import { JavaIcon } from '@/components/ui/BrandIcons';
 
 interface Logo {
   path: string;
@@ -41,6 +49,13 @@ const LOGOS: Record<string, Logo> = {
   'Claude Code': { path: siClaude.path, hex: siClaude.hex },
   OpenCode: { path: siOpencode.path, hex: siOpencode.hex },
   Postman: { path: siPostman.path, hex: siPostman.hex },
+  OpenJDK: { path: siOpenjdk.path, hex: siOpenjdk.hex },
+  'Spring Boot': { path: siSpringboot.path, hex: siSpringboot.hex },
+  PostgreSQL: { path: siPostgresql.path, hex: siPostgresql.hex },
+  'Spring Security': { path: siSpringsecurity.path, hex: siSpringsecurity.hex },
+  Flyway: { path: siFlyway.path, hex: siFlyway.hex },
+  JWT: { path: siJsonwebtokens.path, hex: siJsonwebtokens.hex },
+  MySQL: { path: siMysql.path, hex: siMysql.hex },
 };
 
 export function TechLogo({
@@ -52,6 +67,9 @@ export function TechLogo({
   colored?: boolean;
   className?: string;
 }) {
+  if (name === 'Java') {
+    return <JavaIcon className={className} colored={colored} />;
+  }
   const logo = LOGOS[name];
   if (logo) {
     return (

@@ -53,20 +53,20 @@ cv:
           - "Menerbitkan monorepo TypeScript 11 paket ke npm dengan installer native untuk macOS, Linux, dan Windows"
           - "Membangun mesin retrieval hibrida yang menggabungkan BM25 dan vector kNN dengan Reciprocal Rank Fusion, diekspos melalui daemon MCP yang melayani 24 tool ke 5 host AI coding"
           - "Menambahkan 216 file test dan menyiapkan pipeline rilis dengan npm OIDC trusted publishing serta SLSA provenance attestation"
-      - name: Portfolio & Project Showcase
-        start_date: 2025-07
+      - name: CoopLedger
+        start_date: 2026-11
         end_date: present
-        summary: "Next.js, React, TypeScript, Tailwind CSS · aga-putra.vercel.app"
+        summary: "Sistem koperasi simpan pinjam · Angular, Spring Boot, PostgreSQL · github.com/agaaaptr/coopledger"
         highlights:
-          - "Membangun portfolio Next.js 16 dengan section yang diimpor dinamis menggunakan ssr: false untuk menghilangkan hydration mismatch framer-motion"
-          - "Merender seluruh section di sisi klien di balik navigasi satu halaman dengan pelacakan scroll dan persistensi status section"
+          - "Membangun CoopLedger, sistem koperasi simpan pinjam, dengan REST API Spring Boot 3.5 / Java 21: autentikasi JWT, RBAC 3 peran, dan PostgreSQL yang dikelola lewat Flyway"
+          - "Memodelkan simpanan (pokok/wajib/sukarela) dan siklus pinjaman dengan bunga flat-rate berbasis BigDecimal, serta membangun SPA Angular 20 dengan Signals dan functional guard"
     skills:
       - label: Bahasa Pemrograman
-        details: TypeScript, JavaScript (ES6+), Go (Golang), PHP, SQL, HTML5, CSS3
+        details: TypeScript, JavaScript (ES6+), Go (Golang), Java, PHP, SQL, HTML5, CSS3
       - label: Framework & Library
-        details: Angular, React, Next.js, Gin, Lumen, Tailwind CSS, Vite, REST API
+        details: Angular, React, Next.js, Spring Boot, Gin, Lumen, Tailwind CSS, Vite, REST API
       - label: Database & Tools
-        details: MySQL, PostgreSQL, Git, Figma, WordPress
+        details: MySQL, PostgreSQL, Flyway, Git, Figma, WordPress
       - label: AI & Tooling
         details: Claude Code, OpenCode, MCP, AI-assisted development
       - label: Bahasa

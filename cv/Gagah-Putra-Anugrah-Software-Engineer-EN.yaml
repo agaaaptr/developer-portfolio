@@ -53,20 +53,20 @@ cv:
           - "Published an 11-package TypeScript monorepo to npm with native installers for macOS, Linux, and Windows"
           - "Built a hybrid retrieval engine combining BM25 and vector kNN with Reciprocal Rank Fusion, exposed through an MCP daemon serving 24 tools to 5 AI coding hosts"
           - "Added 216 test files and set up a release pipeline using npm OIDC trusted publishing with SLSA provenance attestation"
-      - name: Portfolio & Project Showcase
-        start_date: 2025-07
+      - name: CoopLedger
+        start_date: 2026-11
         end_date: present
-        summary: "Next.js, React, TypeScript, Tailwind CSS · aga-putra.vercel.app"
+        summary: "Savings-and-loan cooperative system · Angular, Spring Boot, PostgreSQL · github.com/agaaaptr/coopledger"
         highlights:
-          - "Built a Next.js 16 portfolio with dynamically imported sections using ssr: false to eliminate framer-motion hydration mismatches"
-          - "Rendered all sections client-side behind scroll-tracked single-page navigation with section-state persistence"
+          - "Built CoopLedger, a savings-and-loan cooperative system, with a Spring Boot 3.5 / Java 21 REST API: JWT auth, 3-role RBAC, and PostgreSQL managed via Flyway"
+          - "Modeled savings (pokok/wajib/sukarela) and the loan lifecycle with flat-rate interest in BigDecimal, and built the Angular 20 SPA with Signals and functional guards"
     skills:
       - label: Programming Languages
-        details: TypeScript, JavaScript (ES6+), Go (Golang), PHP, SQL, HTML5, CSS3
+        details: TypeScript, JavaScript (ES6+), Go (Golang), Java, PHP, SQL, HTML5, CSS3
       - label: Frameworks & Libraries
-        details: Angular, React, Next.js, Gin, Lumen, Tailwind CSS, Vite, REST API
+        details: Angular, React, Next.js, Spring Boot, Gin, Lumen, Tailwind CSS, Vite, REST API
       - label: Databases & Tools
-        details: MySQL, PostgreSQL, Git, Figma, WordPress
+        details: MySQL, PostgreSQL, Flyway, Git, Figma, WordPress
       - label: AI & Tooling
         details: Claude Code, OpenCode, MCP, AI-assisted development
       - label: Spoken Languages
